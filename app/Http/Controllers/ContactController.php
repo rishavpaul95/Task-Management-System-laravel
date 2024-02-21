@@ -33,7 +33,7 @@ class ContactController extends Controller
         $lead->zip = $request['zip'];
         $lead->save();
 
-        
+
         return redirect('/contact/success')->with('leadData', $lead);
     }
 

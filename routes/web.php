@@ -4,6 +4,7 @@ use App\Http\Controllers\ContactController;
 use App\Http\Controllers\BlogController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\DemoController;
+use App\Http\Controllers\TasksController;
 
 /*
 |--------------------------------------------------------------------------
@@ -30,6 +31,9 @@ Route::get('/blog/{post_name}', [BlogController::class, 'show']);
 Route::get('/contact', [ContactController::class,'index']);
 Route::post('/contact', [ContactController::class,'store']);
 Route::get('/contact/success', [ContactController::class,'success']);
+
+Route::get('/tasks', [TasksController::class,'index']);
+Route::post('/tasks/add', [TasksController::class,'store']);
 
 
 
