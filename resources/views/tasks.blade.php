@@ -27,7 +27,7 @@
 
 
                         <!-- Button trigger modal -->
-                        <button type="button" class="btn btn-primary" data-bs-toggle="modal"
+                        <button type="button" class="btn btn-success" data-bs-toggle="modal"
                             data-bs-target="#exampleModal">
                             Add
                         </button>
@@ -38,7 +38,7 @@
                             <div class="modal-dialog">
                                 <div class="modal-content">
                                     <div class="modal-header">
-                                        <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
+                                        <h5 class="modal-title" id="exampleModalLabel">Add Task</h5>
                                         <button type="button" class="btn-close" data-bs-dismiss="modal"
                                             aria-label="Close"></button>
                                     </div>
@@ -86,9 +86,9 @@
                         {{-- table --}}
 
                         <table class="table">
-                            <thead>
-                                <tr>
-                                    <th scope="col">Date</th>
+                            <thead >
+                                <tr >
+                                    <th scope="col" >Date</th>
                                     <th scope="col">Topic</th>
                                     <th scope="col">Status</th>
                                     <th scope="col">Handle</th>
@@ -97,10 +97,12 @@
                             <tbody>
                                 @foreach ( $tasks as $task)
                                 <tr>
-                                    <th scope="row">{{ \Carbon\Carbon::parse($task->date)->format('d, M, Y') }} </th>
+                                    <th scope="row">{{ \Carbon\Carbon::parse($task->date)->format('d, M Y') }}</th>
                                     <td>{{$task->topic }}</td>
                                     <td>{{$task->status }}</td>
-                                    <td><button></button></td>
+                                    <td><button type="button" class="btn btn-danger">Delete</button>
+                                        <button type="button" class="btn btn-warning">Update</button>
+                                    </td>
                                 </tr>
 
                                 @endforeach
