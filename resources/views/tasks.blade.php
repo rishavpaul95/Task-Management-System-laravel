@@ -27,18 +27,17 @@
 
 
                         <!-- Button trigger modal -->
-                        <button type="button" class="btn btn-success" data-bs-toggle="modal"
-                            data-bs-target="#exampleModal">
+                        <button type="button" class="btn btn-success" data-bs-toggle="modal" data-bs-target="#addModal">
                             Add
                         </button>
 
                         <!-- Modal -->
-                        <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel"
+                        <div class="modal fade" id="addModal" tabindex="-1" aria-labelledby="addModalLabel"
                             aria-hidden="true">
                             <div class="modal-dialog">
                                 <div class="modal-content">
                                     <div class="modal-header">
-                                        <h5 class="modal-title" id="exampleModalLabel">Add Task</h5>
+                                        <h5 class="modal-title" id="addModalLabel">Add Task</h5>
                                         <button type="button" class="btn-close" data-bs-dismiss="modal"
                                             aria-label="Close"></button>
                                     </div>
@@ -86,25 +85,95 @@
                         {{-- table --}}
 
                         <table class="table">
-                            <thead >
-                                <tr >
-                                    <th scope="col" >Date</th>
+                            <thead>
+                                <tr>
+                                    <th scope="col">Date</th>
                                     <th scope="col">Topic</th>
                                     <th scope="col">Status</th>
                                     <th scope="col">Handle</th>
                                 </tr>
                             </thead>
                             <tbody>
-                                @foreach ( $tasks as $task)
-                                <tr>
-                                    <th scope="row">{{ \Carbon\Carbon::parse($task->date)->format('d, M Y') }}</th>
-                                    <td>{{$task->topic }}</td>
-                                    <td>{{$task->status }}</td>
-                                    <td><button type="button" class="btn btn-danger">Delete</button>
-                                        <button type="button" class="btn btn-warning">Update</button>
-                                    </td>
-                                </tr>
+                                @foreach ($tasks as $task)
+                                    <tr>
+                                        <th scope="row">{{ \Carbon\Carbon::parse($task->date)->format('d, M Y') }}</th>
+                                        <td>{{ $task->topic }}</td>
+                                        <td>
+                                            @if ($task->status == 'Completed')
+                                                <span class="badge badge-success">Completed</span>
+                                            @elseif ($task->status == 'Active')
+                                                <span class="badge badge-primary">Active</span>
+                                            @elseif ($task->status == 'Inactive')
+                                                <span class="badge badge-secondary">Inactive</span>
+                                            @endif
+                                        </td>
+                                        <td><a href= "{{ url('/tasks/delete') }}/{{ $task->id }}"><button type="button"
+                                                    class="btn btn-danger">Delete</button></a>
+                                            <!-- Edit Button trigger modal -->
+                                            <button type="button" class="btn btn-warning" data-bs-toggle="modal"
+                                                data-bs-target="#editModal{{ $task->id }}">
+                                                Edit
+                                            </button>
 
+                                            <!-- Edit Modal -->
+                                            <div class="modal fade" id="editModal{{ $task->id }}" tabindex="-1"
+                                                aria-labelledby="editModalLabel{{ $task->id }}" aria-hidden="true">
+                                                <div class="modal-dialog">
+                                                    <div class="modal-content">
+                                                        <div class="modal-header">
+                                                            <h5 class="modal-title" id="editModalLabel{{ $task->id }}">
+                                                                Edit Task</h5>
+                                                            <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                                                aria-label="Close"></button>
+                                                        </div>
+                                                        <div class="modal-body">
+
+                                                            {{-- modal content --}}
+                                                            <form action="{{ url('/tasks/edit') }}/{{ $task->id }}"
+                                                                method="POST">
+                                                                @csrf
+                                                                <div class="form-group">
+                                                                    <label for="date">Date:</label>
+                                                                    <input type="date" class="form-control"
+                                                                        id="date" name="date"
+                                                                        value="{{ $task->date }}" required>
+                                                                </div>
+
+                                                                <div class="form-group">
+                                                                    <label for="topic">Topic:</label>
+                                                                    <input type="text" class="form-control"
+                                                                        id="topic" name="topic"
+                                                                        value="{{ $task->topic }}"
+                                                                        placeholder="Enter Topic" required>
+                                                                </div>
+
+                                                                <div class="form-group">
+                                                                    <label for="status">Status:</label>
+                                                                    <select class="form-control" id="status"
+                                                                        name="status" required>
+                                                                        <option value="Completed"
+                                                                            {{ $task->status == 'Completed' ? 'selected' : '' }}>
+                                                                            Completed</option>
+                                                                        <option value="Active"
+                                                                            {{ $task->status == 'Active' ? 'selected' : '' }}>
+                                                                            Active</option>
+                                                                        <option value="Inactive"
+                                                                            {{ $task->status == 'Inactive' ? 'selected' : '' }}>
+                                                                            Inactive</option>
+                                                                    </select>
+                                                                </div>
+
+                                                                <button type="submit"
+                                                                    class="btn btn-primary">Submit</button>
+                                                            </form>
+                                                            {{-- modal content --}}
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+
+                                        </td>
+                                    </tr>
                                 @endforeach
                             </tbody>
                         </table>

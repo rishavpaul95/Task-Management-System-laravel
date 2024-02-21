@@ -34,9 +34,8 @@ Route::get('/contact/success', [ContactController::class,'success']);
 
 Route::get('/tasks', [TasksController::class,'index']);
 Route::post('/tasks/add', [TasksController::class,'store']);
-
-
-
+Route::get('/tasks/delete/{id}', [TasksController::class, 'delete']);
+Route::post('/tasks/edit/{id}', [TasksController::class, 'edit']);
 
 
 
