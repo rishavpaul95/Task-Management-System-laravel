@@ -26,7 +26,7 @@
                         <div class="card" style="width: 18rem;">
                             <img src="./dist/img/photo1.png" class="card-img-top" alt="...">
                             <div class="card-body">
-                                <p class="card-text"><a href="{{url('/blog/post1')}}">Article 1</a></p>
+                                <p class="card-text"><a href="{{ url('/blog/post1') }}">Article 1</a></p>
                             </div>
                         </div>
                     </div>
@@ -34,7 +34,7 @@
                         <div class="card" style="width: 18rem;">
                             <img src="./dist/img/photo2.png" class="card-img-top" alt="...">
                             <div class="card-body">
-                                <p class="card-text"><a href="{{url('/blog/post2')}}"> Article 2</a></p>
+                                <p class="card-text"><a href="{{ url('/blog/post2') }}"> Article 2</a></p>
                             </div>
                         </div>
                     </div>
@@ -42,15 +42,15 @@
                         <div class="card" style="width: 18rem;">
                             <img src="./dist/img/photo3.jpg" class="card-img-top" alt="...">
                             <div class="card-body">
-                                <p class="card-text"><a href="{{url('/blog/post3')}}"> Article 3</a></p>
+                                <p class="card-text"><a href="{{ url('/blog/post3') }}"> Article 3</a></p>
                             </div>
                         </div>
                     </div>
                 </div>
-                    
+
 
             </div>
-    </div>
+        </div>
 
     </div>
 @endsection

@@ -22,6 +22,12 @@
 
                 <div class="row">
                     <div class="col-md-9">
+
+                        <a href="{{url('/tasks/trash')}}"><button type="button" class="btn btn-danger">
+                            Go to Trash
+                        </button></a>
+
+
                     </div>
                     <div class="d-flex col-md-3 justify-content-center">
 

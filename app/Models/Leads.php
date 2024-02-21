@@ -10,4 +10,9 @@ class Leads extends Model
     use HasFactory;
     protected $table = "leads";
     protected $primaryKey = "id";
+
+    public function setNameAttribute($value)
+    {
+        $this->attributes["name"] = ucwords($value);
+    }
 }

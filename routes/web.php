@@ -37,6 +37,10 @@ Route::post('/tasks/add', [TasksController::class,'store']);
 Route::get('/tasks/delete/{id}', [TasksController::class, 'delete']);
 Route::post('/tasks/edit/{id}', [TasksController::class, 'edit']);
 
+Route::get('/tasks/permadelete/{id}', [TasksController::class, 'forceddelete']);
+Route::get('/tasks/restore/{id}', [TasksController::class, 'restore']);
+Route::get('/tasks/trash', [TasksController::class,'viewtrash']);
+
 
 
 
