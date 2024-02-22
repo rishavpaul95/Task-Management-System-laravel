@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Http\Request;
 use App\Models\Leads;
+use Illuminate\Support\Facades\Auth;
 
 
 
@@ -47,5 +48,10 @@ class ContactController extends Controller
         }
 
         return view('lead_info_view', compact('leadData'));
+    }
+
+    public function logout() {
+        Auth::logout();
+        return redirect( '/home' );
     }
 }

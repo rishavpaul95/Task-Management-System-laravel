@@ -1,12 +1,6 @@
-
-
-
-
-
-
-
 <footer class="main-footer">
-    <strong>Copyright &copy; 2024 <a href="https://www.linkedin.com/in/rishav-paul-6bb585160/" target="_blank">Rishav Paul</a>.</strong>
+    <strong>Copyright &copy; 2024 <a href="https://www.linkedin.com/in/rishav-paul-6bb585160/" target="_blank">Rishav
+            Paul</a>.</strong>
     All rights reserved.
     <div class="float-right d-none d-sm-inline-block">
         <b>Version</b> 3.2.0
@@ -20,6 +14,9 @@
 <!-- /.control-sidebar -->
 </div>
 <!-- ./wrapper -->
+
+
+
 
 <!-- jQuery -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
@@ -59,6 +56,14 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/admin-lte/3.1.0/js/demo.min.js"></script>
 <!-- AdminLTE dashboard demo (This is only for demo purposes) -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/admin-lte/3.1.0/js/pages/dashboard.min.js"></script>
+<script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.11.5/js/jquery.dataTables.js"></script>
+
+<script>
+    $(document).ready(function() {
+        $('#tasksTable').DataTable();
+        $('#trashTable').DataTable();
+    });
+</script>
 </body>
 
 </html>

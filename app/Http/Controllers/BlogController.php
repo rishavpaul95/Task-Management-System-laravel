@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 namespace App\Http\Controllers;
 
@@ -26,5 +27,9 @@ class BlogController extends Controller
         $post = file_get_contents($path);
 
         return view('post', ['post' => $post]);
+    }
+    public function logout() {
+        Auth::logout();
+        return redirect( '/home' );
     }
 }

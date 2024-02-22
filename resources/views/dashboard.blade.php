@@ -12,4 +12,9 @@
             </div>
         </div>
     </div>
+    <a href="{{ url('/home') }}" class="btn btn-primary">
+        <button type="button" class="btn btn-primary">
+            Go to Home
+        </button>
+    </a>
 </x-app-layout>

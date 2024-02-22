@@ -90,7 +90,7 @@
                     <div class="col-md-12">
                         {{-- table --}}
 
-                        <table class="table">
+                        <table id="tasksTable" class="table">
                             <thead>
                                 <tr>
                                     <th scope="col">Date</th>

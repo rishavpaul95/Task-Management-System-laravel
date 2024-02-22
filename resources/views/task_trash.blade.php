@@ -27,7 +27,7 @@
 
 
 
-                <table class="table">
+                <table id="trashTable" class="table">
                     <thead>
                         <tr>
                             <th scope="col">Date</th>

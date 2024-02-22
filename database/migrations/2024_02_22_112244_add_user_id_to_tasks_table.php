@@ -12,9 +12,11 @@ return new class extends Migration
     public function up(): void
     {
         Schema::table('tasks', function (Blueprint $table) {
-            $table->softDeletes();
+            $table->unsignedBigInteger('user_id')->after('status');
+            $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
         });
     }
+
 
     /**
      * Reverse the migrations.
@@ -22,7 +24,8 @@ return new class extends Migration
     public function down(): void
     {
         Schema::table('tasks', function (Blueprint $table) {
-            $table->dropSoftDeletes();
+            $table->dropForeign(['user_id']);
+            $table->dropColumn('user_id');
         });
     }
 };
