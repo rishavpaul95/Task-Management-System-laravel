@@ -30,6 +30,7 @@ class TasksController extends Controller
                 'date' => 'required|date',
                 'topic' => 'required|string',
                 'status' => 'required|in:Completed,Active,Inactive',
+                'category' => 'required|exists:categories,id',
             ]);
 
             $task = new Tasks;
@@ -37,7 +38,7 @@ class TasksController extends Controller
             $task->topic = $request->input('topic');
             $task->status = $request->input('status');
             $task->user_id = auth()->user()->id;
-
+            $task->category_id = $request->input('category');
             $task->save();
 
             return redirect('/tasks');
@@ -84,16 +85,20 @@ class TasksController extends Controller
             'date' => 'required|date',
             'topic' => 'required|string',
             'status' => 'required|in:Completed,Active,Inactive',
+            'category' => 'required|exists:categories,id',
         ]);
 
         $task->date = $request->input('date');
         $task->topic = $request->input('topic');
         $task->status = $request->input('status');
-
+        $task->user_id = auth()->user()->id;
+        $task->category_id = $request->input('category');
         $task->save();
 
         return redirect('/tasks')->with('success', 'Task updated successfully');
     }
+
+
 
 
 }

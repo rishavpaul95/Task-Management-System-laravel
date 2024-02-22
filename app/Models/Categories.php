@@ -9,11 +9,10 @@ class Categories extends Model
 {
     use HasFactory;
 
-    /**
-     * Get all of the commenttask for the Categories
-     *
-     * @return \Illuminate\Database\Eloquent\Relations\HasMany
-     */
+
+    protected $table = "categories";
+    protected $primaryKey = "id";
+
     public function tasks()
     {
         return $this->hasMany(Tasks::class);

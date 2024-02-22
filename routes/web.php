@@ -36,10 +36,6 @@ Route::middleware([
 ])->group(function () {
 
     Route::get('/demo/{name?}', [DemoController::class, 'show']);
-
-
-
-
     Route::get('/tasks', [TasksController::class, 'index']);
     Route::post('/tasks/add', [TasksController::class, 'store']);
     Route::get('/tasks/delete/{id}', [TasksController::class, 'delete']);

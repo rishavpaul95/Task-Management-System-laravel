@@ -72,6 +72,14 @@
                                                     <option value="Inactive">Inactive</option>
                                                 </select>
                                             </div>
+                                            <div class="form-group">
+                                                <label for="category">Category:</label>
+                                                <select name="category" id="category" class="form-control">
+                                                    @foreach (\App\Models\Categories::all() as $category)
+                                                        <option value="{{ $category->id }}">{{ $category->category }}</option>
+                                                    @endforeach
+                                                </select>
+                                            </div>
 
                                             <button type="submit" class="btn btn-primary">Submit</button>
                                         </form>
@@ -166,6 +174,14 @@
                                                                         <option value="Inactive"
                                                                             {{ $task->status == 'Inactive' ? 'selected' : '' }}>
                                                                             Inactive</option>
+                                                                    </select>
+                                                                </div>
+                                                                <div class="form-group">
+                                                                    <label for="category">Category:</label>
+                                                                    <select name="category" id="category" class="form-control">
+                                                                        @foreach (\App\Models\Categories::all() as $category)
+                                                                            <option value="{{ $category->id }}">{{ $category->category }}</option>
+                                                                        @endforeach
                                                                     </select>
                                                                 </div>
 
