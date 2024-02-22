@@ -98,7 +98,7 @@
                 @if (Route::has('login'))
                     <div class="sm:fixed sm:top-0 sm:right-0 p-6 text-right z-10">
                         @auth
-                            <form method="POST" action="">
+                            <form method="POST" action="{{ route('logout') }}">
                                 @csrf
                                 <button type="submit"
                                     class="btn btn-primary ml-4 font-semibold focus:outline focus:outline-2 focus:rounded-sm focus:outline-red-500">

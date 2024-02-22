@@ -28,8 +28,5 @@ class BlogController extends Controller
 
         return view('post', ['post' => $post]);
     }
-    public function logout() {
-        Auth::logout();
-        return redirect( '/home' );
-    }
+
 }

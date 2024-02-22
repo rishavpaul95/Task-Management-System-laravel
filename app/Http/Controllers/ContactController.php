@@ -50,8 +50,5 @@ class ContactController extends Controller
         return view('lead_info_view', compact('leadData'));
     }
 
-    public function logout() {
-        Auth::logout();
-        return redirect( '/home' );
-    }
+
 }

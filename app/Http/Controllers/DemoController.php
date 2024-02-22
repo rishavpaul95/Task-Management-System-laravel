@@ -13,8 +13,5 @@ class DemoController extends Controller {
         return view( 'demo' )->with( $data );
     }
 
-    public function logout() {
-        Auth::logout();
-        return redirect( '/home' );
-    }
+
 }

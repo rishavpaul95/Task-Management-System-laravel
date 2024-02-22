@@ -38,7 +38,7 @@ Route::middleware([
     Route::get('/demo/{name?}', [DemoController::class, 'show']);
 
 
-    Route::post('/logout', [DemoController::class, 'logout'])->name('logout');
+
 
     Route::get('/tasks', [TasksController::class, 'index']);
     Route::post('/tasks/add', [TasksController::class, 'store']);
@@ -52,7 +52,3 @@ Route::middleware([
     })->name('dashboard');
 });
 
-Route::post('/{any}', function () {
-    Auth::logout();
-    return redirect('/home');
-})->where('any', '.*')->name('logout.all');

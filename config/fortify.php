@@ -73,7 +73,7 @@ return [
     |
     */
 
-    'home' => '/dashboard',
+    'home' => '/home',
 
     /*
     |--------------------------------------------------------------------------
@@ -143,6 +143,11 @@ return [
     |
     */
 
+    'redirects' => [
+        'login' => 'home',
+        'logout' => 'home',
+    ],
+
     'features' => [
         Features::registration(),
         Features::resetPasswords(),
@@ -155,5 +160,7 @@ return [
             // 'window' => 0,
         ]),
     ],
+
+
 
 ];

@@ -94,9 +94,6 @@ class TasksController extends Controller
 
         return redirect('/tasks')->with('success', 'Task updated successfully');
     }
-    public function logout() {
-        Auth::logout();
-        return redirect( '/home' );
-    }
+
 
 }
