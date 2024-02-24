@@ -23,9 +23,9 @@
                 <div class="row">
                     <div class="col-md-9">
 
-                        <a href="{{url('/tasks/trash')}}"><button type="button" class="btn btn-danger">
-                            Go to Trash
-                        </button></a>
+                        <a href="{{ url('/tasks/trash') }}"><button type="button" class="btn btn-danger">
+                                Go to Trash
+                            </button></a>
 
 
                     </div>
@@ -75,15 +75,19 @@
                                             <div class="form-group">
                                                 <label for="category">Category:</label>
                                                 <select name="category" id="category" class="form-control">
-                                                    @foreach (\App\Models\Categories::all() as $category)
-                                                        <option value="{{ $category->id }}">{{ $category->category }}</option>
+                                                    @php
+                                                        $categories = \App\Models\Categories::all();
+                                                    @endphp
+                                                    @foreach ($categories as $category)
+                                                        <option value="{{ $category->id }}">{{ $category->category }}
+                                                        </option>
                                                     @endforeach
                                                 </select>
+
                                             </div>
 
                                             <button type="submit" class="btn btn-primary">Submit</button>
-                                        </form>
-                                        {{-- modal content --}}
+                                            {{-- modal content --}}
                                     </div>
 
                                 </div>
@@ -178,9 +182,13 @@
                                                                 </div>
                                                                 <div class="form-group">
                                                                     <label for="category">Category:</label>
-                                                                    <select name="category" id="category" class="form-control">
-                                                                        @foreach (\App\Models\Categories::all() as $category)
-                                                                            <option value="{{ $category->id }}">{{ $category->category }}</option>
+                                                                    <select name="category" id="category"
+                                                                        class="form-control">
+
+                                                                        @foreach ($categories as $category)
+                                                                            <option value="{{ $category->id }}">
+                                                                                {{ $category->category }}
+                                                                            </option>
                                                                         @endforeach
                                                                     </select>
                                                                 </div>
