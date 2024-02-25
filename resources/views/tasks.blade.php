@@ -75,12 +75,17 @@
                                             <div class="form-group">
                                                 <label for="category">Category:</label>
                                                 <select name="category" id="category" class="form-control">
+<<<<<<< Updated upstream
                                                     @php
                                                         $categories = \App\Models\Categories::all();
                                                     @endphp
                                                     @foreach ($categories as $category)
                                                         <option value="{{ $category->id }}">{{ $category->category }}
                                                         </option>
+=======
+                                                    @foreach ($categories as $category)
+                                                        <option value="{{ $category->id }}">{{ $category->category }}</option>
+>>>>>>> Stashed changes
                                                     @endforeach
                                                 </select>
 
@@ -182,6 +187,7 @@
                                                                 </div>
                                                                 <div class="form-group">
                                                                     <label for="category">Category:</label>
+<<<<<<< Updated upstream
                                                                     <select name="category" id="category"
                                                                         class="form-control">
 
@@ -189,6 +195,11 @@
                                                                             <option value="{{ $category->id }}">
                                                                                 {{ $category->category }}
                                                                             </option>
+=======
+                                                                    <select name="category" id="category" class="form-control">
+                                                                        @foreach ($categories as $category)
+                                                                            <option value="{{ $category->id }}">{{ $category->category }}</option>
+>>>>>>> Stashed changes
                                                                         @endforeach
                                                                     </select>
                                                                 </div>

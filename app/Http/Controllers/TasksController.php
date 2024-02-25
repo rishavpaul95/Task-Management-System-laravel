@@ -11,7 +11,8 @@ class TasksController extends Controller
     public function index()
     {
         $tasks = Auth::user()->tasks;
-        $data = compact('tasks');
+        $categories = \App\Models\Categories::all();
+        $data = compact('tasks','categories');
         return view('tasks')->with($data);
     }
 
@@ -76,6 +77,8 @@ class TasksController extends Controller
     public function edit(Request $request, $id)
     {
         $task = Auth::user()->tasks()->find($id);
+
+
 
         if (!$task) {
             return redirect('/tasks')->with('error', 'Task not found');
