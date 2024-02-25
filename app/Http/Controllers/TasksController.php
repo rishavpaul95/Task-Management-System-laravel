@@ -36,14 +36,17 @@ class TasksController extends Controller
 
     public function store(Request $request)
     {
-        // Check if the user is authenticated
+
         if (Auth::check()) {
             $request->validate([
                 'date' => 'required|date',
                 'topic' => 'required|string',
                 'status' => 'required|in:Completed,Active,Inactive',
                 'category' => 'required|exists:categories,id',
+                'taskimage' => 'image|mimes:jpeg,png,jpg,gif,svg',
             ]);
+
+
 
             $task = new Tasks;
             $task->date = $request->input('date');
@@ -51,6 +54,10 @@ class TasksController extends Controller
             $task->status = $request->input('status');
             $task->user_id = auth()->user()->id;
             $task->category_id = $request->input('category');
+            if ($request->hasFile('taskimage')) {
+                $imagePath = $request->file('taskimage')->store('taskimage', 'public');
+                $task->taskimage = $imagePath;
+            }
             $task->save();
 
             return redirect('/tasks');
