@@ -63,3 +63,4 @@
 1708859139-9028-674129032,1708859139.8224,GET,/tasks,"App\Http\Controllers\TasksController@index",200,197.28302955627,request
 1708859174-0170-1955269379,1708859173.9281,POST,/tasks/edit/1,"App\Http\Controllers\TasksController@edit",302,221.73810005188,request
 1708859174-2468-1178447669,1708859174.1594,GET,/tasks,"App\Http\Controllers\TasksController@index",200,199.61810112,request
+1708861188-3090-710886528,1708861188.1782,GET,/tasks,"App\Http\Controllers\TasksController@index",200,293.09296607971,request
