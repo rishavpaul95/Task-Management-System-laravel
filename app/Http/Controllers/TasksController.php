@@ -5,12 +5,14 @@ namespace App\Http\Controllers;
 use App\Models\Tasks;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Storage;
+use App\Models\Categories;
 
 class TasksController extends Controller
 {
     public function index()
     {
-        $categories = \App\Models\Categories::all();
+        $categories = Categories::all();
 
         $selectedCategory = request('categoryFilter', 'all');
 
@@ -46,8 +48,6 @@ class TasksController extends Controller
                 'taskimage' => 'image|mimes:jpeg,png,jpg,gif,svg',
             ]);
 
-
-
             $task = new Tasks;
             $task->date = $request->input('date');
             $task->topic = $request->input('topic');
@@ -65,6 +65,43 @@ class TasksController extends Controller
             return redirect('/login')->with('error', 'You must be logged in to perform this action.');
         }
     }
+    public function edit(Request $request, $id)
+    {
+        $task = Auth::user()->tasks()->find($id);
+        if (!$task) {
+            return redirect('/tasks')->with('error', 'Task not found');
+        }
+
+        $request->validate([
+            'date' => 'required|date',
+            'topic' => 'required|string',
+            'status' => 'required|in:Completed,Active,Inactive',
+            'category' => 'required|exists:categories,id',
+            'taskimage' => 'image|mimes:jpeg,png,jpg,gif,svg',
+        ]);
+
+        $task->date = $request->input('date');
+        $task->topic = $request->input('topic');
+        $task->status = $request->input('status');
+        $task->user_id = auth()->user()->id;
+        $task->category_id = $request->input('category');
+
+        if ($request->hasFile('taskimage')) {
+
+            if ($task->taskimage) {
+                Storage::disk('public')->delete($task->taskimage);
+            }
+
+
+            $imagePath = $request->file('taskimage')->store('taskimage', 'public');
+            $task->taskimage = $imagePath;
+        }
+
+        $task->save();
+
+        return redirect('/tasks')->with('success', 'Task updated successfully');
+    }
+
     public function delete($id)
     {
         $task = Auth::user()->tasks()->find($id);
@@ -91,35 +128,5 @@ class TasksController extends Controller
         }
         return redirect('/tasks/trash');
     }
-
-    public function edit(Request $request, $id)
-    {
-        $task = Auth::user()->tasks()->find($id);
-
-
-
-        if (!$task) {
-            return redirect('/tasks')->with('error', 'Task not found');
-        }
-
-        $request->validate([
-            'date' => 'required|date',
-            'topic' => 'required|string',
-            'status' => 'required|in:Completed,Active,Inactive',
-            'category' => 'required|exists:categories,id',
-        ]);
-
-        $task->date = $request->input('date');
-        $task->topic = $request->input('topic');
-        $task->status = $request->input('status');
-        $task->user_id = auth()->user()->id;
-        $task->category_id = $request->input('category');
-        $task->save();
-
-        return redirect('/tasks')->with('success', 'Task updated successfully');
-    }
-
-
-
 
 }
