@@ -10,9 +10,20 @@ class TasksController extends Controller
 {
     public function index()
     {
-        $tasks = Auth::user()->tasks;
         $categories = \App\Models\Categories::all();
-        $data = compact('tasks','categories');
+
+        $selectedCategory = request('categoryFilter', 'all');
+
+        $tasksQuery = Auth::user()->tasks();
+
+        if ($selectedCategory !== 'all') {
+            $tasksQuery->where('category_id', $selectedCategory);
+        }
+
+        $tasks = $tasksQuery->get();
+
+        $data = compact('tasks', 'categories', 'selectedCategory');
+
         return view('tasks')->with($data);
     }
 
