@@ -12,7 +12,7 @@ class Tasks extends Model
     use SoftDeletes;
     protected $table = "tasks";
     protected $primaryKey = "id";
-
+    protected $with = ['user','categories'];
     public function user()
     {
         return $this->belongsTo(User::class);

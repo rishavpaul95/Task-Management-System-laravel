@@ -33,3 +33,36 @@
 1708800690-6419-455168205,1708800690.5204,GET,/tasks,"App\Http\Controllers\TasksController@index",500,595.82281112671,request
 1708800742-0932-1394588088,1708800742.0166,GET,/tasks,"App\Http\Controllers\TasksController@index",200,192.21806526184,request
 1708800788-4322-392228050,1708800788.3315,GET,/tasks,"App\Http\Controllers\TasksController@index",200,243.73006820679,request
+<<<<<<< HEAD
+=======
+1708800906-8225-273667137,1708800906.7182,GET,/tasks,"App\Http\Controllers\TasksController@index",200,263.13781738281,request
+1708800927-4424-1597910927,1708800927.3491,POST,/tasks/edit/3,"App\Http\Controllers\TasksController@edit",302,232.78403282166,request
+1708800927-6718-1269057917,1708800927.5915,GET,/tasks,"App\Http\Controllers\TasksController@index",200,209.8400592804,request
+1708853969-8469-1400973711,1708853969.7255,GET,/home,"App\Http\Controllers\DemoController@index",200,490.76294898987,request
+1708853973-3674-216786880,1708853973.2557,GET,/login,"Laravel\Fortify\Http\Controllers\AuthenticatedSessionController@create",200,298.44307899475,request
+1708853973-6706-1208951749,1708853973.5884,GET,/livewire/livewire.js?id=a27c4ca2,"Livewire\Mechanisms\FrontendAssets\FrontendAssets@returnJavaScriptAsFile",200,175.96912384033,request
+1708853978-3116-217652173,1708853978.2347,POST,/login,"Laravel\Fortify\Http\Controllers\AuthenticatedSessionController@store",302,747.48206138611,request
+1708853979-0989-134592503,1708853978.9907,GET,/home,"App\Http\Controllers\DemoController@index",200,242.3620223999,request
+1708853981-7482-1693018739,1708853981.6606,GET,/tasks,"App\Http\Controllers\TasksController@index",200,244.00687217712,request
+1708853986-1854-1837302346,1708853986.0999,POST,/tasks/edit/3,"App\Http\Controllers\TasksController@edit",302,222.4600315094,request
+1708853986-4105-2034281485,1708853986.3309,GET,/tasks,"App\Http\Controllers\TasksController@index",200,208.0991268158,request
+1708858613-9039-1595990586,1708858613.819,GET,/tasks/trash,"App\Http\Controllers\TasksController@viewtrash",200,218.05191040039,request
+1708858617-0017-1537425480,1708858616.9109,GET,/tasks/restore/1,"App\Http\Controllers\TasksController@restore",302,216.68815612793,request
+1708858617-2364-925286086,1708858617.1471,GET,/tasks/trash,"App\Http\Controllers\TasksController@viewtrash",200,194.58293914795,request
+1708858640-4890-1809828332,1708858640.4005,GET,/tasks,"App\Http\Controllers\TasksController@index",200,213.59395980835,request
+1708858687-9777-771967015,1708858687.8901,POST,/tasks/add,"App\Http\Controllers\TasksController@store",302,230.90004920959,request
+1708858688-2097-1178195914,1708858688.1311,GET,/tasks,"App\Http\Controllers\TasksController@index",200,189.87488746643,request
+1708858694-5822-2097222657,1708858694.5041,GET,/tasks,"App\Http\Controllers\TasksController@index",200,198.40002059937,request
+1708858703-7260-1516184267,1708858703.6426,POST,/logout,"Laravel\Fortify\Http\Controllers\AuthenticatedSessionController@destroy",302,210.19911766052,request
+1708858703-9384-574517321,1708858703.8608,GET,/home,"App\Http\Controllers\DemoController@index",200,172.13010787964,request
+1708858706-1467-1595681481,1708858706.0434,GET,/login,"Laravel\Fortify\Http\Controllers\AuthenticatedSessionController@create",200,204.79083061218,request
+1708858713-5843-1988100012,1708858713.507,POST,/login,"Laravel\Fortify\Http\Controllers\AuthenticatedSessionController@store",302,642.09485054016,request
+1708858714-2591-1897615462,1708858714.1593,GET,/home,"App\Http\Controllers\DemoController@index",200,238.14678192139,request
+1708858716-3356-1681679947,1708858716.2439,GET,/tasks,"App\Http\Controllers\TasksController@index",200,206.37202262878,request
+1708858892-0461-2143536058,1708858891.939,GET,/tasks,"App\Http\Controllers\TasksController@index",500,741.61601066589,request
+1708859086-8800-745925264,1708859086.7778,GET,/tasks,"App\Http\Controllers\TasksController@index",200,268.6870098114,request
+1708859130-5655-328709828,1708859130.4818,GET,/tasks,"App\Http\Controllers\TasksController@index",200,234.29298400879,request
+1708859139-9028-674129032,1708859139.8224,GET,/tasks,"App\Http\Controllers\TasksController@index",200,197.28302955627,request
+1708859174-0170-1955269379,1708859173.9281,POST,/tasks/edit/1,"App\Http\Controllers\TasksController@edit",302,221.73810005188,request
+1708859174-2468-1178447669,1708859174.1594,GET,/tasks,"App\Http\Controllers\TasksController@index",200,199.61810112,request
+>>>>>>> Dev
