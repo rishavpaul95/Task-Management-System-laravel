@@ -5,15 +5,16 @@ namespace App\Http\Controllers;
 use App\Models\Categories;
 use App\Models\Tasks;
 use App\Models\User;
-use Auth;
-use Request;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Storage;
 
 class AssignTaskController extends Controller
 {
     public function index()
     {
         $categories = Categories::all();
-        $user = User::all();
+        $users = User::all();
 
         $selectedCategory = request('categoryFilter', 'all');
 
@@ -27,7 +28,7 @@ class AssignTaskController extends Controller
         // Get the tasks based on the query
         $tasks = $tasksQuery->get();
 
-        $data = compact('tasks', 'categories', 'selectedCategory', 'user');
+        $data = compact('tasks', 'categories', 'selectedCategory', 'users');
 
         return view('adminassigntask')->with($data);
     }
@@ -35,8 +36,7 @@ class AssignTaskController extends Controller
 
     public function store(Request $request)
     {
-
-        if (Auth::check()) {
+        if (auth()->check()) {
             $request->validate([
                 'date' => 'required|date',
                 'topic' => 'required|string',
@@ -49,13 +49,15 @@ class AssignTaskController extends Controller
             $task->date = $request->input('date');
             $task->topic = $request->input('topic');
             $task->status = $request->input('status');
-            $task->user_id =  // assign user to give task to
+            $task->user_id = $request->input('assigneduser'); //
             $task->category_id = $request->input('category');
+
             if ($request->hasFile('taskimage')) {
                 $imagePath = $request->file('taskimage')->store('taskimage', 'public');
                 $task->taskimage = $imagePath;
             }
-            $task->assigned_by = auth()->user()->id; // assigned by admin
+
+            $task->assigned_by = auth()->user()->id;
             $task->save();
 
             return redirect('/admin/assigntask');
@@ -63,4 +65,53 @@ class AssignTaskController extends Controller
             return redirect('/login')->with('error', 'You must be logged in to perform this action.');
         }
     }
+
+    public function edit(Request $request, $id)
+    {
+        $task = Tasks::find($id);
+
+        if (!$task) {
+            return redirect('/admin/assigntask')->with('error', 'Task not found');
+        }
+
+        $request->validate([
+            'date' => 'required|date',
+            'topic' => 'required|string',
+            'status' => 'required|in:Completed,Active,Inactive',
+            'category' => 'required|exists:categories,id',
+            'taskimage' => 'image|mimes:jpeg,png,jpg,gif,svg',
+        ]);
+
+        $task->date = $request->input('date');
+        $task->topic = $request->input('topic');
+        $task->status = $request->input('status');
+        $task->category_id = $request->input('category');
+
+
+        if ($request->hasFile('taskimage')) {
+
+            if ($task->taskimage) {
+                Storage::disk('public')->delete($task->taskimage);
+            }
+
+
+            $imagePath = $request->file('taskimage')->store('taskimage', 'public');
+            $task->taskimage = $imagePath;
+        }
+
+        $task->save();
+
+        return redirect('/admin/assigntask')->with('success', 'Task updated successfully');
+    }
+
+    public function delete($id)
+    {
+        $task = Tasks::find($id);
+        if ($task) {
+            $task->delete();
+        }
+        return redirect()->back();
+    }
+
+
 }

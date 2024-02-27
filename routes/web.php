@@ -54,9 +54,12 @@ Route::middleware([
     Route::post('/tasks/add', [TasksController::class, 'store']);
     Route::get('/tasks/delete/{id}', [TasksController::class, 'delete']);
     Route::post('/tasks/edit/{id}', [TasksController::class, 'edit']);
-    Route::get('/tasks/permadelete/{id}', [TasksController::class, 'forceddelete']);
-    Route::get('/tasks/restore/{id}', [TasksController::class, 'restore']);
-    Route::get('/tasks/trash', [TasksController::class, 'viewtrash']);
+
+    // Trash Section
+
+    // Route::get('/tasks/permadelete/{id}', [TasksController::class, 'forceddelete']);
+    // Route::get('/tasks/restore/{id}', [TasksController::class, 'restore']);
+    // Route::get('/tasks/trash', [TasksController::class, 'viewtrash']);
 
     Route::middleware([
         'admin',
@@ -71,7 +74,8 @@ Route::middleware([
 
         Route::get('/admin/assigntask',[AssignTaskController::class, 'index']);
         Route::post('/admin/assigntask/add',[AssignTaskController::class, 'store']);
-
+        Route::post('/admin/assigntask/edit/{id}',[AssignTaskController::class, 'edit']);
+        Route::get('/admin/assigntask/delete/{id}',[AssignTaskController::class, 'delete']);
 
     });
 

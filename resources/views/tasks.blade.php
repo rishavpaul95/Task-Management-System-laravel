@@ -21,9 +21,9 @@
 
                 <div class="d-flex justify-content-between align-items-center mb-3">
                     <div>
-                        <a href="{{ url('/tasks/trash') }}" class="btn btn-danger">
+                        {{-- <a href="{{ url('/tasks/trash') }}" class="btn btn-danger">
                             Go to Trash
-                        </a>
+                        </a> --}}
                     </div>
 
                     <form action="{{ url('/tasks') }}" method="GET" class="form-inline">
