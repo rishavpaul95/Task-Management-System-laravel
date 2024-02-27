@@ -12,7 +12,7 @@ return new class extends Migration
     public function up(): void
     {
         Schema::table('tasks', function (Blueprint $table) {
-            $table->softDeletes();
+            $table->unsignedBigInteger('assigned_by')->after('category_id');
         });
     }
 
@@ -22,7 +22,7 @@ return new class extends Migration
     public function down(): void
     {
         Schema::table('tasks', function (Blueprint $table) {
-            $table->dropSoftDeletes();
+            $table -> dropColumn('assigned_by');
         });
     }
 };

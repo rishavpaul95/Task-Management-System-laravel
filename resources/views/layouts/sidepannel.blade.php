@@ -4,7 +4,7 @@
     <a href="{{ url('/home') }}" class="brand-link">
         <img src="/dist/img/AdminLTELogo.png" alt="AdminLTE Logo" class="brand-image img-circle elevation-3"
             style="opacity: .8">
-        <span class="brand-text font-weight-light">AdminLTE 3</span>
+        <span class="brand-text font-weight-light">Web Task LTE 3</span>
     </a>
 
     <!-- Sidebar -->
@@ -15,7 +15,13 @@
                 <img src="/dist/img/user2-160x160.jpg" class="img-circle elevation-2" alt="User Image">
             </div>
             <div class="info">
-                <a href="#" class="d-block">Alexander Pierce</a>
+                @auth
+                    <a href="#" class="d-block">
+                        {{ Auth::user()->name }}</a>
+                @endauth
+                @guest
+                    <a href="#" class="d-block">Guest</a>
+                @endguest
             </div>
         </div>
 
@@ -65,14 +71,20 @@
                             <li class="nav-item">
                                 <a href="{{ url('/tasks') }}" class="nav-link">
                                     <i class="far fa-circle nav-icon"></i>
-                                    <p>Tasks</p>
+                                    <p>My Tasks</p>
                                 </a>
                             </li>
                             @if (auth()->user()->isAdmin())
                                 <li class="nav-item">
                                     <a href="{{ url('/admin/categories') }}" class="nav-link">
                                         <i class="far fa-circle nav-icon"></i>
-                                        <p>Categories</p>
+                                        <p>Categories Control</p>
+                                    </a>
+                                </li>
+                                <li class="nav-item">
+                                    <a href="{{ url('/admin/assigntask') }}" class="nav-link">
+                                        <i class="far fa-circle nav-icon"></i>
+                                        <p>Assign Task</p>
                                     </a>
                                 </li>
                             @endif

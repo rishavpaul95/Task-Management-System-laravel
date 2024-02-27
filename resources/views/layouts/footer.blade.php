@@ -57,11 +57,17 @@
 <!-- AdminLTE dashboard demo (This is only for demo purposes) -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/admin-lte/3.1.0/js/pages/dashboard.min.js"></script>
 <script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.11.5/js/jquery.dataTables.js"></script>
+<script src="https://unpkg.com/animejs@3.0.1/lib/anime.min.js"></script>
+<script src="https://unpkg.com/scrollreveal@4.0.0/dist/scrollreveal.min.js"></script>
+
+<script src="dist/js/main.min.js"></script>
 
 <script>
     $(document).ready(function() {
-        $('#tasksTable').DataTable();
-        $('#trashTable').DataTable();
+        $('#tasksTable').DataTable({
+            "order": [[0, 'desc']]
+        });
+        // $('#trashTable').DataTable();
     });
 </script>
 </body>
