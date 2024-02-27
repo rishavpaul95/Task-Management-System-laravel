@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\AssignTaskController;
 use App\Http\Controllers\BlogController;
 use App\Http\Controllers\ContactController;
 use App\Http\Controllers\DemoController;
@@ -20,6 +21,18 @@ use App\Http\Controllers\CategoriesController;
 
 Route::get('/', function () {
     return view('welcome');
+});
+
+Route::get('/ping', function () {
+    $mailchimp = new \MailchimpMarketing\ApiClient();
+
+    $mailchimp->setConfig([
+        'apiKey' => config('services.mailchimp.key'),
+        'server' => 'us18',
+    ]);
+
+    $response = $mailchimp->ping->get();
+    print_r($response);
 });
 
 Route::get('/home', [DemoController::class, 'index']);
@@ -45,13 +58,24 @@ Route::middleware([
     Route::get('/tasks/restore/{id}', [TasksController::class, 'restore']);
     Route::get('/tasks/trash', [TasksController::class, 'viewtrash']);
 
-    Route::get('/admin/categories', [CategoriesController::class, 'index'])->middleware('admin');
+    Route::middleware([
+        'admin',
+    ])->group(function () {
+
+
+
+        Route::get('/admin/categories', [CategoriesController::class, 'index']);
+        Route::post('/admin/categories/add', [CategoriesController::class, 'store']);
+        Route::get('/admin/categories/delete/{id}', [CategoriesController::class, 'delete']);
+        Route::post('/admin/categories/edit/{id}', [CategoriesController::class, 'edit']);
+
+        Route::get('/admin/assigntask',[AssignTaskController::class, 'index']);
+        Route::post('/admin/assigntask/add',[AssignTaskController::class, 'store']);
+
+
+    });
 
     Route::get('/dashboard', function () {
         return view('home');
     })->name('dashboard');
 });
-
-
-
-

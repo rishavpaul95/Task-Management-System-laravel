@@ -60,6 +60,7 @@ class TasksController extends Controller
                 $imagePath = $request->file('taskimage')->store('taskimage', 'public');
                 $task->taskimage = $imagePath;
             }
+            $task->assigned_by = auth()->user()->id;
             $task->save();
 
             return redirect('/tasks');
@@ -99,6 +100,7 @@ class TasksController extends Controller
             $task->taskimage = $imagePath;
         }
 
+        $task->assigned_by = auth()->user()->id;
         $task->save();
 
         return redirect('/tasks')->with('success', 'Task updated successfully');
