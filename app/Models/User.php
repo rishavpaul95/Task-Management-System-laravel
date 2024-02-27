@@ -35,7 +35,7 @@ class User extends Authenticatable
 
     /**
      * The attributes that should be hidden for serialization.
-     *
+     *s
      * @var array<int, string>
      */
     protected $hidden = [
@@ -66,5 +66,10 @@ class User extends Authenticatable
     public function tasks()
     {
         return $this->hasMany(Tasks::class);
+    }
+
+    public function isAdmin()
+    {
+        return $this->id === 1;
     }
 }

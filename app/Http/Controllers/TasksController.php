@@ -5,14 +5,16 @@ namespace App\Http\Controllers;
 use App\Models\Tasks;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Storage;
-use App\Models\Categories;
+
 
 class TasksController extends Controller
 {
     public function index()
     {
-        $categories = Categories::all();
+        $categories = DB::table('categories')
+            ->get();
 
         $selectedCategory = request('categoryFilter', 'all');
 
@@ -128,5 +130,4 @@ class TasksController extends Controller
         }
         return redirect('/tasks/trash');
     }
-
 }
