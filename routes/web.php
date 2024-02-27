@@ -5,6 +5,7 @@ use App\Http\Controllers\ContactController;
 use App\Http\Controllers\DemoController;
 use App\Http\Controllers\TasksController;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\CategoriesController;
 
 /*
 |--------------------------------------------------------------------------
@@ -43,8 +44,14 @@ Route::middleware([
     Route::get('/tasks/permadelete/{id}', [TasksController::class, 'forceddelete']);
     Route::get('/tasks/restore/{id}', [TasksController::class, 'restore']);
     Route::get('/tasks/trash', [TasksController::class, 'viewtrash']);
+
+    Route::get('/admin/categories', [CategoriesController::class, 'index'])->middleware('admin');
+
     Route::get('/dashboard', function () {
         return view('home');
     })->name('dashboard');
 });
+
+
+
 
