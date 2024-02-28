@@ -20,20 +20,22 @@
 
         <section class="content">
             <div class="container-fluid">
+                @if (!$lead)
+                    <p>No lead data available.</p>
+                @else
+                    <h2>Hey, {{ $lead->name }} !</h2>
 
-                <h2>Hey, {{ $leadData->name }} !</h2>
-
-                <pre>
+                    <pre>
 
 
                     <h6>
-                    We will contact you at <u>{{ $leadData->email }} </u>
+                    We will contact you at <u>{{ $lead->email }} </u>
 
                     Look forward to hearing from us!!
 
                     </h6>
                 </pre>
-
+                @endif
             </div>
         </section>
 

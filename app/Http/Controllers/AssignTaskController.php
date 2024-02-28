@@ -2,12 +2,13 @@
 
 namespace App\Http\Controllers;
 
+use App\Mail\AssignTaskMail;
 use App\Models\Categories;
 use App\Models\Tasks;
 use App\Models\User;
-use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Facades\Mail;
 
 class AssignTaskController extends Controller
 {
@@ -49,7 +50,7 @@ class AssignTaskController extends Controller
             $task->date = $request->input('date');
             $task->topic = $request->input('topic');
             $task->status = $request->input('status');
-            $task->user_id = $request->input('assigneduser'); //
+            $task->user_id = $request->input('assigneduser'); //assigned user
             $task->category_id = $request->input('category');
 
             if ($request->hasFile('taskimage')) {
@@ -59,6 +60,16 @@ class AssignTaskController extends Controller
 
             $task->assigned_by = auth()->user()->id;
             $task->save();
+
+            // Send email to the assigned user
+            $assignedUser = User::find($task->user_id);
+            if ($assignedUser) {
+                $subject = 'You have been assigned a Task';
+                $body = "<h4>You have been assigned a task with the following details:</h4>\n\n"
+                    . "<pre>Due Date: {$task->date}\n"
+                    . "Topic: {$task->topic}\n</pre>";
+                Mail::to($assignedUser->email)->send(new AssignTaskMail($subject, $body));
+            }
 
             return redirect('/admin/assigntask');
         } else {
@@ -108,10 +119,12 @@ class AssignTaskController extends Controller
     {
         $task = Tasks::find($id);
         if ($task) {
+            if ($task->taskimage) {
+                Storage::disk('public')->delete($task->taskimage);
+            }
             $task->delete();
+
         }
         return redirect()->back();
     }
-
-
 }

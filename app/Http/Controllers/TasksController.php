@@ -103,13 +103,18 @@ class TasksController extends Controller
     {
         $task = Auth::user()->tasks()->find($id);
         if ($task) {
+            if ($task->taskimage) {
+                Storage::disk('public')->delete($task->taskimage);
+            }
             $task->delete();
         }
         return redirect()->back();
     }
 
 
-                                                // Trash Section
+    // Trash Section
+
+
     // public function viewtrash()
     // {
     //     $tasks = Auth::user()->tasks()->onlyTrashed()->get();
