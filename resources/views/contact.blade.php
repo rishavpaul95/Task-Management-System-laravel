@@ -31,6 +31,13 @@
                             <x-contact-form type="text" name="zip" placeholder="Zip" label="Zip" />
 
 
+                            <div class="form-group">
+                                <label>
+                                    <input type="checkbox" name="receive_product_info" value="1" checked>
+                                    Do you want to receive updates from us?
+                                </label>
+                            </div>
+
 
                             <button type="submit" class="btn btn-primary">Contact</button>
                         </form>

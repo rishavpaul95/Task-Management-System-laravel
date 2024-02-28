@@ -19,21 +19,8 @@ use App\Http\Controllers\CategoriesController;
 |
  */
 
-Route::get('/', function () {
-    return view('welcome');
-});
+Route::get('/', function () { return view('home');});
 
-Route::get('/ping', function () {
-    $mailchimp = new \MailchimpMarketing\ApiClient();
-
-    $mailchimp->setConfig([
-        'apiKey' => config('services.mailchimp.key'),
-        'server' => 'us18',
-    ]);
-
-    $response = $mailchimp->ping->get();
-    print_r($response);
-});
 
 Route::get('/home', [DemoController::class, 'index']);
 Route::get('/blog', [BlogController::class, 'index']);
@@ -41,7 +28,7 @@ Route::get('/blog/{post_name}', [BlogController::class, 'show']);
 
 Route::get('/contact', [ContactController::class, 'index']);
 Route::post('/contact', [ContactController::class, 'store']);
-Route::get('/contact/success', [ContactController::class, 'success']);
+
 
 Route::middleware([
     'auth:sanctum',

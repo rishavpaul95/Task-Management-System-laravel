@@ -1,12 +1,11 @@
 <?php
 
 namespace App\Http\Controllers;
-use Illuminate\Support\Facades\Validator;
 use Illuminate\Http\Request;
 use App\Models\Leads;
-use Illuminate\Support\Facades\Auth;
-
-
+use App\Services\Newsletter;
+use Exception;
+use Illuminate\Validation\ValidationException;
 
 class ContactController extends Controller
 {
@@ -17,38 +16,43 @@ class ContactController extends Controller
 
     public function store(Request $request)
     {
+    $request->validate([
+        'name' => 'required | regex:/^[\pL\s\-]+$/u',
+        'email' => 'required|email',
+        'address' => 'required',
+        'city' => 'required|regex:/^[\pL\s\-]+$/u',
+        'zip' => 'required|numeric',
+    ]);
 
-        $request->validate([
-            'name' => 'required | regex:/^[\pL\s\-]+$/u',
-            'email' => 'required|email',
-            'address' => 'required',
-            'city' => 'required|regex:/^[\pL\s\-]+$/u',
-            'zip' => 'required|numeric',
-        ]);
+    $lead = new Leads;
+    $lead->name = $request['name'];
+    $lead->email = $request['email'];
+    $lead->address = $request['address'];
+    $lead->city = $request['city'];
+    $lead->zip = $request['zip'];
 
-        $lead = new Leads;
-        $lead->name = $request['name'];
-        $lead->email = $request['email'];
-        $lead->address = $request['address'];
-        $lead->city = $request['city'];
-        $lead->zip = $request['zip'];
-        $lead->save();
+    $receiveProductInfo = $request->has('receive_product_info') ? 1 : 0;
 
+    try {
+        if ($receiveProductInfo == 1) {
+            $newsletter = new Newsletter();
+            $newsletter->subscribe($request->email);
+            $lead->save();
+            return view('lead_info_view', compact('lead'));
 
-        return redirect('/contact/success')->with('leadData', $lead);
-    }
+        } else{
 
-    public function success()
-    {
-        $leadData = session('leadData');
-
-        // Check if leadData is not available or if there are any errors
-        if (!$leadData) {
-            return redirect('/contact');
+            $lead->save();
+            return view('lead_info_view', compact('lead'));
         }
 
-        return view('lead_info_view', compact('leadData'));
-    }
 
+
+    } catch (\Exception $e) {
+        throw ValidationException::withMessages([
+            'email' => 'This email could not be added to our newsletter list.'
+        ]);
+    }
+}
 
 }
