@@ -18,9 +18,9 @@ class AssignTaskController extends Controller
         $users = User::all();
 
         $selectedCategory = request('categoryFilter', 'all');
+        $currentUser = auth()->user();
 
-
-        $tasksQuery = Tasks::query();
+        $tasksQuery = Tasks::where('assigned_by', $currentUser->id);
 
         if ($selectedCategory !== 'all') {
             $tasksQuery->where('category_id', $selectedCategory);
@@ -46,6 +46,7 @@ class AssignTaskController extends Controller
                 'taskimage' => 'image|mimes:jpeg,png,jpg,gif,svg',
             ]);
 
+
             $task = new Tasks;
             $task->date = $request->input('date');
             $task->topic = $request->input('topic');
@@ -54,7 +55,7 @@ class AssignTaskController extends Controller
             $task->category_id = $request->input('category');
 
             if ($request->hasFile('taskimage')) {
-                $imagePath = $request->file('taskimage')->store('taskimage', 'public');
+                $imagePath = $request->file('taskimage')->store('taskimage');
                 $task->taskimage = $imagePath;
             }
 
@@ -63,11 +64,14 @@ class AssignTaskController extends Controller
 
             // Send email to the assigned user
             $assignedUser = User::find($task->user_id);
+            $assignedbyname = auth()->user()->name;
+
             if ($assignedUser) {
                 $subject = 'You have been assigned a Task';
-                $body = "<h4>You have been assigned a task with the following details:</h4>\n\n"
-                    . "<pre>Due Date: {$task->date}\n"
-                    . "Topic: {$task->topic}\n</pre>";
+                $body = "You have been assigned a task with the following details:\n\n"
+                    . "Due Date: {$task->date}\n"
+                    . "Topic: {$task->topic}\n"
+                    . "Assigned By: {$assignedbyname}\n";
                 Mail::to($assignedUser->email)->send(new AssignTaskMail($subject, $body));
             }
 
@@ -106,7 +110,7 @@ class AssignTaskController extends Controller
             }
 
 
-            $imagePath = $request->file('taskimage')->store('taskimage', 'public');
+            $imagePath = $request->file('taskimage')->store('taskimage');
             $task->taskimage = $imagePath;
         }
 

@@ -65,7 +65,7 @@
 <script>
     $(document).ready(function() {
         $('#tasksTable').DataTable({
-            "order": [[0, 'desc']]
+            "order": [[0, 'asc']]
         });
         // $('#trashTable').DataTable();
     });

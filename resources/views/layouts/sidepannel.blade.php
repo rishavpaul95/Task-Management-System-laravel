@@ -74,17 +74,17 @@
                                     <p>My Tasks</p>
                                 </a>
                             </li>
+                            <li class="nav-item">
+                                <a href="{{ url('/admin/assigntask') }}" class="nav-link">
+                                    <i class="far fa-circle nav-icon"></i>
+                                    <p>Assign Task</p>
+                                </a>
+                            </li>
                             @if (auth()->user()->isAdmin())
                                 <li class="nav-item">
                                     <a href="{{ url('/admin/categories') }}" class="nav-link">
                                         <i class="far fa-circle nav-icon"></i>
                                         <p>Categories Control</p>
-                                    </a>
-                                </li>
-                                <li class="nav-item">
-                                    <a href="{{ url('/admin/assigntask') }}" class="nav-link">
-                                        <i class="far fa-circle nav-icon"></i>
-                                        <p>Assign Task</p>
                                     </a>
                                 </li>
                             @endif
