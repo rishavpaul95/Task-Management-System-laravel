@@ -10,7 +10,7 @@
             <div class="container-fluid">
                 <div class="row mb-2">
                     <div class="col-sm-6">
-                        <h1 class="m-0">Task Assignment</h1>
+                        <h1 class="m-0">Tasks Assigned By Me</h1>
                     </div>
                 </div>
             </div>
@@ -103,12 +103,14 @@
 
                                             <label for="assigneduser">Assign To:</label>
                                             <select name="assigneduser" id="assigneduser" class="form-control">
+
                                                 @foreach ($users as $user)
-                                                    <option value="{{ $user->id }}"
-                                                        {{ old('assigneduser') == $user->id ? 'selected' : '' }}>
-                                                        ID :{{ $user->id }}| {{ $user->name}}
+                                                @if ($user->id != auth()->user()->id)
+                                                    <option value="{{ $user->id }}" {{ old('assigneduser') == $user->id ? 'selected' : '' }}>
+                                                        ID: {{ $user->id }} | {{ $user->name }}
                                                     </option>
-                                                @endforeach
+                                                @endif
+                                            @endforeach
                                             </select>
 
 

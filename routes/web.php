@@ -48,6 +48,11 @@ Route::middleware([
     // Route::get('/tasks/restore/{id}', [TasksController::class, 'restore']);
     // Route::get('/tasks/trash', [TasksController::class, 'viewtrash']);
 
+    Route::get('/admin/assigntask',[AssignTaskController::class, 'index']);
+    Route::post('/admin/assigntask/add',[AssignTaskController::class, 'store']);
+    Route::post('/admin/assigntask/edit/{id}',[AssignTaskController::class, 'edit']);
+    Route::get('/admin/assigntask/delete/{id}',[AssignTaskController::class, 'delete']);
+
     Route::middleware([
         'admin',
     ])->group(function () {
@@ -59,14 +64,8 @@ Route::middleware([
         Route::get('/admin/categories/delete/{id}', [CategoriesController::class, 'delete']);
         Route::post('/admin/categories/edit/{id}', [CategoriesController::class, 'edit']);
 
-        Route::get('/admin/assigntask',[AssignTaskController::class, 'index']);
-        Route::post('/admin/assigntask/add',[AssignTaskController::class, 'store']);
-        Route::post('/admin/assigntask/edit/{id}',[AssignTaskController::class, 'edit']);
-        Route::get('/admin/assigntask/delete/{id}',[AssignTaskController::class, 'delete']);
+
 
     });
 
-    Route::get('/dashboard', function () {
-        return view('home');
-    })->name('dashboard');
 });

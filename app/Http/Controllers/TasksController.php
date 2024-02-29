@@ -43,6 +43,7 @@ class TasksController extends Controller
                 'taskimage' => 'image|mimes:jpeg,png,jpg,gif,svg',
             ]);
 
+
             $task = new Tasks;
             $task->date = $request->input('date');
             $task->topic = $request->input('topic');
@@ -50,7 +51,7 @@ class TasksController extends Controller
             $task->user_id = auth()->user()->id;
             $task->category_id = $request->input('category');
             if ($request->hasFile('taskimage')) {
-                $imagePath = $request->file('taskimage')->store('taskimage', 'public');
+                $imagePath = $request->file('taskimage')->store('taskimage');
                 $task->taskimage = $imagePath;
             }
             $task->assigned_by = auth()->user()->id;
@@ -90,7 +91,7 @@ class TasksController extends Controller
             }
 
 
-            $imagePath = $request->file('taskimage')->store('taskimage', 'public');
+            $imagePath = $request->file('taskimage')->store('taskimage');
             $task->taskimage = $imagePath;
         }
 
