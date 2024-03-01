@@ -61,6 +61,8 @@
 <script src="https://unpkg.com/scrollreveal@4.0.0/dist/scrollreveal.min.js"></script>
 
 <script src="dist/js/main.min.js"></script>
+<!-- AdminLTE for demo purposes -->
+<script src="dist/js/demo.js"></script>
 
 <script>
     $(document).ready(function() {

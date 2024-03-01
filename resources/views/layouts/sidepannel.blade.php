@@ -28,8 +28,8 @@
         <!-- SidebarSearch Form -->
         <div class="form-inline">
             <div class="input-group" data-widget="sidebar-search">
-                <input class="form-control form-control-sidebar" type="search" placeholder="Search"
-                    aria-label="Search" disabled>
+                <input class="form-control form-control-sidebar" type="search" placeholder="Search" aria-label="Search"
+                    disabled>
                 <div class="input-group-append">
                     <button class="btn btn-sidebar">
                         <i class="fas fa-search fa-fw"></i>
@@ -40,103 +40,113 @@
 
         <!-- Sidebar Menu -->
         <nav class="mt-2">
+
             <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu"
                 data-accordion="false">
-                <!-- Add icons to the links using the .nav-icon class
-       with font-awesome or any other icon font library -->
-                <li class="nav-item menu-open">
-
-                    <a href="#" class="nav-link">
-                        <i class="nav-icon fas fa-tachometer-alt"></i>
-                        <p>
-                            User-Pannel
-                            <i class="right fas fa-angle-left"></i>
-                        </p>
+                <li class="nav-item">
+                    <a href="{{ url('/') }}" class="nav-link {{ request()->is('') ? 'active' : '' }}">
+                        <i class="nav-icon fas fa-home"></i>
+                        <p>Welcome</p>
                     </a>
-                    <ul class="nav nav-treeview">
-                        <li class="nav-item">
-                            <a href="{{ url('/home') }}" class="nav-link">
-                                <i class="far fa-circle nav-icon"></i>
-                                <p>Dashboard</p>
-                            </a>
-                        </li>
-                        @auth
+                </li>
+                @auth
+
+
+                    <li class="nav-item menu-open">
+                        <a href="#" class="nav-link">
+                            <i class="nav-icon fas fa-tachometer-alt"></i>
+                            <p>
+                                User-Panel
+                                <i class="right fas fa-angle-left"></i>
+                            </p>
+                        </a>
+                        <ul class="nav nav-treeview">
                             <li class="nav-item">
-                                <a href="{{ url('/profile') }}" class="nav-link">
+                                <a href="{{ url('/dash') }}" class="nav-link {{ request()->is('dash') ? 'active' : '' }}">
+                                    <i class="far fa-circle nav-icon"></i>
+                                    <p>Dashboard</p>
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a href="{{ url('/profile') }}"
+                                    class="nav-link {{ request()->is('profile') ? 'active' : '' }}">
                                     <i class="far fa-circle nav-icon"></i>
                                     <p>Profile</p>
                                 </a>
                             </li>
+                            <li class="nav-item {{ request()->input('categoryFilter') ? 'menu-open' : '' }}">
+                                <a href="#" class="nav-link">
+                                    <i class="far fa-circle nav-icon"></i>
+                                    <p>
+                                        Projects
+                                        <i class="right fas fa-angle-left"></i>
+                                    </p>
+                                </a>
+                                <ul class="nav nav-treeview">
+                                    @foreach ($categories as $category)
+                                        <li class="nav-item">
+                                            <a href="{{ url('/tasks?categoryFilter=' . $category->id) }}"
+                                                class="nav-link {{ request()->input('categoryFilter') == $category->id ? 'active' : '' }}">
+                                                <i class="far fa-dot-circle nav-icon"></i>
+                                                <p>{{ $category->category }}</p>
+                                            </a>
+                                        </li>
+                                    @endforeach
+                                </ul>
+                            </li>
 
                             <li class="nav-item">
-                                <a href="{{ url('/tasks') }}" class="nav-link">
+                                <a href="{{ url('/alltask') }}"
+                                    class="nav-link {{ request()->is('alltask') ? 'active' : '' }}">
                                     <i class="far fa-circle nav-icon"></i>
-                                    <p>My Tasks</p>
+                                    <p>Task Board</p>
                                 </a>
                             </li>
-                            <li class="nav-item">
-                                <a href="{{ url('/admin/assigntask') }}" class="nav-link">
-                                    <i class="far fa-circle nav-icon"></i>
-                                    <p>Assign Task</p>
-                                </a>
-                            </li>
-                            <li class="nav-item">
-                                <a href="{{ url('/alltask') }}" class="nav-link">
-                                    <i class="far fa-circle nav-icon"></i>
-                                    <p>All Tasks</p>
-                                </a>
-                            </li>
-                            @if (auth()->user()->isAdmin())
+                        </ul>
+                    </li>
+
+                    @if (auth()->user()->isAdmin())
+                        <li class="nav-item has-treeview {{ request()->is('admin/*') ? 'menu-open' : '' }}">
+                            <a href="#" class="nav-link">
+                                <i class="nav-icon fas fa-tachometer-alt"></i>
+                                <p>
+                                    Admin-Panel
+                                    <i class="right fas fa-angle-left"></i>
+                                </p>
+                            </a>
+                            <ul class="nav nav-treeview">
                                 <li class="nav-item">
-                                    <a href="{{ url('/admin/categories') }}" class="nav-link">
+                                    <a href="{{ url('/admin/categories') }}"
+                                        class="nav-link {{ request()->is('admin/categories') ? 'active' : '' }}">
                                         <i class="far fa-circle nav-icon"></i>
                                         <p>Categories Control</p>
                                     </a>
                                 </li>
-                            @endif
-                        @endauth
-                    </ul>
 
-                </li>
+                            </ul>
+                        </li>
+                    @endif
+
+                @endauth
                 <li class="nav-header">------------------------------</li>
                 <li class="nav-item">
-                    <a href="{{ url('/blog') }}" class="nav-link">
+                    <a href="{{ url('/blog') }}" class="nav-link {{ request()->is('blog') ? 'active' : '' }}">
                         <i class="nav-icon fas fa-book"></i>
                         <p>Blog</p>
                     </a>
                 </li>
                 <li class="nav-item">
-                    <a href="{{ url('/contact') }}" class="nav-link">
-                        <i class="nav-icon far fa-envelope "></i>
+                    <a href="{{ url('/contact') }}" class="nav-link {{ request()->is('contact') ? 'active' : '' }}">
+                        <i class="nav-icon far fa-envelope"></i>
                         <p>Contact</p>
                     </a>
                 </li>
             </ul>
-
         </nav>
         <!-- /.sidebar-menu -->
     </div>
     <!-- /.sidebar -->
 
-    <script>
-        document.addEventListener('DOMContentLoaded', function() {
-            var currentUrl = window.location.href;
 
-            var navLinks = document.querySelectorAll('.nav-link');
 
-            navLinks.forEach(function(link) {
-                if (link.href === currentUrl) {
-                    link.classList.add('active');
-                    // Optionally, you can also add a class to the parent 'nav-item' for styling
-                    link.closest('.nav-item').classList.add('menu-open');
-                }
-            });
-        });
-    </script>
-    <style>
-        .nav-link.active {
-            background-color: #007bff; /* Set your desired background color */
-            color: #ffffff; /* Set your desired text color */
-        }
-    </style>
 </aside>

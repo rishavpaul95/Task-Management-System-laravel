@@ -7,13 +7,17 @@ use Illuminate\Support\Facades\Auth;
 
 namespace App\Http\Controllers;
 
+use App\Models\Categories;
 use Illuminate\Support\Facades\File;
 
 class BlogController extends Controller
 {
     public function index()
     {
-        return view('blog');
+        $categories = Categories::all();
+        $selectedCategory = request('categoryFilter', 'all');
+        $data = compact('categories', 'selectedCategory');
+        return view('blog')->with($data);
     }
 
     public function show($slug)

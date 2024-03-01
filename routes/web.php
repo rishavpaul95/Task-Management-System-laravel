@@ -9,6 +9,7 @@ use App\Http\Controllers\TasksController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\CategoriesController;
 use App\Http\Controllers\Controller;
+use App\Http\Controllers\DashController;
 
 /*
 |--------------------------------------------------------------------------
@@ -21,15 +22,9 @@ use App\Http\Controllers\Controller;
 |
  */
 
-Route::get('/', function () { return view('home');});
 
 
-Route::get('/home', [Controller::class, 'index']);
-Route::get('/blog', [BlogController::class, 'index']);
-Route::get('/blog/{post_name}', [BlogController::class, 'show']);
-
-Route::get('/contact', [ContactController::class, 'index']);
-Route::post('/contact', [ContactController::class, 'store']);
+Route::get('/', [Controller::class, 'index']);
 
 
 Route::middleware([
@@ -38,6 +33,7 @@ Route::middleware([
     'verified',
 ])->group(function () {
 
+    Route::get('/dash', [DashController::class, 'index']);
     Route::get('/profile', [ProfileController::class, 'index']);
     Route::get('/tasks', [TasksController::class, 'index']);
     Route::post('/tasks/add', [TasksController::class, 'store']);
@@ -67,9 +63,11 @@ Route::middleware([
         Route::post('/admin/categories/add', [CategoriesController::class, 'store']);
         Route::get('/admin/categories/delete/{id}', [CategoriesController::class, 'delete']);
         Route::post('/admin/categories/edit/{id}', [CategoriesController::class, 'edit']);
-
-
-
     });
-
 });
+
+Route::get('/blog', [BlogController::class, 'index']);
+Route::get('/blog/{post_name}', [BlogController::class, 'show']);
+
+Route::get('/contact', [ContactController::class, 'index']);
+Route::post('/contact', [ContactController::class, 'store']);

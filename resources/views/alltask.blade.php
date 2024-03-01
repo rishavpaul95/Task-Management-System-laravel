@@ -33,7 +33,7 @@
                     </div>
 
                     <form action="{{ url('/alltask') }}" method="GET" class="form-inline">
-                        <label for="categoryFilter" class="mr-2">Filter by Category:</label>
+                        <label for="categoryFilter" class="mr-2">Filter by Project:</label>
                         <select class="form-control" id="categoryFilter" name="categoryFilter"
                             onchange="this.form.submit()">
                             <option value="all" {{ $selectedCategory === 'all' ? 'selected' : '' }}>All</option>
@@ -95,14 +95,15 @@
 
                                         <td>
                                             @if ($currentUser && ($currentUser->isAdmin() || $currentUser->id == $task->user_id))
-                                                <a href="{{ url('/admin/assigntask/delete') }}/{{ $task->id }}">
-                                                    <button type="button" class="btn btn-danger">Delete</button>
+                                                <a class="fa-solid fa-trash-can" href="{{ url('/task/delete') }}/{{ $task->id }}">
+
                                                 </a>
 
-                                                <button type="button" class="btn btn-warning" data-bs-toggle="modal"
-                                                    data-bs-target="#editModal{{ $task->id }}">
-                                                    Edit
-                                                </button>
+                                                &nbsp;&nbsp;
+
+                                                <i class="fa-regular fa-pen-to-square" type="button"
+                                                    class="fa-regular fa-pen-to-square" data-bs-toggle="modal"
+                                                    data-bs-target="#editModal{{ $task->id }}"></i>
                                             @endif
                                             <!-- Edit Modal -->
                                             <div class="modal fade" id="editModal{{ $task->id }}" tabindex="-1"
@@ -118,7 +119,7 @@
                                                         <div class="modal-body">
                                                             {{-- modal content --}}
                                                             <form
-                                                                action="{{ url('/admin/assigntask/edit') }}/{{ $task->id }}"
+                                                                action="{{ url('/task/edit') }}/{{ $task->id }}"
                                                                 method="POST" enctype="multipart/form-data">
                                                                 @csrf
                                                                 <div class="form-group">

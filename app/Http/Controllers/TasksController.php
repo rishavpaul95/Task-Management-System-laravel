@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Categories;
 use App\Models\Tasks;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -13,8 +14,7 @@ class TasksController extends Controller
 {
     public function index()
     {
-        $categories = DB::table('categories')
-            ->get();
+        $categories = Categories::all();
 
         $selectedCategory = request('categoryFilter', 'all');
 

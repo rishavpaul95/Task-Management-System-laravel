@@ -80,16 +80,17 @@
 
                                     <td colspan="5">{{ $category->category }}</td>
 
-                                    <td><a href= "{{ url('/admin/categories/delete') }}/{{ $category->id }}"><button
-                                                type="button" class="btn btn-danger">Delete</button></a>
+                                    <td><a href= "{{ url('/admin/categories/delete') }}/{{ $category->id }}"><i
+                                                class="fa-solid fa-trash-can"></i></a>
                                         <!-- Edit Button trigger modal -->
 
+                                        &nbsp;&nbsp;
 
-
-                                        <button type="button" class="btn btn-warning" data-bs-toggle="modal"
+                                        <i class="fa-regular fa-pen-to-square" type="button"
+                                            class="fa-regular fa-pen-to-square" data-bs-toggle="modal"
                                             data-bs-target="#editCategoryModal{{ $category->id }}">
-                                            Edit
-                                        </button>
+
+                                        </i>
 
                                         <!-- Edit Modal -->
                                         <div class="modal fade" id="editCategoryModal{{ $category->id }}" tabindex="-1"
@@ -102,12 +103,15 @@
                                                             aria-label="Close"></button>
                                                     </div>
                                                     <div class="modal-body">
-                                                        <form action="{{ url('/admin/categories/edit') }}/{{ $category->id }}" method="POST">
+                                                        <form
+                                                            action="{{ url('/admin/categories/edit') }}/{{ $category->id }}"
+                                                            method="POST">
                                                             @csrf
                                                             <div class="form-group">
                                                                 <label for="category">Category:</label>
                                                                 <input type="text" class="form-control" id="category"
-                                                                    name="category" value="{{ $category->category }}" required>
+                                                                    name="category" value="{{ $category->category }}"
+                                                                    required>
                                                             </div>
                                                             <button type= "submit" class="btn btn-primary">Edit
                                                                 Category

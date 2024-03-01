@@ -26,19 +26,7 @@
                         </a> --}}
                     </div>
 
-                    <form action="{{ url('/tasks') }}" method="GET" class="form-inline">
-                        <label for="categoryFilter" class="mr-2">Filter by Category:</label>
-                        <select class="form-control" id="categoryFilter" name="categoryFilter"
-                            onchange="this.form.submit()">
-                            <option value="all" {{ $selectedCategory === 'all' ? 'selected' : '' }}>All</option>
-                            @foreach ($categories as $category)
-                                <option value="{{ $category->id }}"
-                                    {{ $selectedCategory == $category->id ? 'selected' : '' }}>
-                                    {{ $category->category }}
-                                </option>
-                            @endforeach
-                        </select>
-                    </form>
+
                 </div>
 
                 <div class="d-flex justify-content-end mb-3">
@@ -143,51 +131,72 @@
                                                 <span class="badge badge-secondary">Inactive</span>
                                             @endif
                                         </td>
-                                        <td><a href= "{{ url('/tasks/delete') }}/{{ $task->id }}"><button
-                                                    type="button" class="btn btn-danger">Delete</button></a>
+                                        <td><a class="fa-solid fa-trash-can"
+                                                href= "{{ url('/tasks/delete') }}/{{ $task->id }}"></a>
                                             <!-- Edit Button trigger modal -->
 
+                                            &nbsp;&nbsp;
 
 
-                                            <button type="button" class="btn btn-warning" data-bs-toggle="modal" data-bs-target="#editModal{{ $task->id }}">
-                                                Edit
-                                            </button>
+                                            <i class="fa-regular fa-pen-to-square" type="button"
+                                                class="fa-regular fa-pen-to-square" data-bs-toggle="modal"
+                                                data-bs-target="#editModal{{ $task->id }}">
+
+                                            </i>
 
                                             <!-- Edit Modal -->
-                                            <div class="modal fade" id="editModal{{ $task->id }}" tabindex="-1" aria-labelledby="editModalLabel{{ $task->id }}" aria-hidden="true">
+                                            <div class="modal fade" id="editModal{{ $task->id }}" tabindex="-1"
+                                                aria-labelledby="editModalLabel{{ $task->id }}" aria-hidden="true">
                                                 <div class="modal-dialog">
                                                     <div class="modal-content">
                                                         <div class="modal-header">
-                                                            <h5 class="modal-title" id="editModalLabel{{ $task->id }}">Edit Task</h5>
-                                                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                                            <h5 class="modal-title"
+                                                                id="editModalLabel{{ $task->id }}">Edit Task</h5>
+                                                            <button type="button" class="btn-close"
+                                                                data-bs-dismiss="modal" aria-label="Close"></button>
                                                         </div>
                                                         <div class="modal-body">
                                                             {{-- modal content --}}
-                                                            <form action="{{ url('/tasks/edit', $task->id) }}" method="POST" enctype="multipart/form-data">
+                                                            <form action="{{ url('/tasks/edit', $task->id) }}"
+                                                                method="POST" enctype="multipart/form-data">
                                                                 @csrf
                                                                 <div class="form-group">
                                                                     <label for="date">Date:</label>
-                                                                    <input type="date" class="form-control" id="date" name="date" value="{{ $task->date }}" required>
+                                                                    <input type="date" class="form-control"
+                                                                        id="date" name="date"
+                                                                        value="{{ $task->date }}" required>
                                                                 </div>
 
                                                                 <div class="form-group">
                                                                     <label for="topic">Topic:</label>
-                                                                    <input type="text" class="form-control" id="topic" name="topic" value="{{ $task->topic }}" placeholder="Enter Topic" required>
+                                                                    <input type="text" class="form-control"
+                                                                        id="topic" name="topic"
+                                                                        value="{{ $task->topic }}"
+                                                                        placeholder="Enter Topic" required>
                                                                 </div>
 
                                                                 <div class="form-group">
                                                                     <label for="status">Status:</label>
-                                                                    <select class="form-control" id="status" name="status" required>
-                                                                        <option value="Completed" {{ $task->status == 'Completed' ? 'selected' : '' }}>Completed</option>
-                                                                        <option value="Active" {{ $task->status == 'Active' ? 'selected' : '' }}>Active</option>
-                                                                        <option value="Inactive" {{ $task->status == 'Inactive' ? 'selected' : '' }}>Inactive</option>
+                                                                    <select class="form-control" id="status"
+                                                                        name="status" required>
+                                                                        <option value="Completed"
+                                                                            {{ $task->status == 'Completed' ? 'selected' : '' }}>
+                                                                            Completed</option>
+                                                                        <option value="Active"
+                                                                            {{ $task->status == 'Active' ? 'selected' : '' }}>
+                                                                            Active</option>
+                                                                        <option value="Inactive"
+                                                                            {{ $task->status == 'Inactive' ? 'selected' : '' }}>
+                                                                            Inactive</option>
                                                                     </select>
                                                                 </div>
                                                                 <div class="form-group">
                                                                     <label for="category">Category:</label>
-                                                                    <select name="category" id="category" class="form-control">
+                                                                    <select name="category" id="category"
+                                                                        class="form-control">
                                                                         @foreach ($categories as $category)
-                                                                            <option value="{{ $category->id }}" {{ $task->category_id == $category->id ? 'selected' : '' }}>
+                                                                            <option value="{{ $category->id }}"
+                                                                                {{ $task->category_id == $category->id ? 'selected' : '' }}>
                                                                                 {{ $category->category }}
                                                                             </option>
                                                                         @endforeach
@@ -195,10 +204,12 @@
                                                                 </div>
                                                                 <div class="form-group">
                                                                     <label for="taskimage">Upload Image:</label>
-                                                                    <input type="file" class="form-control-file" id="taskimage" name="taskimage">
+                                                                    <input type="file" class="form-control-file"
+                                                                        id="taskimage" name="taskimage">
                                                                 </div>
 
-                                                                <button type="submit" class="btn btn-primary">Submit</button>
+                                                                <button type="submit"
+                                                                    class="btn btn-primary">Submit</button>
                                                             </form>
                                                             {{-- End of modal content --}}
                                                         </div>

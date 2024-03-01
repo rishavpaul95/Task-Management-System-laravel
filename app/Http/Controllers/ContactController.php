@@ -1,6 +1,8 @@
 <?php
 
 namespace App\Http\Controllers;
+
+use App\Models\Categories;
 use Illuminate\Http\Request;
 use App\Models\Leads;
 use App\Services\Newsletter;
@@ -11,7 +13,10 @@ class ContactController extends Controller
 {
     public function index()
     {
-        return view("contact");
+        $categories = Categories::all();
+        $selectedCategory = request('categoryFilter', 'all');
+        $data = compact('categories', 'selectedCategory');
+        return view("contact")->with($data);
     }
 
     public function store(Request $request)

@@ -3,14 +3,16 @@
 namespace App\Http\Controllers;
 
 use App\Models\Categories;
+use Illuminate\Http\Request;
 
-class ProfileController extends Controller {
+class DashController extends Controller
+{
     public function index() {
         $categories = Categories::all();
         $selectedCategory = request('categoryFilter', 'all');
         $data = compact('categories', 'selectedCategory');
 
-        return view('profile')->with($data);
+        return view('dash')->with($data);
     }
 
 

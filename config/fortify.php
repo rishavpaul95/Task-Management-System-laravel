@@ -73,7 +73,7 @@ return [
     |
     */
 
-    'home' => '/home',
+    'home' => '/',
 
     /*
     |--------------------------------------------------------------------------
@@ -143,10 +143,6 @@ return [
     |
     */
 
-    'redirects' => [
-        'login' => 'home',
-        'logout' => 'home',
-    ],
 
     'features' => [
         Features::registration(),

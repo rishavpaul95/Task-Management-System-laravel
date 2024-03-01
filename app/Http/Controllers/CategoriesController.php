@@ -11,7 +11,8 @@ class CategoriesController extends Controller
     public function index()
     {
         $categories = Categories::all();
-        return view("admincategory")->with(compact('categories'));
+        $selectedCategory = request('categoryFilter', 'all');
+        return view("admincategory")->with(compact('categories', 'selectedCategory'));
     }
 
     public function store(Request $request)

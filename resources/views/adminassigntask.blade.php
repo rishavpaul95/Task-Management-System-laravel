@@ -27,7 +27,7 @@
                     </div>
 
                     <form action="{{ url('/admin/assigntask') }}" method="GET" class="form-inline">
-                        <label for="categoryFilter" class="mr-2">Filter by Category:</label>
+                        <label for="categoryFilter" class="mr-2">Filter by Project:</label>
                         <select class="form-control" id="categoryFilter" name="categoryFilter"
                             onchange="this.form.submit()">
                             <option value="all" {{ $selectedCategory === 'all' ? 'selected' : '' }}>All</option>
@@ -105,12 +105,13 @@
                                             <select name="assigneduser" id="assigneduser" class="form-control">
 
                                                 @foreach ($users as $user)
-                                                @if ($user->id != auth()->user()->id)
-                                                    <option value="{{ $user->id }}" {{ old('assigneduser') == $user->id ? 'selected' : '' }}>
-                                                        ID: {{ $user->id }} | {{ $user->name }}
-                                                    </option>
-                                                @endif
-                                            @endforeach
+                                                    @if ($user->id != auth()->user()->id)
+                                                        <option value="{{ $user->id }}"
+                                                            {{ old('assigneduser') == $user->id ? 'selected' : '' }}>
+                                                            ID: {{ $user->id }} | {{ $user->name }}
+                                                        </option>
+                                                    @endif
+                                                @endforeach
                                             </select>
 
 
@@ -172,16 +173,17 @@
 
                                         </td>
 
-                                        <td><a href= "{{ url('/admin/assigntask/delete') }}/{{ $task->id }}"><button
-                                                    type="button" class="btn btn-danger">Delete</button></a>
+                                        <td><a class="fa-solid fa-trash-can"
+                                                href= "{{ url('/admin/assigntask/delete') }}/{{ $task->id }}"></a>
                                             <!-- Edit Button trigger modal -->
 
+                                            &nbsp;&nbsp;
 
-
-                                            <button type="button" class="btn btn-warning" data-bs-toggle="modal"
+                                            <i class="fa-regular fa-pen-to-square" type="button"
+                                                class="fa-regular fa-pen-to-square" data-bs-toggle="modal"
                                                 data-bs-target="#editModal{{ $task->id }}">
-                                                Edit
-                                            </button>
+
+                                            </i>
 
                                             <!-- Edit Modal -->
                                             <div class="modal fade" id="editModal{{ $task->id }}" tabindex="-1"
@@ -196,7 +198,8 @@
                                                         </div>
                                                         <div class="modal-body">
                                                             {{-- modal content --}}
-                                                            <form action="{{ url('/admin/assigntask/edit') }}/{{ $task->id }}"
+                                                            <form
+                                                                action="{{ url('/admin/assigntask/edit') }}/{{ $task->id }}"
                                                                 method="POST" enctype="multipart/form-data">
                                                                 @csrf
                                                                 <div class="form-group">

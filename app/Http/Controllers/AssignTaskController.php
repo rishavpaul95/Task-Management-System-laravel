@@ -64,6 +64,7 @@ class AssignTaskController extends Controller
 
             // Send email to the assigned user
             $assignedUser = User::find($task->user_id);
+            $assignedProject = Categories::find($task->category_id);
             $assignedbyname = auth()->user()->name;
 
             if ($assignedUser) {
@@ -71,7 +72,9 @@ class AssignTaskController extends Controller
                 $body = "You have been assigned a task with the following details:\n\n"
                     . "Due Date: {$task->date}\n"
                     . "Topic: {$task->topic}\n"
-                    . "Assigned By: {$assignedbyname}\n";
+                    . "Assigned By: {$assignedbyname}\n"
+                    . "Under Project: {$assignedProject}\n";
+
                 Mail::to($assignedUser->email)->send(new AssignTaskMail($subject, $body));
             }
 
