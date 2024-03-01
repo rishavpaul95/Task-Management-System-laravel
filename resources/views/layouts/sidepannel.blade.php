@@ -29,7 +29,7 @@
         <div class="form-inline">
             <div class="input-group" data-widget="sidebar-search">
                 <input class="form-control form-control-sidebar" type="search" placeholder="Search"
-                    aria-label="Search">
+                    aria-label="Search" disabled>
                 <div class="input-group-append">
                     <button class="btn btn-sidebar">
                         <i class="fas fa-search fa-fw"></i>
@@ -49,7 +49,7 @@
                     <a href="#" class="nav-link">
                         <i class="nav-icon fas fa-tachometer-alt"></i>
                         <p>
-                            User
+                            User-Pannel
                             <i class="right fas fa-angle-left"></i>
                         </p>
                     </a>
@@ -62,7 +62,7 @@
                         </li>
                         @auth
                             <li class="nav-item">
-                                <a href="{{ url('/demo') }}" class="nav-link">
+                                <a href="{{ url('/profile') }}" class="nav-link">
                                     <i class="far fa-circle nav-icon"></i>
                                     <p>Profile</p>
                                 </a>
@@ -78,6 +78,12 @@
                                 <a href="{{ url('/admin/assigntask') }}" class="nav-link">
                                     <i class="far fa-circle nav-icon"></i>
                                     <p>Assign Task</p>
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a href="{{ url('/alltask') }}" class="nav-link">
+                                    <i class="far fa-circle nav-icon"></i>
+                                    <p>All Tasks</p>
                                 </a>
                             </li>
                             @if (auth()->user()->isAdmin())
@@ -111,4 +117,26 @@
         <!-- /.sidebar-menu -->
     </div>
     <!-- /.sidebar -->
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            var currentUrl = window.location.href;
+
+            var navLinks = document.querySelectorAll('.nav-link');
+
+            navLinks.forEach(function(link) {
+                if (link.href === currentUrl) {
+                    link.classList.add('active');
+                    // Optionally, you can also add a class to the parent 'nav-item' for styling
+                    link.closest('.nav-item').classList.add('menu-open');
+                }
+            });
+        });
+    </script>
+    <style>
+        .nav-link.active {
+            background-color: #007bff; /* Set your desired background color */
+            color: #ffffff; /* Set your desired text color */
+        }
+    </style>
 </aside>

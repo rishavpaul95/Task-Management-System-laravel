@@ -1,12 +1,14 @@
 <?php
 
+use App\Http\Controllers\AllTaskController;
 use App\Http\Controllers\AssignTaskController;
 use App\Http\Controllers\BlogController;
 use App\Http\Controllers\ContactController;
-use App\Http\Controllers\DemoController;
+use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\TasksController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\CategoriesController;
+use App\Http\Controllers\Controller;
 
 /*
 |--------------------------------------------------------------------------
@@ -22,7 +24,7 @@ use App\Http\Controllers\CategoriesController;
 Route::get('/', function () { return view('home');});
 
 
-Route::get('/home', [DemoController::class, 'index']);
+Route::get('/home', [Controller::class, 'index']);
 Route::get('/blog', [BlogController::class, 'index']);
 Route::get('/blog/{post_name}', [BlogController::class, 'show']);
 
@@ -36,11 +38,13 @@ Route::middleware([
     'verified',
 ])->group(function () {
 
-    Route::get('/demo/{name?}', [DemoController::class, 'show']);
+    Route::get('/profile', [ProfileController::class, 'index']);
     Route::get('/tasks', [TasksController::class, 'index']);
     Route::post('/tasks/add', [TasksController::class, 'store']);
     Route::get('/tasks/delete/{id}', [TasksController::class, 'delete']);
     Route::post('/tasks/edit/{id}', [TasksController::class, 'edit']);
+
+    Route::get('/alltask',[AllTaskController::class,'index']);
 
     // Trash Section
 

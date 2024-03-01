@@ -1,22 +1,28 @@
 @extends('layouts.main')
-
 @push('page-title')
-    <title>Assign Task</title>
+    <title>All Tasks</title>
 @endpush
-
 @section('main-section')
+    <!-- Content Wrapper. Contains page content -->
     <div class="content-wrapper">
+        <!-- Content Header (Page header) -->
         <div class="content-header">
             <div class="container-fluid">
                 <div class="row mb-2">
                     <div class="col-sm-6">
-                        <h1 class="m-0">Tasks Assigned By Me</h1>
-                    </div>
-                </div>
-            </div>
-        </div>
+                        <h1 class="m-0">All Tasks</h1>
+                    </div><!-- /.col -->
+                    <div class="col-sm-6">
 
-        <section class="content">
+
+
+                    </div><!-- /.col -->
+                </div><!-- /.row -->
+            </div><!-- /.container-fluid -->
+        </div>
+        <!-- /.content-header -->
+
+        <section>
             <div class="container-fluid">
 
                 <div class="d-flex justify-content-between align-items-center mb-3">
@@ -26,7 +32,7 @@
                         </a> --}}
                     </div>
 
-                    <form action="{{ url('/admin/assigntask') }}" method="GET" class="form-inline">
+                    <form action="{{ url('/alltask') }}" method="GET" class="form-inline">
                         <label for="categoryFilter" class="mr-2">Filter by Category:</label>
                         <select class="form-control" id="categoryFilter" name="categoryFilter"
                             onchange="this.form.submit()">
@@ -41,92 +47,7 @@
                     </form>
                 </div>
 
-                <div class="d-flex justify-content-end mb-3">
-                    <button type="button" class="btn btn-success" data-bs-toggle="modal" data-bs-target="#addModal">
-                        Assign Task
-                    </button>
 
-
-                    {{-- Add Modal Start --}}
-
-                    <div class="modal fade" id="addModal" tabindex="-1" aria-labelledby="addModalLabel"
-                        aria-hidden="true">
-                        <div class="modal-dialog">
-                            <div class="modal-content">
-                                <div class="modal-header">
-                                    <h5 class="modal-title" id="addModalLabel">Assign Task</h5>
-                                    <button type="button" class="btn-close" data-bs-dismiss="modal"
-                                        aria-label="Close"></button>
-                                </div>
-                                <div class="modal-body">
-                                    <form action="{{ url('/admin/assigntask/add') }}" method="POST"
-                                        enctype = 'multipart/form-data'>
-                                        @csrf
-                                        <div class="form-group">
-                                            <label for="date">Date:</label>
-                                            <input type="date" class="form-control" id="date" name="date"
-                                                required>
-                                        </div>
-
-                                        <div class="form-group">
-                                            <label for="topic">Topic:</label>
-                                            <input type="text" class="form-control" id="topic" name="topic"
-                                                placeholder="Enter Topic" required>
-                                        </div>
-
-                                        <div class="form-group">
-                                            <label for="status">Status:</label>
-                                            <select class="form-control" id="status" name="status" required>
-                                                <option value="Completed">Completed</option>
-                                                <option value="Active">Active</option>
-                                                <option value="Inactive">Inactive</option>
-                                            </select>
-                                        </div>
-
-                                        <div class="form-group">
-                                            <label for="category">Category:</label>
-                                            <select name="category" id="category" class="form-control">
-                                                @foreach ($categories as $category)
-                                                    <option value="{{ $category->id }}">{{ $category->category }}</option>
-                                                @endforeach
-                                            </select>
-                                        </div>
-                                        <div class="form-group">
-                                            <label for="taskimage">Upload Image:</label>
-                                            <input type="file" class="form-control-file" id="addtaskimage"
-                                                name="taskimage">
-                                        </div>
-
-
-
-                                        <div class="form-group">
-
-                                            <label for="assigneduser">Assign To:</label>
-                                            <select name="assigneduser" id="assigneduser" class="form-control">
-
-                                                @foreach ($users as $user)
-                                                @if ($user->id != auth()->user()->id)
-                                                    <option value="{{ $user->id }}" {{ old('assigneduser') == $user->id ? 'selected' : '' }}>
-                                                        ID: {{ $user->id }} | {{ $user->name }}
-                                                    </option>
-                                                @endif
-                                            @endforeach
-                                            </select>
-
-
-                                        </div>
-
-                                        <button type="submit" class="btn btn-primary">Submit</button>
-                                    </form>
-                                </div>
-                            </div>
-                        </div>
-
-                    </div>
-
-                    {{-- Add Modal End --}}
-
-                </div>
 
                 <div class="row">
                     <div class="col-md-12">
@@ -172,31 +93,32 @@
 
                                         </td>
 
-                                        <td><a href= "{{ url('/admin/assigntask/delete') }}/{{ $task->id }}"><button
-                                                    type="button" class="btn btn-danger">Delete</button></a>
-                                            <!-- Edit Button trigger modal -->
+                                        <td>
+                                            @if ($currentUser && ($currentUser->isAdmin() || $currentUser->id == $task->user_id))
+                                                <a href="{{ url('/admin/assigntask/delete') }}/{{ $task->id }}">
+                                                    <button type="button" class="btn btn-danger">Delete</button>
+                                                </a>
 
-
-
-                                            <button type="button" class="btn btn-warning" data-bs-toggle="modal"
-                                                data-bs-target="#editModal{{ $task->id }}">
-                                                Edit
-                                            </button>
-
+                                                <button type="button" class="btn btn-warning" data-bs-toggle="modal"
+                                                    data-bs-target="#editModal{{ $task->id }}">
+                                                    Edit
+                                                </button>
+                                            @endif
                                             <!-- Edit Modal -->
                                             <div class="modal fade" id="editModal{{ $task->id }}" tabindex="-1"
                                                 aria-labelledby="editModalLabel{{ $task->id }}" aria-hidden="true">
                                                 <div class="modal-dialog">
                                                     <div class="modal-content">
                                                         <div class="modal-header">
-                                                            <h5 class="modal-title"
-                                                                id="editModalLabel{{ $task->id }}">Edit Task</h5>
-                                                            <button type="button" class="btn-close"
-                                                                data-bs-dismiss="modal" aria-label="Close"></button>
+                                                            <h5 class="modal-title" id="editModalLabel{{ $task->id }}">
+                                                                Edit Task</h5>
+                                                            <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                                                aria-label="Close"></button>
                                                         </div>
                                                         <div class="modal-body">
                                                             {{-- modal content --}}
-                                                            <form action="{{ url('/admin/assigntask/edit') }}/{{ $task->id }}"
+                                                            <form
+                                                                action="{{ url('/admin/assigntask/edit') }}/{{ $task->id }}"
                                                                 method="POST" enctype="multipart/form-data">
                                                                 @csrf
                                                                 <div class="form-group">
@@ -255,9 +177,6 @@
                                                     </div>
                                                 </div>
                                             </div>
-
-
-
                                         </td>
                                     </tr>
                                 @endforeach
@@ -265,6 +184,9 @@
                         </table>
                     </div>
                 </div>
+
+
+
             </div>
         </section>
     </div>

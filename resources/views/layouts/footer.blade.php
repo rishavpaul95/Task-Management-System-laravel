@@ -69,6 +69,8 @@
         });
         // $('#trashTable').DataTable();
     });
+
+
 </script>
 </body>
 

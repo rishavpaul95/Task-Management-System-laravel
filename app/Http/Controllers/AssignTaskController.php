@@ -106,7 +106,7 @@ class AssignTaskController extends Controller
         if ($request->hasFile('taskimage')) {
 
             if ($task->taskimage) {
-                Storage::disk('public')->delete($task->taskimage);
+                Storage::disk()->delete($task->taskimage);
             }
 
 

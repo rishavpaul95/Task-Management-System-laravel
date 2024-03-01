@@ -87,7 +87,7 @@ class TasksController extends Controller
         if ($request->hasFile('taskimage')) {
 
             if ($task->taskimage) {
-                Storage::disk('public')->delete($task->taskimage);
+                Storage::disk()->delete($task->taskimage);
             }
 
 
@@ -105,7 +105,7 @@ class TasksController extends Controller
         $task = Auth::user()->tasks()->find($id);
         if ($task) {
             if ($task->taskimage) {
-                Storage::disk('public')->delete($task->taskimage);
+                Storage::disk()->delete($task->taskimage);
             }
             $task->delete();
         }
