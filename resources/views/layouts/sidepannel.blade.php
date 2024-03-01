@@ -54,7 +54,7 @@
 
                     <li class="nav-item menu-open">
                         <a href="#" class="nav-link">
-                            <i class="nav-icon fas fa-tachometer-alt"></i>
+                            <i class="nav-icon fas fa-user"></i>
                             <p>
                                 User-Panel
                                 <i class="right fas fa-angle-left"></i>
@@ -63,21 +63,28 @@
                         <ul class="nav nav-treeview">
                             <li class="nav-item">
                                 <a href="{{ url('/dash') }}" class="nav-link {{ request()->is('dash') ? 'active' : '' }}">
-                                    <i class="far fa-circle nav-icon"></i>
+                                    <i class="fa fa-tachometer-alt nav-icon"></i>
                                     <p>Dashboard</p>
                                 </a>
                             </li>
                             <li class="nav-item">
                                 <a href="{{ url('/profile') }}"
                                     class="nav-link {{ request()->is('profile') ? 'active' : '' }}">
-                                    <i class="far fa-circle nav-icon"></i>
+                                    <i class="far fa-address-card nav-icon"></i>
                                     <p>Profile</p>
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a href="{{ url('/alltask') }}"
+                                    class="nav-link {{ request()->is('alltask') ? 'active' : '' }}">
+                                    <i class="fa fa-list nav-icon"></i>
+                                    <p>Task Board</p>
                                 </a>
                             </li>
                             <li class="nav-item">
                                 <a href="{{ url('/admin/assigntask') }}"
                                     class="nav-link {{ request()->is('admin/assigntask') ? 'active' : '' }}">
-                                    <i class="far fa-circle nav-icon"></i>
+                                    <i class="fa fa-share nav-icon"></i>
                                     <p>Assign Task</p>
                                 </a>
                             </li>
@@ -102,13 +109,6 @@
                                 </ul>
                             </li>
 
-                            <li class="nav-item">
-                                <a href="{{ url('/alltask') }}"
-                                    class="nav-link {{ request()->is('alltask') ? 'active' : '' }}">
-                                    <i class="far fa-circle nav-icon"></i>
-                                    <p>Task Board</p>
-                                </a>
-                            </li>
                         </ul>
                     </li>
 
