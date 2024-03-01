@@ -40,13 +40,18 @@ Route::middleware([
     Route::get('/tasks/delete/{id}', [TasksController::class, 'delete']);
     Route::post('/tasks/edit/{id}', [TasksController::class, 'edit']);
 
-    Route::get('/alltask',[AllTaskController::class,'index']);
+
 
     // Trash Section
 
     // Route::get('/tasks/permadelete/{id}', [TasksController::class, 'forceddelete']);
     // Route::get('/tasks/restore/{id}', [TasksController::class, 'restore']);
     // Route::get('/tasks/trash', [TasksController::class, 'viewtrash']);
+
+
+    Route::get('/alltask',[AllTaskController::class, 'index']);
+    Route::post('/alltask/edit/{id}',[AllTaskController::class, 'edit']);
+    Route::get('/alltask/delete/{id}',[AllTaskController::class, 'delete']);
 
     Route::get('/admin/assigntask',[AssignTaskController::class, 'index']);
     Route::post('/admin/assigntask/add',[AssignTaskController::class, 'store']);

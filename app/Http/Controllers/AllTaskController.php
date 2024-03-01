@@ -6,6 +6,7 @@ use App\Models\Categories;
 use App\Models\Tasks;
 use App\Models\User;
 use Illuminate\Http\Request;
+use Storage;
 
 class AllTaskController extends Controller
 {
@@ -31,4 +32,53 @@ class AllTaskController extends Controller
         return view('alltask')->with($data);
     }
 
+    public function edit(Request $request, $id)
+    {
+        $task = Tasks::find($id);
+
+        if (!$task) {
+            return redirect('/admin/assigntask')->with('error', 'Task not found');
+        }
+
+        $request->validate([
+            'date' => 'required|date',
+            'topic' => 'required|string',
+            'status' => 'required|in:Completed,Active,Inactive',
+            'category' => 'required|exists:categories,id',
+            'taskimage' => 'image|mimes:jpeg,png,jpg,gif,svg',
+        ]);
+
+        $task->date = $request->input('date');
+        $task->topic = $request->input('topic');
+        $task->status = $request->input('status');
+        $task->category_id = $request->input('category');
+
+
+        if ($request->hasFile('taskimage')) {
+
+            if ($task->taskimage) {
+                Storage::disk()->delete($task->taskimage);
+            }
+
+
+            $imagePath = $request->file('taskimage')->store('taskimage');
+            $task->taskimage = $imagePath;
+        }
+
+        $task->save();
+
+        return redirect('/alltask')->with('success', 'Task updated successfully');
+    }
+    public function delete($id)
+    {
+        $task = Tasks::find($id);
+        if ($task) {
+            if ($task->taskimage) {
+                Storage::disk('public')->delete($task->taskimage);
+            }
+            $task->delete();
+
+        }
+        return redirect()->back();
+    }
 }
