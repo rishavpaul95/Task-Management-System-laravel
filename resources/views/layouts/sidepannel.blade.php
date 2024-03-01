@@ -74,6 +74,13 @@
                                     <p>Profile</p>
                                 </a>
                             </li>
+                            <li class="nav-item">
+                                <a href="{{ url('/admin/assigntask') }}"
+                                    class="nav-link {{ request()->is('admin/assigntask') ? 'active' : '' }}">
+                                    <i class="far fa-circle nav-icon"></i>
+                                    <p>Assign Task</p>
+                                </a>
+                            </li>
                             <li class="nav-item {{ request()->input('categoryFilter') ? 'menu-open' : '' }}">
                                 <a href="#" class="nav-link">
                                     <i class="far fa-circle nav-icon"></i>

@@ -29,7 +29,7 @@ class AssignTaskController extends Controller
         // Get the tasks based on the query
         $tasks = $tasksQuery->get();
 
-        $data = compact('tasks', 'categories', 'selectedCategory', 'users');
+        $data = compact('tasks','currentUser', 'categories', 'selectedCategory', 'users');
 
         return view('adminassigntask')->with($data);
     }
