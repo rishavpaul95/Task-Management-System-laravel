@@ -37,18 +37,23 @@ class ContactController extends Controller
     $lead->zip = $request['zip'];
 
     $receiveProductInfo = $request->has('receive_product_info') ? 1 : 0;
+    $categories = Categories::all();
+    $selectedCategory = request('categoryFilter', 'all');
 
     try {
         if ($receiveProductInfo == 1) {
             $newsletter = new Newsletter();
             $newsletter->subscribe($request->email);
             $lead->save();
-            return view('lead_info_view', compact('lead'));
+
+            $data = compact('categories', 'selectedCategory');
+            return view('lead_info_view', compact('lead','categories', 'selectedCategory'));
 
         } else{
 
             $lead->save();
-            return view('lead_info_view', compact('lead'));
+            $data = compact('categories', 'selectedCategory');
+            return view('lead_info_view', compact('lead','categories', 'selectedCategory'));
         }
 
 

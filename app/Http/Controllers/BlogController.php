@@ -28,9 +28,11 @@ class BlogController extends Controller
             return redirect("/blog");
         }
 
+        $categories = Categories::all();
+        $selectedCategory = request('categoryFilter', 'all');
+
         $post = file_get_contents($path);
-
-        return view('post', ['post' => $post]);
+        $data = compact('categories', 'selectedCategory', 'post');
+        return view('post')->with($data);
     }
-
 }

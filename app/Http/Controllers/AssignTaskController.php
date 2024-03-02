@@ -73,7 +73,7 @@ class AssignTaskController extends Controller
                     . "Due Date: {$task->date}\n"
                     . "Topic: {$task->topic}\n"
                     . "Assigned By: {$assignedbyname}\n"
-                    . "Under Project: {$assignedProject}\n";
+                    . "Under Project: {$assignedProject->category}\n";
 
                 Mail::to($assignedUser->email)->send(new AssignTaskMail($subject, $body));
             }
