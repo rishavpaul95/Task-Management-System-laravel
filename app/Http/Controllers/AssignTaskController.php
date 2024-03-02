@@ -26,8 +26,8 @@ class AssignTaskController extends Controller
             $tasksQuery->where('category_id', $selectedCategory);
         }
 
-        // Get the tasks based on the query
-        $tasks = $tasksQuery->get();
+        //task based on querry // reminder! eager load comments
+        $tasks = $tasksQuery->with('comments')->get();
 
         $data = compact('tasks','currentUser', 'categories', 'selectedCategory', 'users');
 

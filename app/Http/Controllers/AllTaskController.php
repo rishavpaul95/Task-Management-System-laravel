@@ -24,13 +24,15 @@ class AllTaskController extends Controller
             $tasksQuery->where('category_id', $selectedCategory);
         }
 
-        // Get the tasks based on the query
-        $tasks = $tasksQuery->get();
+        // Eager load the 'comments' relationship to avoid the N+1 problem
+        $tasks = $tasksQuery->with('comments')->get();
 
-        $data = compact('tasks', 'currentUser','categories', 'selectedCategory', 'users');
+        $data = compact('tasks', 'currentUser', 'categories', 'selectedCategory', 'users');
 
         return view('alltask')->with($data);
     }
+
+
 
     public function edit(Request $request, $id)
     {

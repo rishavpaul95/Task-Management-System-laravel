@@ -24,7 +24,6 @@ class ViewTaskController extends Controller
         $categoryName = $category ? $category->category : 'Unknown Category';
 
 
-
         $data = compact('categories', 'task', 'assignedBy', 'assignedTo', 'categoryName','comments');
 
         return view('viewtask')->with($data);

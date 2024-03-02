@@ -11,12 +11,11 @@ class CommentController extends Controller
     public function store(Request $request, $taskId)
     {
         $request->validate([
-            'comment' => 'required|string|max:255',
+            'comment' => 'required|string',
         ]);
 
-        $task = Tasks::findOrFail($taskId);
+        $comment = Tasks::findOrFail($taskId);
 
-        // Create a new comment instance
         $comment = new Comment();
         $comment->comment = $request->input('comment');
         $comment->user_id = auth()->user()->id;

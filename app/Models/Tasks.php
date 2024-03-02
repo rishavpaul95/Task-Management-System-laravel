@@ -23,8 +23,8 @@ class Tasks extends Model
         return $this->belongsTo(Categories::class);
     }
 
-    public function comment()
+    public function comments()
     {
-        return $this->hasMany(Comment::class);
+        return $this->hasMany(Comment::class, 'task_id');
     }
 }

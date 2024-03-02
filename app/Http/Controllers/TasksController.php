@@ -3,10 +3,11 @@
 namespace App\Http\Controllers;
 
 use App\Models\Categories;
+use App\Models\Comment;
 use App\Models\Tasks;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\DB;
+
 use Illuminate\Support\Facades\Storage;
 
 
@@ -24,7 +25,8 @@ class TasksController extends Controller
             $tasksQuery->where('category_id', $selectedCategory);
         }
 
-        $tasks = $tasksQuery->get();
+        //task based on querry // reminder! eager load comments
+        $tasks = $tasksQuery->with('comments')->get();
 
         $data = compact('tasks', 'categories', 'selectedCategory');
 
@@ -97,7 +99,7 @@ class TasksController extends Controller
 
         $task->save();
 
-        return redirect('/tasks?categoryFilter='.$task->category_id)->with('success', 'Task updated successfully');
+        return redirect('/tasks?categoryFilter=' . $task->category_id)->with('success', 'Task updated successfully');
     }
 
     public function delete($id)
