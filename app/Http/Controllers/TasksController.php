@@ -97,7 +97,7 @@ class TasksController extends Controller
 
         $task->save();
 
-        return redirect('/tasks')->with('success', 'Task updated successfully');
+        return redirect('/tasks?categoryFilter='.$task->category_id)->with('success', 'Task updated successfully');
     }
 
     public function delete($id)

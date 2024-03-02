@@ -71,8 +71,10 @@
         $('#tasksTable').DataTable({
             "order": [[0, 'asc']]
         });
+        $('#categoriesTable').DataTable();
         // $('#trashTable').DataTable();
     });
+
 
 
 </script>

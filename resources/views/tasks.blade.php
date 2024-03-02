@@ -217,7 +217,12 @@
                                                 </div>
                                             </div>
 
+                                            &nbsp;
 
+                                            <a href="{{ url('/viewtask') }}/{{ $task->id }}" class="btn btn-outline-primary btn-sm">
+                                                <i class="far fa-comments"></i>
+                                                <span class="ms-1">View</span>
+                                            </a>
 
                                         </td>
                                     </tr>
