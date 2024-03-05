@@ -1,17 +1,18 @@
 <?php
 
+use App\Http\Controllers\ProfileController;
+use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AllTaskController;
 use App\Http\Controllers\AssignTaskController;
 use App\Http\Controllers\BlogController;
 use App\Http\Controllers\ContactController;
-use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\TasksController;
-use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\CategoriesController;
 use App\Http\Controllers\CommentController;
 use App\Http\Controllers\Controller;
 use App\Http\Controllers\DashController;
 use App\Http\Controllers\ViewTaskController;
+
 
 /*
 |--------------------------------------------------------------------------
@@ -22,21 +23,21 @@ use App\Http\Controllers\ViewTaskController;
 | routes are loaded by the RouteServiceProvider and all of them will
 | be assigned to the "web" middleware group. Make something great!
 |
- */
-
-
+*/
 
 Route::get('/', [Controller::class, 'index']);
 
 
 Route::middleware([
-    'auth:sanctum',
-    config('jetstream.auth_session'),
-    'verified',
+    'auth', 'verified'
 ])->group(function () {
 
     Route::get('/dash', [DashController::class, 'index']);
-    Route::get('/profile', [ProfileController::class, 'index']);
+
+    Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
+    Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
+    Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
+
     Route::get('/tasks', [TasksController::class, 'index']);
     Route::post('/tasks/add', [TasksController::class, 'store']);
     Route::get('/tasks/delete/{id}', [TasksController::class, 'delete']);
@@ -86,3 +87,7 @@ Route::get('/blog/{post_name}', [BlogController::class, 'show']);
 
 Route::get('/contact', [ContactController::class, 'index']);
 Route::post('/contact', [ContactController::class, 'store']);
+
+
+require __DIR__.'/auth.php';
+

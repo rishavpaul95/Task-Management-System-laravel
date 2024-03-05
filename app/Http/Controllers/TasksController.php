@@ -32,7 +32,7 @@ class TasksController extends Controller
 
         return view('tasks')->with($data);
     }
-    
+
 
     public function store(Request $request)
     {
