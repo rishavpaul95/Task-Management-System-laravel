@@ -45,7 +45,7 @@
                                             aria-label="Close"></button>
                                     </div>
                                     <div class="modal-body">
-                                        <form action="{{ url('/admin/categories/add') }}" method="POST">
+                                        <form action="{{ url('/categories/add') }}" method="POST">
                                             @csrf
                                             <div class="form-group">
                                                 <label for="category">Category:</label>
@@ -67,80 +67,74 @@
                     <hr>
 
                     <!-- Categories Table -->
-                    <table class=" table" id="categoriesTable">
+                    <table class="table" id="categoryTable">
                         <thead>
                             <tr>
-                                <th colspan="5">Category</th>
+                                <th>Category</th>
                                 <th>Actions</th>
                             </tr>
                         </thead>
                         <tbody>
-                            @foreach ($categories as $category)
-                                <tr>
-
-                                    <td colspan="5">{{ $category->category }}</td>
-
-                                    <td><a href= "{{ url('/admin/categories/delete') }}/{{ $category->id }}"><i
-                                                class="fa-solid fa-trash-can"></i></a>
-                                        <!-- Edit Button trigger modal -->
-
-                                        &nbsp;&nbsp;
-
-                                        <i class="fa-regular fa-pen-to-square" type="button"
-                                            class="fa-regular fa-pen-to-square" data-bs-toggle="modal"
-                                            data-bs-target="#editCategoryModal{{ $category->id }}">
-
-                                        </i>
-
-                                        <!-- Edit Modal -->
-                                        <div class="modal fade" id="editCategoryModal{{ $category->id }}" tabindex="-1"
-                                            aria-labelledby="editCategoryModal{{ $category->id }}" aria-hidden="true">
-                                            <div class="modal-dialog">
-                                                <div class="modal-content">
-                                                    <div class="modal-header">
-                                                        <h5 class="modal-title" id="editCategoryModal">Edit Category</h5>
-                                                        <button type="button" class="btn-close" data-bs-dismiss="modal"
-                                                            aria-label="Close"></button>
-                                                    </div>
-                                                    <div class="modal-body">
-                                                        <form
-                                                            action="{{ url('/admin/categories/edit') }}/{{ $category->id }}"
-                                                            method="POST">
-                                                            @csrf
-                                                            <div class="form-group">
-                                                                <label for="category">Category:</label>
-                                                                <input type="text" class="form-control" id="category"
-                                                                    name="category" value="{{ $category->category }}"
-                                                                    required>
-                                                            </div>
-                                                            <button type= "submit" class="btn btn-primary">Edit
-                                                                Category
-                                                            </button>
-                                                        </form>
-                                                    </div>
-                                                </div>
-                                            </div>
-
-                                        </div>
-
-
-                                    </td>
-                                </tr>
-                            @endforeach
+                            {{-- Content coming from DataTable jQuerry --}}
                         </tbody>
                     </table>
 
+                    @foreach ($categories as $category)
+                        <!-- Edit Modal for category {{ $category->id }} -->
+                        <div class="modal fade" id="editCategoryModal{{ $category->id }}" tabindex="-1"
+                            aria-labelledby="editCategoryModal{{ $category->id }}" aria-hidden="true">
+                            <div class="modal-dialog">
+                                <div class="modal-content">
+                                    <div class="modal-header">
+                                        <h5 class="modal-title" id="editCategoryModal">Edit Category</h5>
+                                        <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                            aria-label="Close"></button>
+                                    </div>
+                                    <div class="modal-body">
+                                        <form action="{{ url('/categories/edit') }}/{{ $category->id }}" method="POST">
+                                            @csrf
+                                            <div class="form-group">
+                                                <label for="category">Category:</label>
+                                                <input type="text" class="form-control" id="category" name="category"
+                                                    value="{{ $category->category }}" required>
+                                            </div>
+                                            <button type= "submit" class="btn btn-primary">Edit
+                                                Category
+                                            </button>
+                                        </form>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    @endforeach
 
+                    @push('scripts')
+                        <script>
+                            $(document).ready(function() {
+                                var table = $('#categoryTable').DataTable({
+                                    "paging": true,
+                                    "lengthChange": false,
+                                    "searching": true,
+                                    "info": true,
+                                    "autoWidth": true,
+                                    "responsive": true,
+                                });
+
+                                @foreach ($categories as $category)
+                                    table.row.add([
+                                        '{{ $category->category }}',
+                                        '<a href="{{ url('/categories/delete') }}/{{ $category->id }}"><i class="fa-solid fa-trash-can"></i></a>&nbsp;&nbsp;<i class="fa-regular fa-pen-to-square" type="button" class="fa-regular fa-pen-to-square" data-bs-toggle="modal" data-bs-target="#editCategoryModal{{ $category->id }}"></i>'
+                                    ]).draw(false);
+                                @endforeach
+                            });
+                        </script>
+                    @endpush
                 </div>
-
-
-
-
-
-
-
             </div>
+        </section>
     </div>
 
-    </div>
+
+
+    <!-- /.content-wrapper -->
 @endsection

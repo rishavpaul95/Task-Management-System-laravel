@@ -53,7 +53,7 @@
 
 
                     <li class="nav-item menu-open">
-                        <a href="#" class="nav-link">
+                        <a href="javascript:void(0)" class="nav-link">
                             <i class="nav-icon fas fa-user"></i>
                             <p>
                                 User-Panel
@@ -82,14 +82,14 @@
                                 </a>
                             </li>
                             <li class="nav-item">
-                                <a href="{{ url('/admin/assigntask') }}"
-                                    class="nav-link {{ request()->is('admin/assigntask') ? 'active' : '' }}">
+                                <a href="{{ url('/assigntask') }}"
+                                    class="nav-link {{ request()->is('assigntask') ? 'active' : '' }}">
                                     <i class="fa fa-share nav-icon"></i>
                                     <p>Assign Task</p>
                                 </a>
                             </li>
                             <li class="nav-item {{ request()->input('categoryFilter') ? 'menu-open' : '' }}">
-                                <a href="#" class="nav-link">
+                                <a href="javascript:void(0)" class="nav-link">
                                     <i class="far fa-circle nav-icon"></i>
                                     <p>
                                         Projects
@@ -113,8 +113,8 @@
                     </li>
 
                     @if (auth()->user()->isAdmin())
-                        <li class="nav-item has-treeview {{ request()->is('admin/*') ? 'menu-open' : '' }}">
-                            <a href="#" class="nav-link">
+                        <li class="nav-item menu-open">
+                            <a href="javascript:void(0)" class="nav-link">
                                 <i class="nav-icon fas fa-tachometer-alt"></i>
                                 <p>
                                     Admin-Panel
@@ -123,8 +123,8 @@
                             </a>
                             <ul class="nav nav-treeview">
                                 <li class="nav-item">
-                                    <a href="{{ url('/admin/categories') }}"
-                                        class="nav-link {{ request()->is('admin/categories') ? 'active' : '' }}">
+                                    <a href="{{ url('/categories') }}"
+                                        class="nav-link {{ request()->is('categories') ? 'active' : '' }}">
                                         <i class="far fa-circle nav-icon"></i>
                                         <p>Categories Control</p>
                                     </a>
@@ -153,7 +153,6 @@
         <!-- /.sidebar-menu -->
     </div>
     <!-- /.sidebar -->
-
 
 
 </aside>

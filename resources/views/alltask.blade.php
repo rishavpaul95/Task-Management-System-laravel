@@ -51,7 +51,7 @@
 
                 <div class="row">
                     <div class="col-md-12">
-                        <table id="tasksTable" class="table">
+                        <table id="alltasksTable" class="table">
                             <thead>
                                 <tr>
                                     <th scope="col">Date</th>
@@ -120,7 +120,8 @@
                                                             </div>
                                                             <div class="modal-body">
                                                                 {{-- modal content --}}
-                                                                <form action="{{ url('/alltask/edit') }}/{{ $task->id }}"
+                                                                <form
+                                                                    action="{{ url('/alltask/edit') }}/{{ $task->id }}"
                                                                     method="POST" enctype="multipart/form-data">
                                                                     @csrf
                                                                     <div class="form-group">
@@ -182,7 +183,8 @@
                                             @endif
                                             &nbsp;
 
-                                            <a href="{{ url('/viewtask') }}/{{ $task->id }}" class="btn btn-outline-primary btn-sm">
+                                            <a href="{{ url('/viewtask') }}/{{ $task->id }}"
+                                                class="btn btn-outline-primary btn-sm">
                                                 ({{ $task->comments->count() }})
                                                 <i class="far fa-comments"></i>
                                                 <span class="ms-1">View </span>
@@ -202,4 +204,7 @@
             </div>
         </section>
     </div>
+
+
+
 @endsection

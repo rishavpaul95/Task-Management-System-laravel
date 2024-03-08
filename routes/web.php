@@ -61,26 +61,27 @@ Route::middleware([
 
 
     //Assign task add edit delete
-    Route::get('/admin/assigntask',[AssignTaskController::class, 'index']);
-    Route::post('/admin/assigntask/add',[AssignTaskController::class, 'store']);
-    Route::post('/admin/assigntask/edit/{id}',[AssignTaskController::class, 'edit']);
-    Route::get('/admin/assigntask/delete/{id}',[AssignTaskController::class, 'delete']);
+    Route::get('/assigntask',[AssignTaskController::class, 'index']);
+    Route::post('/assigntask/add',[AssignTaskController::class, 'store']);
+    Route::post('/assigntask/edit/{id}',[AssignTaskController::class, 'edit']);
+    Route::get('/assigntask/delete/{id}',[AssignTaskController::class, 'delete']);
 
 
     //comment posting
     Route::post('/comment/{taskId}', [CommentController::class, 'store']);
-
-    Route::middleware([
-        'admin',
-    ])->group(function () {
-
-        Route::get('/admin/categories', [CategoriesController::class, 'index']);
-        Route::post('/admin/categories/add', [CategoriesController::class, 'store']);
-        Route::get('/admin/categories/delete/{id}', [CategoriesController::class, 'delete']);
-        Route::post('/admin/categories/edit/{id}', [CategoriesController::class, 'edit']);
-
-    });
 });
+
+Route::middleware([
+    'admin','auth', 'verified'
+])->group(function () {
+
+    Route::get('/categories', [CategoriesController::class, 'index']);
+    Route::post('/categories/add', [CategoriesController::class, 'store']);
+    Route::get('/categories/delete/{id}', [CategoriesController::class, 'delete']);
+    Route::post('/categories/edit/{id}', [CategoriesController::class, 'edit']);
+
+});
+
 
 Route::get('/blog', [BlogController::class, 'index']);
 Route::get('/blog/{post_name}', [BlogController::class, 'show']);

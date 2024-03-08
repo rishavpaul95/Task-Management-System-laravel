@@ -6,7 +6,7 @@ use App\Models\Categories;
 use App\Models\Tasks;
 use App\Models\User;
 use Illuminate\Http\Request;
-use Storage;
+use Illuminate\Support\Facades\Storage;
 
 class AllTaskController extends Controller
 {

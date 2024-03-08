@@ -31,7 +31,7 @@ class AssignTaskController extends Controller
 
         $data = compact('tasks','currentUser', 'categories', 'selectedCategory', 'users');
 
-        return view('adminassigntask')->with($data);
+        return view('assigntask')->with($data);
     }
 
 
@@ -78,7 +78,7 @@ class AssignTaskController extends Controller
                 Mail::to($assignedUser->email)->send(new AssignTaskMail($subject, $body));
             }
 
-            return redirect('/admin/assigntask');
+            return redirect('/assigntask');
         } else {
             return redirect('/login')->with('error', 'You must be logged in to perform this action.');
         }
@@ -89,7 +89,7 @@ class AssignTaskController extends Controller
         $task = Tasks::find($id);
 
         if (!$task) {
-            return redirect('/admin/assigntask')->with('error', 'Task not found');
+            return redirect('assigntask')->with('error', 'Task not found');
         }
 
         $request->validate([
@@ -119,7 +119,7 @@ class AssignTaskController extends Controller
 
         $task->save();
 
-        return redirect('/admin/assigntask')->with('success', 'Task updated successfully');
+        return redirect('/assigntask')->with('success', 'Task updated successfully');
     }
 
     public function delete($id)

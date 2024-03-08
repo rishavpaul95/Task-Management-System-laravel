@@ -17,11 +17,9 @@ class AdminOnly
     public function handle(Request $request, Closure $next): Response
     {
 
-        if(Auth::user()?->id != '1')
-        {
+      if(Auth::user()->role !== 0){
         abort(Response::HTTP_FORBIDDEN);
-        }
+      }
         return $next($request);
-
     }
 }

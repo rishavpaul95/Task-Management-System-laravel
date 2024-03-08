@@ -26,7 +26,7 @@
                         </a> --}}
                     </div>
 
-                    <form action="{{ url('/admin/assigntask') }}" method="GET" class="form-inline">
+                    <form action="{{ url('/assigntask') }}" method="GET" class="form-inline">
                         <label for="categoryFilter" class="mr-2">Filter by Project:</label>
                         <select class="form-control" id="categoryFilter" name="categoryFilter"
                             onchange="this.form.submit()">
@@ -59,7 +59,7 @@
                                         aria-label="Close"></button>
                                 </div>
                                 <div class="modal-body">
-                                    <form action="{{ url('/admin/assigntask/add') }}" method="POST"
+                                    <form action="{{ url('/assigntask/add') }}" method="POST"
                                         enctype = 'multipart/form-data'>
                                         @csrf
                                         <div class="form-group">
@@ -131,7 +131,7 @@
 
                 <div class="row">
                     <div class="col-md-12">
-                        <table id="tasksTable" class="table">
+                        <table id="assigntasksTable" class="table">
                             <thead>
                                 <tr>
                                     <th scope="col">Date</th>
