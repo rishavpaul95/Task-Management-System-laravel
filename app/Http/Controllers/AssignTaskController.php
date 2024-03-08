@@ -14,13 +14,17 @@ class AssignTaskController extends Controller
 {
     public function index()
     {
+
+        session(['backUrl' => url()->previous()]);
         $categories = Categories::all();
         $users = User::all();
 
         $selectedCategory = request('categoryFilter', 'all');
         $currentUser = auth()->user();
 
-        $tasksQuery = Tasks::where('assigned_by', $currentUser->id);
+
+        $tasksQuery = Tasks::where('assigned_by', $currentUser->id)
+                        ->where('user_id', '!=', $currentUser->id);
 
         if ($selectedCategory !== 'all') {
             $tasksQuery->where('category_id', $selectedCategory);

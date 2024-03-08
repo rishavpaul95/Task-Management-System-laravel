@@ -69,6 +69,7 @@ Route::middleware([
 
     //comment posting
     Route::post('/comment/{taskId}', [CommentController::class, 'store']);
+    Route::get('/comment/delete/{id}', [CommentController::class, 'delete']);
 });
 
 Route::middleware([

@@ -12,6 +12,7 @@ class AllTaskController extends Controller
 {
     public function index()
     {
+        session(['backUrl' => url()->previous()]);
         $categories = Categories::all();
         $users = User::all();
 

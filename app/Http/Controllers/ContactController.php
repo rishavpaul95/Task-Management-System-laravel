@@ -13,6 +13,7 @@ class ContactController extends Controller
 {
     public function index()
     {
+        session(['backUrl' => url()->previous()]);
         $categories = Categories::all();
         $selectedCategory = request('categoryFilter', 'all');
         $data = compact('categories', 'selectedCategory');

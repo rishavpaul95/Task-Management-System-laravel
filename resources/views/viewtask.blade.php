@@ -8,7 +8,7 @@
     <div class="content-wrapper">
         <nav class="navbar navbar-light bg-light">
             <div class="container-fluid d-flex justify-content-end">
-                <a class="navbar-brand ms-auto" href="/alltask">
+                <a class="navbar-brand ms-auto" href="{{ session('backUrl') }}">
                     <i class="fas fa-arrow-left"></i> Back
                 </a>
             </div>
@@ -77,14 +77,34 @@
 
                                 {{-- Display Existing Comments --}}
                                 @foreach ($comments as $comment)
-                                    <div class="comment mb-3">
-                                        <p><strong>{{ $comment->user->name }}:</strong> {{ $comment->comment }}</p>
+                                    <div class="card mb-3">
+                                        <div class="card-body row">
+                                            <div class="col">
+                                                <h5 class="card-title"><strong>{{ $comment->user->name }}</strong></h5>
+                                                <p class="card-text">{{ $comment->comment }}</p>
+                                            </div>
+
+                                            <div class="col-auto text-right">
+                                                <small
+                                                    class="text-muted d-block">{{ $comment->created_at->diffForHumans() }}</small>
+
+                                                @if (Auth::user()->id == $comment->user_id || Auth::user()->isAdmin())
+                                                    <form action="{{ url('/comment/delete', ['id' => $comment->id]) }}"
+                                                        method="GET">
+                                                        <button type="submit" class="btn btn-danger btn-sm">Delete</button>
+                                                    </form>
+                                                @endif
+                                            </div>
+                                        </div>
                                     </div>
                                 @endforeach
 
-                                {{-- Show a message if there are no comments --}}
                                 @if (count($comments) === 0)
-                                    <p>No comments yet. Be the first to comment!</p>
+                                    <div class="card mb-3">
+                                        <div class="card-body">
+                                            <p class="card-text">No comments yet. Be the first to comment!</p>
+                                        </div>
+                                    </div>
                                 @endif
 
                             </div>

@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+
 use App\Models\Categories;
 use App\Models\Comment;
 use App\Models\Tasks;
@@ -15,6 +16,8 @@ class TasksController extends Controller
 {
     public function index()
     {
+
+        session(['backUrl' => url()->previous()]);
         $categories = Categories::all();
 
         $selectedCategory = request('categoryFilter', 'all');
