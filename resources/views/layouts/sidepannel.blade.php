@@ -90,7 +90,7 @@
                             </li>
                             <li class="nav-item {{ request()->input('categoryFilter') ? 'menu-open' : '' }}">
                                 <a href="javascript:void(0)" class="nav-link">
-                                    <i class="far fa-circle nav-icon"></i>
+                                    <i class="fa-solid fa-diagram-project nav-icon"></i>
                                     <p>
                                         Projects
                                         <i class="right fas fa-angle-left"></i>
@@ -112,7 +112,7 @@
                         </ul>
                     </li>
 
-                    @if (auth()->user()->isAdmin())
+                    @role('admin')
                         <li class="nav-item menu-open">
                             <a href="javascript:void(0)" class="nav-link">
                                 <i class="nav-icon fas fa-tachometer-alt"></i>
@@ -121,18 +121,51 @@
                                     <i class="right fas fa-angle-left"></i>
                                 </p>
                             </a>
-                            <ul class="nav nav-treeview">
+                            <ul class="nav nav-treeview menu-open">
                                 <li class="nav-item">
                                     <a href="{{ url('/categories') }}"
                                         class="nav-link {{ request()->is('categories') ? 'active' : '' }}">
-                                        <i class="far fa-circle nav-icon"></i>
+                                        <i class="fa-solid fa-layer-group sm-nav-icon"></i>
                                         <p>Categories Control</p>
+                                    </a>
+                                </li>
+                                <li class="nav-item {{ request()->is('permissions', 'roles') ? 'menu-open' : '' }}">
+                                    <a href="#" class="nav-link">
+                                        <i class="fa-solid fa-check nav-icon"></i>
+                                        <p>
+                                            Roles/Permissions
+                                            <i class="right fas fa-angle-left"></i>
+                                        </p>
+                                    </a>
+                                    <ul class="nav nav-treeview">
+                                        <li class="nav-item">
+                                            <a href="{{ url('/permissions') }}"
+                                                class="nav-link {{ request()->is('permissions') ? 'active' : '' }}">
+                                                <i class="far fa-dot-circle nav-icon"></i>
+                                                <p>Permissions Control</p>
+                                            </a>
+                                        </li>
+                                        <li class="nav-item">
+                                            <a href="{{ url('/roles') }}"
+                                                class="nav-link {{ request()->is('roles') ? 'active' : '' }}">
+                                                <i class="far fa-dot-circle nav-icon"></i>
+                                                <p>Roles Control</p>
+                                            </a>
+                                        </li>
+                                    </ul>
+                                </li>
+
+                                <li class="nav-item">
+                                    <a href="{{ url('/users') }}"
+                                        class="nav-link {{ request()->is('/users') ? 'active' : '' }}">
+                                        <i class="fa-solid fa-users nav-icon"></i>
+                                        <p>Users Control</p>
                                     </a>
                                 </li>
 
                             </ul>
                         </li>
-                    @endif
+                    @endrole
 
                 @endauth
                 <li class="nav-header">------------------------------</li>

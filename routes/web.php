@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\PermissionController;
 use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AllTaskController;
@@ -11,6 +12,8 @@ use App\Http\Controllers\CategoriesController;
 use App\Http\Controllers\CommentController;
 use App\Http\Controllers\Controller;
 use App\Http\Controllers\DashController;
+use App\Http\Controllers\RoleController;
+use App\Http\Controllers\UserController;
 use App\Http\Controllers\ViewTaskController;
 
 
@@ -27,7 +30,7 @@ use App\Http\Controllers\ViewTaskController;
 
 Route::get('/', [Controller::class, 'index']);
 
-
+// only authenticated users can access these routes
 Route::middleware([
     'auth', 'verified'
 ])->group(function () {
@@ -45,11 +48,7 @@ Route::middleware([
 
 
 
-    // Trash Section
 
-    // Route::get('/tasks/permadelete/{id}', [TasksController::class, 'forceddelete']);
-    // Route::get('/tasks/restore/{id}', [TasksController::class, 'restore']);
-    // Route::get('/tasks/trash', [TasksController::class, 'viewtrash']);
 
 
     Route::get('/viewtask/{id}', [ViewTaskController::class, 'show']);
@@ -73,17 +72,52 @@ Route::middleware([
 });
 
 Route::middleware([
-    'admin','auth', 'verified'
+    'role:admin','auth', 'verified'
 ])->group(function () {
 
+    // Categories
     Route::get('/categories', [CategoriesController::class, 'index']);
     Route::post('/categories/add', [CategoriesController::class, 'store']);
     Route::get('/categories/delete/{id}', [CategoriesController::class, 'delete']);
     Route::post('/categories/edit/{id}', [CategoriesController::class, 'edit']);
 
+
+    //Permissions
+    Route::get('/permissions', [PermissionController::class, 'index']);
+    Route::post('/permissions/add', [PermissionController::class, 'store']);
+    Route::get('/permissions/delete/{id}', [PermissionController::class, 'delete']);
+    Route::post('/permissions/edit/{id}', [PermissionController::class, 'edit']);
+
+
+
+    // Roles
+    Route::get('/roles', [RoleController::class, 'index']);
+    Route::post('/roles/add', [RoleController::class, 'store']);
+    Route::get('/roles/delete/{id}', [RoleController::class, 'delete']);
+    Route::post('/roles/edit/{id}', [RoleController::class, 'edit']);
+    Route::get('/roles/addpermission/{id}', [RoleController::class, 'addPermissionToRole']);
+    Route::put('/roles/addpermission/{id}', [RoleController::class, 'storePermissionToRole']);
+
+    // Users
+    Route::get('/users', [UserController::class, 'index']);
+    Route::post('/users/add', [UserController::class, 'store']);
+    Route::get('/users/delete/{id}', [UserController::class, 'delete']);
+    Route::post('/users/edit/{id}', [UserController::class, 'edit']);
+
+
+
+
+
+
+    // Trash Section
+
+    // Route::get('/tasks/permadelete/{id}', [TasksController::class, 'forceddelete']);
+    // Route::get('/tasks/restore/{id}', [TasksController::class, 'restore']);
+    // Route::get('/tasks/trash', [TasksController::class, 'viewtrash']);
+
 });
 
-
+// accessable to all
 Route::get('/blog', [BlogController::class, 'index']);
 Route::get('/blog/{post_name}', [BlogController::class, 'show']);
 

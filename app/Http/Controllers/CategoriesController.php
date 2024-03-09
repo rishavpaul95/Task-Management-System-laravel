@@ -10,7 +10,7 @@ class CategoriesController extends Controller
 {
     public function index()
     {
-        session(['backUrl' => url()->previous()]);
+
         $categories = Categories::all();
 
         $data = compact('categories');

@@ -18,7 +18,7 @@ class ProfileController extends Controller
 
     public function edit(Request $request): View
     {
-        session(['backUrl' => url()->previous()]);
+
         $categories = Categories::all();
         $selectedCategory = request('categoryFilter', 'all');
         $data = compact('categories', 'selectedCategory');
