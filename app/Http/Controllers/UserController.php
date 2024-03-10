@@ -17,9 +17,23 @@ class UserController extends Controller
         $categories = Categories::all();
         $selectedCategory = request('categoryFilter', 'all');
         $users = User::all();
-        $data = compact('categories', 'selectedCategory','users');
+        $data = compact('categories', 'selectedCategory', 'users');
         return view('users')->with($data);
     }
 
+    public function store(Request $request)
+    {
 
+        $request->validate([
+            'name' => 'required',
+            'email' => 'required|email|unique:users',
+        ]);
+
+        $user = new User();
+        $user->name = $request->name;
+        $user->email = $request->email;
+        $user->password = bcrypt('password');
+        $user->save();
+        return redirect('/users');
+    }
 }

@@ -115,7 +115,7 @@
                     @role('admin')
                         <li class="nav-item menu-open">
                             <a href="javascript:void(0)" class="nav-link">
-                                <i class="nav-icon fas fa-tachometer-alt"></i>
+                                <i class="nav-icon fa-solid fa-lock"></i>
                                 <p>
                                     Admin-Panel
                                     <i class="right fas fa-angle-left"></i>

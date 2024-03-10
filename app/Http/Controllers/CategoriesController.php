@@ -22,7 +22,7 @@ class CategoriesController extends Controller
 
         if (Auth::check()) {
             $request->validate([
-                'category' => 'required|string',
+                'category' => 'required|string|unique:categories',
             ]);
 
             $category = new Categories;
@@ -55,7 +55,7 @@ class CategoriesController extends Controller
         }
 
         $request->validate([
-            'category' => 'required|string',
+            'category' => 'required|string|unique:categories',
         ]);
 
         $category->category = $request->input('category');

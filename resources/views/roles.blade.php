@@ -138,7 +138,7 @@
                         "paging": true,
 
                         "searching": true,
-
+                        "ordering": false,
                         "info": true,
                         "autoWidth": true,
                         "responsive": true,

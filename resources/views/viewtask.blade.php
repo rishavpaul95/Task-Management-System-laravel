@@ -88,7 +88,7 @@
                                                 <small
                                                     class="text-muted d-block">{{ $comment->created_at->diffForHumans() }}</small>
 
-                                                @if (Auth::user()->id == $comment->user_id || Auth::user()->isAdmin())
+                                                @if (auth()->check() && (auth()->user()->id == $comment->user_id || auth()->user()->id == $assignedBy->id))
                                                     <form action="{{ url('/comment/delete', ['id' => $comment->id]) }}"
                                                         method="GET">
                                                         <button type="submit" class="btn btn-danger btn-sm">Delete</button>

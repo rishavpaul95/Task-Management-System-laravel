@@ -94,7 +94,7 @@
                                         </td>
 
                                         <td>
-                                            @if ($currentUser && ($currentUser->isAdmin() || $currentUser->id == $task->user_id))
+                                            @if (Auth::user()->hasRole('admin'))
                                                 <a class="fa-solid fa-trash-can"
                                                     href="{{ url('/alltask/delete') }}/{{ $task->id }}">
 
