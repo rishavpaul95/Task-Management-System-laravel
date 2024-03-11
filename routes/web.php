@@ -134,7 +134,6 @@ Route::post('/contact', [ContactController::class, 'store']);
 
 // Social Auth
 Route::get('/auth/{provider}/redirect', [SocialController::class, 'redirect']);
-
 Route::get('/auth/{provider}/callback', [SocialController::class, 'callback']);
 
 

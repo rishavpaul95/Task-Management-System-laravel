@@ -37,6 +37,12 @@
                                     Do you want to receive updates from us?
                                 </label>
                             </div>
+                            <div class="form-group">
+                                <label>
+                                    <input type="checkbox" name="receive_daily_updates" value="1" checked>
+                                    Do you want to daily updates?
+                                </label>
+                            </div>
 
 
                             <button type="submit" class="btn btn-primary">Contact</button>

@@ -1,11 +1,16 @@
 <?php
 
 namespace App\Services;
+
+// use Illuminate\Bus\Queueable;
+// use Illuminate\Contracts\Queue\ShouldQueue;
 use MailchimpMarketing\ApiClient;
 
 class Newsletter
 {
-    public function subscribe(string $email,string $list = null)
+
+
+    public function subscribe(string $email, string $list = null)
     {
         $mailchimp = new ApiClient();
 
@@ -15,7 +20,7 @@ class Newsletter
         ]);
         $list ??= config('services.mailchimp.lists.subscribers');
 
-        return $mailchimp->lists->addListMember($list,[
+        return $mailchimp->lists->addListMember($list, [
             "email_address" => $email,
             "status" => "subscribed",
         ]);
