@@ -1,7 +1,7 @@
 @extends('layouts.main')
 
 @push('page-title')
-    <title>Tasks</title>
+    <title>Assign Task</title>
 @endpush
 
 @section('main-section')
@@ -10,7 +10,7 @@
             <div class="container-fluid">
                 <div class="row mb-2">
                     <div class="col-sm-6">
-                        <h1 class="m-0">Tasks</h1>
+                        <h1 class="m-0">Tasks Assigned By Me</h1>
                     </div>
                 </div>
             </div>
@@ -26,24 +26,39 @@
                         </a> --}}
                     </div>
 
-
+                    <form action="{{ url('/assigntask') }}" method="GET" class="form-inline">
+                        <label for="categoryFilter" class="mr-2">Filter by Project:</label>
+                        <select class="form-control" id="categoryFilter" name="categoryFilter"
+                            onchange="this.form.submit()">
+                            <option value="all" {{ $selectedCategory === 'all' ? 'selected' : '' }}>All</option>
+                            @foreach ($categories as $category)
+                                <option value="{{ $category->id }}"
+                                    {{ $selectedCategory == $category->id ? 'selected' : '' }}>
+                                    {{ $category->category }}
+                                </option>
+                            @endforeach
+                        </select>
+                    </form>
                 </div>
 
                 <div class="d-flex justify-content-end mb-3">
-                    @can('add_own_task')
-                        @include('modals.tasks.add')
+
+                    @can('assign_task')
+                        @include('modals.assigntasks.assigntask')
                     @endcan
+
                 </div>
 
                 <div class="row">
                     <div class="col-md-12">
-                        <table id="tasksTable" class="table">
+                        <table id="assigntasksTable" class="table">
                             <thead>
                                 <tr>
                                     <th scope="col">Date</th>
                                     <th scope="col">Topic</th>
                                     <th scope="col">Image</th>
                                     <th scope="col">Status</th>
+                                    <th scope="col">Assigned to</th>
                                     <th scope="col">Handle</th>
                                 </tr>
                             </thead>
@@ -70,28 +85,26 @@
                                                 <span class="badge badge-secondary">Inactive</span>
                                             @endif
                                         </td>
+
                                         <td>
-                                            @if ($task->assigned_by == $task->user_id)
-                                                @can('edit_own_task')
-                                                    @include('modals.tasks.edit')
-                                                @endcan
-                                            @elseif ($task->assigned_by != $task->user_id)
-                                                @can('edit_own_assigned_task')
-                                                    @include('modals.tasks.edit')
-                                                @endcan
-                                            @endif
+
+                                            {{ $users->where('id', $task->user_id)->first()->name }}
+
+
+                                        </td>
+
+                                        <td>
+
+                                            @can('delete_assigned_task')
+                                                <a class="fa-solid fa-trash-can"
+                                                    href= "{{ url('/assigntask/delete') }}/{{ $task->id }}"></a>
+                                            @endcan
 
                                             &nbsp;&nbsp;
-                                            @if ($task->assigned_by == $task->user_id)
-                                                @can('delete_own_task')
-                                                    <a class="fa-solid fa-trash-can"
-                                                        href= "{{ url('/tasks/delete') }}/{{ $task->id }}"></a>
-                                                @endcan
-                                            @elseif ($task->assigned_by != $task->user_id)
-                                                @can('delete_own_assigned_task')
-                                                    @include('modals.tasks.edit')
-                                                @endcan
-                                            @endif
+
+                                            @can('edit_assigned_task')
+                                                @include('modals.assigntasks.editmodal')
+                                            @endcan
 
 
                                             &nbsp;
@@ -100,7 +113,7 @@
                                                 class="btn btn-outline-primary btn-sm">
                                                 ({{ $task->comments->count() }})
                                                 <i class="far fa-comments"></i>
-                                                <span class="ms-1">View </span>
+                                                <span class="ms-1">View</span>
                                             </a>
 
                                         </td>

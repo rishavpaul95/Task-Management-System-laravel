@@ -11,7 +11,7 @@ class ViewTaskController extends Controller
 {
     public function show($id)
     {
-
+        session(['backUrl' => url()->previous()]);
         $categories = Categories::all();
         $task = Tasks::find($id);
 

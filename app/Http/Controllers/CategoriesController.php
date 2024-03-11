@@ -10,9 +10,11 @@ class CategoriesController extends Controller
 {
     public function index()
     {
+
         $categories = Categories::all();
-        $selectedCategory = request('categoryFilter', 'all');
-        return view("admincategory")->with(compact('categories', 'selectedCategory'));
+
+        $data = compact('categories');
+        return view("admincategory")->with($data);
     }
 
     public function store(Request $request)
@@ -20,14 +22,14 @@ class CategoriesController extends Controller
 
         if (Auth::check()) {
             $request->validate([
-                'category' => 'required|string',
+                'category' => 'required|string|unique:categories',
             ]);
 
             $category = new Categories;
             $category->category = $request->input('category');
             $category->save();
 
-            return redirect('/admin/categories');
+            return redirect('/categories');
         } else {
             return redirect('/login')->with('error', 'You must be logged in to perform this action.');
         }
@@ -38,9 +40,9 @@ class CategoriesController extends Controller
         $category = Categories::find($id);
         if ($category) {
             $category->delete();
-            return redirect('/admin/categories')->with('success', 'Category deleted successfully');
+            return redirect('/categories')->with('success', 'Category deleted successfully');
         } else {
-            return redirect('/admin/categories')->with('error', 'Category not found');
+            return redirect('/categories')->with('error', 'Category not found');
         }
     }
 
@@ -49,16 +51,16 @@ class CategoriesController extends Controller
 
         $category = Categories::find($id);
         if (!$category) {
-            return redirect('/admin/categories')->with('error', 'Category not found');
+            return redirect('/categories')->with('error', 'Category not found');
         }
 
         $request->validate([
-            'category' => 'required|string',
+            'category' => 'required|string|unique:categories',
         ]);
 
         $category->category = $request->input('category');
         $category->save();
 
-        return redirect('/admin/categories')->with('success', 'Category updated successfully');
+        return redirect('/categories')->with('success', 'Category updated successfully');
     }
 }

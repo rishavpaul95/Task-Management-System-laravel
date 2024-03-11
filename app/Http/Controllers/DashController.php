@@ -8,6 +8,8 @@ use Illuminate\Http\Request;
 class DashController extends Controller
 {
     public function index() {
+
+
         $categories = Categories::all();
         $selectedCategory = request('categoryFilter', 'all');
         $data = compact('categories', 'selectedCategory');

@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+
 use App\Models\Categories;
 use App\Models\Comment;
 use App\Models\Tasks;
@@ -15,11 +16,14 @@ class TasksController extends Controller
 {
     public function index()
     {
+
+        session(['backUrl' => url()->previous()]);
         $categories = Categories::all();
 
         $selectedCategory = request('categoryFilter', 'all');
 
         $tasksQuery = Auth::user()->tasks();
+        $currentUser = auth()->user();
 
         if ($selectedCategory !== 'all') {
             $tasksQuery->where('category_id', $selectedCategory);
@@ -28,7 +32,7 @@ class TasksController extends Controller
         //task based on querry // reminder! eager load comments
         $tasks = $tasksQuery->with('comments')->get();
 
-        $data = compact('tasks', 'categories', 'selectedCategory');
+        $data = compact('tasks', 'categories', 'selectedCategory', 'currentUser');
 
         return view('tasks')->with($data);
     }
