@@ -12,6 +12,7 @@ use Illuminate\Support\Facades\Mail;
 
 class AssignTaskController extends Controller
 {
+
     public function index()
     {
 

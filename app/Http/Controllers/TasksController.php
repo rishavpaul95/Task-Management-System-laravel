@@ -23,6 +23,7 @@ class TasksController extends Controller
         $selectedCategory = request('categoryFilter', 'all');
 
         $tasksQuery = Auth::user()->tasks();
+        $currentUser = auth()->user();
 
         if ($selectedCategory !== 'all') {
             $tasksQuery->where('category_id', $selectedCategory);
@@ -31,7 +32,7 @@ class TasksController extends Controller
         //task based on querry // reminder! eager load comments
         $tasks = $tasksQuery->with('comments')->get();
 
-        $data = compact('tasks', 'categories', 'selectedCategory');
+        $data = compact('tasks', 'categories', 'selectedCategory', 'currentUser');
 
         return view('tasks')->with($data);
     }

@@ -81,13 +81,15 @@
                                     <p>Task Board</p>
                                 </a>
                             </li>
-                            <li class="nav-item">
-                                <a href="{{ url('/assigntask') }}"
-                                    class="nav-link {{ request()->is('assigntask') ? 'active' : '' }}">
-                                    <i class="fa fa-share nav-icon"></i>
-                                    <p>Assign Task</p>
-                                </a>
-                            </li>
+                            @can('assign_task')
+                                <li class="nav-item">
+                                    <a href="{{ url('/assigntask') }}"
+                                        class="nav-link {{ request()->is('assigntask') ? 'active' : '' }}">
+                                        <i class="fa fa-share nav-icon"></i>
+                                        <p>Assign Task</p>
+                                    </a>
+                                </li>
+                            @endcan
                             <li class="nav-item {{ request()->input('categoryFilter') ? 'menu-open' : '' }}">
                                 <a href="javascript:void(0)" class="nav-link">
                                     <i class="fa-solid fa-diagram-project nav-icon"></i>
@@ -97,6 +99,15 @@
                                     </p>
                                 </a>
                                 <ul class="nav nav-treeview">
+                                    @if (isset($categories))
+                                        <li class="nav-item">
+                                            <a href="{{ url('/tasks?categoryFilter=all') }}"
+                                                class="nav-link {{ request()->get('categoryFilter') == 'all' ? 'active' : '' }}">
+                                                <i class="far fa-dot-circle nav-icon"></i>
+                                                <p>All My Tasks</p>
+                                            </a>
+                                        </li>
+                                    @endif
                                     @foreach ($categories as $category)
                                         <li class="nav-item">
                                             <a href="{{ url('/tasks?categoryFilter=' . $category->id) }}"

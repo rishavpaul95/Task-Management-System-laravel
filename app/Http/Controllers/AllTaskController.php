@@ -10,6 +10,8 @@ use Illuminate\Support\Facades\Storage;
 
 class AllTaskController extends Controller
 {
+
+
     public function index()
     {
         session(['backUrl' => url()->previous()]);

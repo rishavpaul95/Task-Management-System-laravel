@@ -15,6 +15,7 @@ use App\Http\Controllers\DashController;
 use App\Http\Controllers\RoleController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\ViewTaskController;
+use App\Http\Controllers\SocialController;
 
 
 /*
@@ -28,6 +29,9 @@ use App\Http\Controllers\ViewTaskController;
 |
 */
 
+
+
+
 Route::get('/', [Controller::class, 'index']);
 
 // only authenticated users can access these routes
@@ -35,12 +39,15 @@ Route::middleware([
     'auth', 'verified'
 ])->group(function () {
 
+    //Dashboard
     Route::get('/dash', [DashController::class, 'index']);
 
+    //Profile
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 
+    //Tasks
     Route::get('/tasks', [TasksController::class, 'index']);
     Route::post('/tasks/add', [TasksController::class, 'store']);
     Route::get('/tasks/delete/{id}', [TasksController::class, 'delete']);
@@ -48,23 +55,24 @@ Route::middleware([
 
 
 
-
-
-
+    //View Task
     Route::get('/viewtask/{id}', [ViewTaskController::class, 'show']);
 
-    //View edit delete Task Board
-    Route::get('/alltask',[AllTaskController::class, 'index']);
-    Route::post('/alltask/edit/{id}',[AllTaskController::class, 'edit']);
-    Route::get('/alltask/delete/{id}',[AllTaskController::class, 'delete']);
+    //Task Board
+    Route::get('/alltask', [AllTaskController::class, 'index']);
+    Route::post('/alltask/edit/{id}', [AllTaskController::class, 'edit']);
+    Route::get('/alltask/delete/{id}', [AllTaskController::class, 'delete']);
 
 
-    //Assign task add edit delete
-    Route::get('/assigntask',[AssignTaskController::class, 'index']);
-    Route::post('/assigntask/add',[AssignTaskController::class, 'store']);
-    Route::post('/assigntask/edit/{id}',[AssignTaskController::class, 'edit']);
-    Route::get('/assigntask/delete/{id}',[AssignTaskController::class, 'delete']);
+    //Assign task
+    Route::group(['middleware' => ['can:assign_task']], function () {
 
+        Route::get('/assigntask', [AssignTaskController::class, 'index']);
+        Route::post('/assigntask/add', [AssignTaskController::class, 'store']);
+        Route::post('/assigntask/edit/{id}', [AssignTaskController::class, 'edit']);
+        Route::get('/assigntask/delete/{id}', [AssignTaskController::class, 'delete']);
+
+    });
 
     //comment posting
     Route::post('/comment/{taskId}', [CommentController::class, 'store']);
@@ -72,7 +80,7 @@ Route::middleware([
 });
 
 Route::middleware([
-    'role:admin','auth', 'verified'
+    'role:admin', 'auth', 'verified'
 ])->group(function () {
 
     // Categories
@@ -99,10 +107,9 @@ Route::middleware([
     Route::put('/roles/addpermission/{id}', [RoleController::class, 'storePermissionToRole']);
 
     // Users
-    Route::get('/users', [UserController::class, 'index']);
-    Route::post('/users/add', [UserController::class, 'store']);
-    Route::get('/users/delete/{id}', [UserController::class, 'delete']);
-    Route::post('/users/edit/{id}', [UserController::class, 'edit']);
+
+    Route::resource('/users', UserController::class);
+    Route::get('users/{userId}/delete', [UserController::class, 'destroy']);
 
 
 
@@ -125,5 +132,11 @@ Route::get('/contact', [ContactController::class, 'index']);
 Route::post('/contact', [ContactController::class, 'store']);
 
 
-require __DIR__.'/auth.php';
+// Social Auth
+Route::get('/auth/{provider}/redirect', [SocialController::class, 'redirect']);
 
+Route::get('/auth/{provider}/callback', [SocialController::class, 'callback']);
+
+
+
+require __DIR__ . '/auth.php';

@@ -46,27 +46,19 @@
                     </div>
                 </div>
 
-                @if (auth()->check() && (auth()->user()->id == $assignedBy->id || auth()->user()->id == $assignedTo->id))
-                    <div class="row justify-content-center">
-                        <div class="col-md-11">
-
-                            <div class="card">
-                                <h4 class="card-title m-3">Post a Comment</h4>
-                                <div class="card-body">
-
-                                    <form action="{{ url('/comment') }}/{{ $task->id }}" method="post">
-                                        @csrf
-                                        <div class="mb-3">
-                                            <label for="comment" class="form-label">Your Comment:</label>
-                                            <textarea class="form-control" id="comment" name="comment" rows="3" required></textarea>
-                                        </div>
-                                        <button type="submit" class="btn btn-primary">Post Comment</button>
-                                    </form>
-
-                                </div>
-                            </div>
-                        </div>
-                    </div>
+                @if (auth()->user()->id == $assignedBy->id)
+                    {{-- person who assigned the task can comment !! no requirement for can !! --}}
+                    @include('comments.postcomment')
+                @elseif (auth()->user()->id == $assignedTo->id)
+                    {{-- person who the task is assigned to can comment --}}
+                    @can('comment_own_task')
+                        @include('comments.postcomment')
+                    @endcan
+                @elseif(auth()->user()->id != $task->user_id && auth()->user()->id != $task->assigned_to)
+                    {{-- person who is not involved in the task can comment --}}
+                    @can('comment_other_task')
+                        @include('comments.postcomment')
+                    @endcan
                 @endif
                 <div class="row justify-content-center">
                     <div class="col-md-10">
@@ -88,31 +80,39 @@
                                                 <small
                                                     class="text-muted d-block">{{ $comment->created_at->diffForHumans() }}</small>
 
-                                                @if (auth()->check() && (auth()->user()->id == $comment->user_id || auth()->user()->id == $assignedBy->id))
+                                                @if (auth()->user()->id == $comment->user_id)
+                                                    {{-- own comment --}}
+                                                    @can('comment_own_delete')
+                                                        <form action="{{ url('/comment/delete', ['id' => $comment->id]) }}"
+                                                            method="GET">
+                                                            <button type="submit" class="btn btn-danger btn-sm">Delete</button>
+                                                        </form>
+                                                    @endcan
+                                                @endif
+                                                @role('admin')
                                                     <form action="{{ url('/comment/delete', ['id' => $comment->id]) }}"
                                                         method="GET">
                                                         <button type="submit" class="btn btn-danger btn-sm">Delete</button>
                                                     </form>
-                                                @endif
+                                                @endrole
                                             </div>
                                         </div>
-                                    </div>
-                                @endforeach
+                                    @endforeach
 
-                                @if (count($comments) === 0)
-                                    <div class="card mb-3">
-                                        <div class="card-body">
-                                            <p class="card-text">No comments yet. Be the first to comment!</p>
+                                    @if (count($comments) === 0)
+                                        <div class="card mb-3">
+                                            <div class="card-body">
+                                                <p class="card-text">No comments yet. Be the first to comment!</p>
+                                            </div>
                                         </div>
-                                    </div>
-                                @endif
+                                    @endif
 
+                                </div>
                             </div>
                         </div>
                     </div>
-                </div>
 
-            </div>
-        </section>
-    </div>
-@endsection
+                </div>
+            </section>
+        </div>
+    @endsection
