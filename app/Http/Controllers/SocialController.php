@@ -19,13 +19,12 @@ class SocialController extends Controller
         $user = Socialite::driver($provider)->user();
 
 
-
         $user = User::firstOrCreate([
             'email' => $user->getEmail()
         ], [
             'name' => $user->getName(),
             'password' => bcrypt('password')
-        ]);
+        ])->assignRole('employee');
 
 
         Auth::login($user, true);
