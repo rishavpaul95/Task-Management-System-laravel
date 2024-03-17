@@ -109,6 +109,10 @@
                                                 @can('edit_assigned_task')
                                                     @include('modals.alltasks.editmodal')
                                                 @endcan
+                                            @elseif ($task->assigned_by != $task->user_id)
+                                                @can('edit_own_assigned_task')
+                                                    @include('modals.alltasks.editmodal')
+                                                @endcan
                                             @endif
 
 
@@ -130,6 +134,12 @@
                                                 {{-- user assigned task     --}}
                                             @elseif ($currentUser->id == $task->assigned_by)
                                                 @can('delete_assigned_task')
+                                                    <a class="fa-solid fa-trash-can"
+                                                        href="{{ url('/alltask/delete') }}/{{ $task->id }}">
+                                                    </a>
+                                                @endcan
+                                            @elseif ($task->assigned_by != $task->user_id)
+                                                @can('delete_own_assigned_task')
                                                     <a class="fa-solid fa-trash-can"
                                                         href="{{ url('/alltask/delete') }}/{{ $task->id }}">
                                                     </a>

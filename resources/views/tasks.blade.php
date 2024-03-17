@@ -89,7 +89,8 @@
                                                 @endcan
                                             @elseif ($task->assigned_by != $task->user_id)
                                                 @can('delete_own_assigned_task')
-                                                    @include('modals.tasks.edit')
+                                                    <a class="fa-solid fa-trash-can"
+                                                        href= "{{ url('/tasks/delete') }}/{{ $task->id }}"></a>
                                                 @endcan
                                             @endif
 
