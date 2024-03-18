@@ -65,7 +65,7 @@ class UserController extends Controller
 
         $categories = Categories::all();
         $selectedCategory = request('categoryFilter', 'all');
-        $roles = Role::pluck('name', 'name')->all();
+        $roles = Role::where('name', '!=', 'super-admin')->pluck('name', 'name')->all();
         $userRoles = $user->roles->pluck('name', 'name')->all();
         return view('edituser', [
             'user' => $user,
