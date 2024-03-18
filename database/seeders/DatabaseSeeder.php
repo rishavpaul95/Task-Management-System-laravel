@@ -15,9 +15,10 @@ class DatabaseSeeder extends Seeder
     {
         // \App\Models\User::factory(10)->create();
 
-        $this->call(AdminSeeder::class);
+
         $this->call(RoleSeeder::class);
         $this->call(PermissionsSeeder::class);
+        $this->call(AdminSeeder::class);
 
         // \App\Models\User::factory()->create([
         //     'name' => 'Test User',

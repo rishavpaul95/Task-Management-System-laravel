@@ -26,6 +26,7 @@
                             control of your company's productivity and efficiency with TaskMan, the ultimate tool
                             for successful task management and company</p>
 
+
                         <div class="d-grid gap-2 d-md-flex justify-content-md-start">
                             @auth
                             @else

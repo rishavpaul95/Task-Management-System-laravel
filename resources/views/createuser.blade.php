@@ -68,7 +68,8 @@
                                         </div>
                                         <div class="mb-3">
                                             <label for="">Roles</label>
-                                            <select name="roles[]" class="form-control" multiple>
+                                            <select name="roles[]" class="select2" multiple="multiple"
+                                            data-placeholder="Select a Role" style="width: 100%;">
 
                                                 @foreach ($roles as $role)
                                                 <option value="{{ $role }}">{{ $role }}</option>
@@ -88,6 +89,22 @@
 
             </div>
         </section>
+
+        @push('scripts')
+            <script>
+                $(function() {
+                    //Initialize Select2 Elements
+                    $('.select2').select2()
+                });
+                @if (session('success'))
+                    toastr.success('{{ session('success') }}', 'Success');
+                @endif
+
+                @if (session('error'))
+                    toastr.error('{{ session('error') }}', 'Error');
+                @endif
+            </script>
+        @endpush
 
     </div>
 

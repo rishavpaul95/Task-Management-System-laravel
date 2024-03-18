@@ -123,7 +123,7 @@
                         </ul>
                     </li>
 
-                    @role('admin')
+                    @role('admin|super-admin')
                         <li class="nav-item menu-open">
                             <a href="javascript:void(0)" class="nav-link">
                                 <i class="nav-icon fa-solid fa-lock"></i>
@@ -149,13 +149,15 @@
                                         </p>
                                     </a>
                                     <ul class="nav nav-treeview">
-                                        <li class="nav-item">
-                                            <a href="{{ url('/permissions') }}"
-                                                class="nav-link {{ request()->is('permissions') ? 'active' : '' }}">
-                                                <i class="far fa-dot-circle nav-icon"></i>
-                                                <p>Permissions Control</p>
-                                            </a>
-                                        </li>
+                                        @role('super-admin')
+                                            <li class="nav-item">
+                                                <a href="{{ url('/permissions') }}"
+                                                    class="nav-link {{ request()->is('permissions') ? 'active' : '' }}">
+                                                    <i class="far fa-dot-circle nav-icon"></i>
+                                                    <p>Permissions Control</p>
+                                                </a>
+                                            </li>
+                                        @endrole
                                         <li class="nav-item">
                                             <a href="{{ url('/roles') }}"
                                                 class="nav-link {{ request()->is('roles') ? 'active' : '' }}">
@@ -163,16 +165,17 @@
                                                 <p>Roles Control</p>
                                             </a>
                                         </li>
+                                        <li class="nav-item">
+                                            <a href="{{ url('/users') }}"
+                                                class="nav-link {{ request()->is('/users') ? 'active' : '' }}">
+                                                <i class="fa-solid fa-users nav-icon"></i>
+                                                <p>Users Control</p>
+                                            </a>
+                                        </li>
                                     </ul>
                                 </li>
 
-                                <li class="nav-item">
-                                    <a href="{{ url('/users') }}"
-                                        class="nav-link {{ request()->is('/users') ? 'active' : '' }}">
-                                        <i class="fa-solid fa-users nav-icon"></i>
-                                        <p>Users Control</p>
-                                    </a>
-                                </li>
+
 
                             </ul>
                         </li>

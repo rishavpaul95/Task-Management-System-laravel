@@ -8,7 +8,7 @@
             <div class="container-fluid">
                 <div class="row mb-2">
                     <div class="col-sm-6">
-                        <h1 class="m-0">Profile</h1>
+                        <h1 class="m-0">Company Registration</h1>
                     </div><!-- /.col -->
                 </div><!-- /.row -->
             </div><!-- /.container-fluid -->
@@ -59,31 +59,29 @@
                                 <div class="media">
                                     <div class="bd-wizard-step-icon"><i class="mdi mdi-bank"></i></div>
                                     <div class="media-body">
-                                        <div class="bd-wizard-step-title">Employ Details</div>
+                                        <div class="bd-wizard-step-title">Admin Details</div>
                                         <div class="bd-wizard-step-subtitle">Step 2</div>
                                     </div>
                                 </div>
                             </h3>
                             <section>
                                 <div class="form-group">
-                                    <label for="designation">Designation</label>
-                                    <input type="text" name="designation" id="designation" class="form-control"
-                                        placeholder="Designation">
+                                    <label for="">Name</label>
+                                    <input type="text" name="name" class="form-control" placeholder="Name" />
                                 </div>
                                 <div class="form-group">
-                                    <label for="department">Department</label>
-                                    <input type="text" name="department" id="department" class="form-control"
-                                        placeholder="Department">
+                                    <label for="">Email</label>
+                                    <input type="text" name="email" class="form-control" placeholder="Email">
+                                </div>
+
+                                <div class="form-group">
+                                    <label for="">Password</label>
+                                    <input type="password" name="password" class="form-control" placeholder="Password">
                                 </div>
                                 <div class="form-group">
-                                    <label for="employeeNumber">Employee Number</label>
-                                    <input type="text" name="employeeNumber" id="employeeNumber" class="form-control"
-                                        placeholder="Employee Number">
-                                </div>
-                                <div class="form-group">
-                                    <label for="workEmailAddress">Work Email Address</label>
-                                    <input type="email" name="workEmailAddress" id="workEmailAddress" class="form-control"
-                                        placeholder="Work Email Address">
+                                    <label for="">Confirm Password</label>
+                                    <input type="password" name="password_confirmation" class="form-control"
+                                        placeholder="Confirm Password">
                                 </div>
                             </section>
                             <h3>

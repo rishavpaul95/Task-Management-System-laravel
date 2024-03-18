@@ -18,7 +18,9 @@ class UserController extends Controller
     {
         $categories = Categories::all();
         $selectedCategory = request('categoryFilter', 'all');
-        $users = User::all();
+        $users = User::whereDoesntHave('roles', function ($query) {
+            $query->where('name', 'super-admin');
+        })->get();
         $roles = Role::pluck('name', 'name')->all();
         $data = compact('categories', 'selectedCategory', 'users', 'roles');
         return view('users')->with($data);
@@ -29,7 +31,7 @@ class UserController extends Controller
     {
         $categories = Categories::all();
         $selectedCategory = request('categoryFilter', 'all');
-        $roles = Role::pluck('name', 'name')->all();
+        $roles = Role::where('name', '!=', 'super-admin')->pluck('name', 'name')->all();
         return view('createuser', [
             'roles' => $roles,
             'categories' => $categories,

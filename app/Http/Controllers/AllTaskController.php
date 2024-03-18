@@ -16,7 +16,9 @@ class AllTaskController extends Controller
     {
         session(['backUrl' => url()->previous()]);
         $categories = Categories::all();
-        $users = User::all();
+        $users = User::whereDoesntHave('roles', function ($query) {
+            $query->where('name', 'super-admin');
+        })->get();
 
         $selectedCategory = request('categoryFilter', 'all');
         $currentUser = auth()->user();

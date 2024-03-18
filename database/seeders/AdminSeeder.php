@@ -7,6 +7,7 @@ use Illuminate\Support\Facades\Hash;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 
+
 class AdminSeeder extends Seeder
 {
     /**
@@ -16,11 +17,13 @@ class AdminSeeder extends Seeder
      */
     public function run()
     {
-       User::create([
-            'name' => 'admin',
-            'email' => 'admin@admin.com',
+
+
+        User::create([
+            'name' => 'Rishav Paul',
+            'email' => 'taskman.rishav@gmail.com',
             'email_verified_at' => now(),
             'password' => Hash::make('password'), // password
-        ])->assignRole('admin');
+        ])->assignRole('super-admin');
     }
 }

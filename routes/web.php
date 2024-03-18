@@ -37,6 +37,16 @@ Route::get('/', [Controller::class, 'index']);
 
 Route::get('/register-company ', [RegisterCompanyController::class, 'index']);
 
+
+Route::middleware([
+    'auth'
+])->group(function () {
+
+    Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
+    Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
+    Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
+});
+
 // only authenticated users can access these routes
 Route::middleware([
     'auth', 'verified'
@@ -46,9 +56,7 @@ Route::middleware([
     Route::get('/dash', [DashController::class, 'index']);
 
     //Profile
-    Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
-    Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
-    Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
+
 
     //Tasks
     Route::get('/tasks', [TasksController::class, 'index']);
@@ -74,7 +82,6 @@ Route::middleware([
         Route::post('/assigntask/add', [AssignTaskController::class, 'store']);
         Route::post('/assigntask/edit/{id}', [AssignTaskController::class, 'edit']);
         Route::get('/assigntask/delete/{id}', [AssignTaskController::class, 'delete']);
-
     });
 
     //comment posting
@@ -83,7 +90,7 @@ Route::middleware([
 });
 
 Route::middleware([
-    'role:admin', 'auth', 'verified'
+    'role:admin|super-admin', 'auth', 'verified'
 ])->group(function () {
 
     // Categories

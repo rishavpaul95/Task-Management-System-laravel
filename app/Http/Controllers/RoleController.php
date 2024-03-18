@@ -16,7 +16,7 @@ class RoleController extends Controller
         $categories = Categories::all();
         $selectedCategory = request('categoryFilter', 'all');
 
-        $roles = Role::all();
+        $roles = Role::where('name', '!=', 'super-admin')->get();
         $data = compact('categories', 'selectedCategory', 'roles');
         return view('roles')->with($data);
     }
