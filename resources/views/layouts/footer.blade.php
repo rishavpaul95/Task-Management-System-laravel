@@ -27,9 +27,9 @@
     integrity="sha384-0pUGZvbkm6XF6gxjEnlmuGrJXVbNuzT9qBBavbLwCsOGabYfZo0T0to5eqruptLy" crossorigin="anonymous">
 </script>
 <!-- SweetAlert2 -->
-<script src="plugins/sweetalert2/sweetalert2.min.js"></script>
+<script src="/plugins/sweetalert2/sweetalert2.min.js"></script>
 <!-- Toastr -->
-<script src="plugins/toastr/toastr.min.js"></script>
+<script src="/plugins/toastr/toastr.min.js"></script>
 
 
 <!-- jQuery UI 1.11.4 -->

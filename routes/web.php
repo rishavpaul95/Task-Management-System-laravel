@@ -12,6 +12,7 @@ use App\Http\Controllers\CategoriesController;
 use App\Http\Controllers\CommentController;
 use App\Http\Controllers\Controller;
 use App\Http\Controllers\DashController;
+use App\Http\Controllers\RegisterCompanyController;
 use App\Http\Controllers\RoleController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\ViewTaskController;
@@ -33,6 +34,8 @@ use App\Http\Controllers\SocialController;
 
 
 Route::get('/', [Controller::class, 'index']);
+
+Route::get('/register-company ', [RegisterCompanyController::class, 'index']);
 
 // only authenticated users can access these routes
 Route::middleware([

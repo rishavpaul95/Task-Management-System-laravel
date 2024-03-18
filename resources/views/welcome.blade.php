@@ -1,7 +1,6 @@
 @extends('layouts.main')
-@push('page-title')
-    <title>Welcome</title>
-@endpush
+
+
 @section('main-section')
     <!-- Content Wrapper. Contains page content -->
     <div class="content-wrapper">
@@ -30,7 +29,9 @@
                         <div class="d-grid gap-2 d-md-flex justify-content-md-start">
                             @auth
                             @else
-                                <button type="button" class="btn btn-success btn-lg px-4 me-md-2">Register</button>
+                                <a href="/register-company">
+                                    <button type="button" class="btn btn-success btn-lg px-4 me-md-2">Register</button>
+                                </a>
                             @endauth
                         </div>
                     </div>
@@ -40,5 +41,17 @@
             </div>
         </section>
 
-    </div>
+    @push('scripts')
+        <script>
+            @if (session('success'))
+                toastr.success('{{ session('success') }}', 'Success');
+            @endif
+
+            @if (session('error'))
+                toastr.error('{{ session('error') }}', 'Error');
+            @endif
+        </script>
+    @endpush
+
+</div>
 @endsection

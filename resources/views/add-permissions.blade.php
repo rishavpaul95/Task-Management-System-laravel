@@ -39,7 +39,7 @@
                                 </div>
                                 <div class="card-body">
 
-                                    <form action="{{ url('/roles/addpermission') }}/{{$role->id}}" method="POST">
+                                    <form action="{{ url('/roles/addpermission') }}/{{ $role->id }}" method="POST">
                                         @csrf
                                         @method('PUT')
 
@@ -54,8 +54,12 @@
                                                 @foreach ($permissions as $permission)
                                                     <div class="col-md-12">
                                                         <div class="form-check">
-                                                            <input class="form-check-input" type="checkbox" name="permission[]" value="{{ $permission->name }}" {{ in_array($permission->id, $rolePermissions) ? 'checked' : '' }} id="permissionCheck{{ $permission->id }}">
-                                                            <label class="form-check-label" for="permissionCheck{{ $permission->id }}">
+                                                            <input class="form-check-input" type="checkbox"
+                                                                name="permission[]" value="{{ $permission->name }}"
+                                                                {{ in_array($permission->id, $rolePermissions) ? 'checked' : '' }}
+                                                                id="permissionCheck{{ $permission->id }}">
+                                                            <label class="form-check-label"
+                                                                for="permissionCheck{{ $permission->id }}">
                                                                 {{ $permission->name }}
                                                             </label>
                                                         </div>
@@ -81,5 +85,16 @@
 
             </div>
         </section>
+        @push('scripts')
+            <script>
+                @if (session('success'))
+                    toastr.success('{{ session('success') }}', 'Success');
+                @endif
+
+                @if (session('error'))
+                    toastr.error('{{ session('error') }}', 'Error');
+                @endif
+            </script>
+        @endpush
     </div>
 @endsection

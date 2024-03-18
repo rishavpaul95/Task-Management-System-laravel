@@ -16,19 +16,15 @@ class SocialController extends Controller
 
     public function callback($provider)
     {
-        $user = Socialite::driver($provider)->user();
+        $socialiteUser = Socialite::driver($provider)->user();
 
+        $user = User::firstWhere('email', $socialiteUser->getEmail());
 
-        $user = User::firstOrCreate([
-            'email' => $user->getEmail()
-        ], [
-            'name' => $user->getName(),
-            'password' => bcrypt('password')
-        ])->assignRole('employee');
+        if ($user) {
+            Auth::login($user, true);
+            return redirect()->to('/')->with('success', 'Welcome back!');
+        }
 
-
-        Auth::login($user, true);
-
-        return redirect()->to('/');
+        return redirect()->to('/register')->with('error', 'User not found. Please register.');
     }
 }

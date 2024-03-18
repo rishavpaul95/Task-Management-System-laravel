@@ -97,22 +97,35 @@
                                                 @endrole
                                             </div>
                                         </div>
-                                    @endforeach
+                                @endforeach
 
-                                    @if (count($comments) === 0)
-                                        <div class="card mb-3">
-                                            <div class="card-body">
-                                                <p class="card-text">No comments yet. Be the first to comment!</p>
-                                            </div>
+                                @if (count($comments) === 0)
+                                    <div class="card mb-3">
+                                        <div class="card-body">
+                                            <p class="card-text">No comments yet. Be the first to comment!</p>
                                         </div>
-                                    @endif
+                                    </div>
+                                @endif
 
-                                </div>
                             </div>
                         </div>
                     </div>
-
                 </div>
-            </section>
-        </div>
-    @endsection
+
+            </div>
+        </section>
+
+
+        @push('scripts')
+            <script>
+                @if (session('success'))
+                    toastr.success('{{ session('success') }}', 'Success');
+                @endif
+
+                @if (session('error'))
+                    toastr.error('{{ session('error') }}', 'Error');
+                @endif
+            </script>
+        @endpush
+    </div>
+@endsection

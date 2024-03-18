@@ -46,7 +46,8 @@
 
                             <!-- reCAPTCHA -->
                             <div class="form-group text-center">
-                                <div class="g-recaptcha d-inline-block" data-sitekey="{{ env('RECAPTCHA_SITE_KEY') }}"></div>
+                                <div class="g-recaptcha d-inline-block" data-sitekey="{{ env('RECAPTCHA_SITE_KEY') }}">
+                                </div>
                             </div>
 
                             <button type="submit" class="btn btn-primary btn-block">Contact</button>
@@ -55,6 +56,16 @@
                 </div>
             </div>
         </section>
+        @push('scripts')
+            <script>
+                @if (session('success'))
+                    toastr.success('{{ session('success') }}', 'Success');
+                @endif
 
+                @if (session('error'))
+                    toastr.error('{{ session('error') }}', 'Error');
+                @endif
+            </script>
+        @endpush
     </div>
 @endsection

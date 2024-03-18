@@ -1,6 +1,6 @@
 @extends('layouts.main')
 @push('page-title')
-<title>Edit User</title>
+    <title>Edit User</title>
 @endpush
 @section('main-section')
     <!-- Content Wrapper. Contains page content -->
@@ -8,18 +8,18 @@
         <!-- Content Header (Page header) -->
         <div class="content-header">
             <div class="container-fluid">
-              <div class="row mb-2">
-                <div class="col-sm-6">
-                  <h1 class="m-0">Edit User</h1>
-                </div><!-- /.col -->
-                <div class="col-sm-6">
+                <div class="row mb-2">
+                    <div class="col-sm-6">
+                        <h1 class="m-0">Edit User</h1>
+                    </div><!-- /.col -->
+                    <div class="col-sm-6">
 
 
 
-                </div><!-- /.col -->
-              </div><!-- /.row -->
+                    </div><!-- /.col -->
+                </div><!-- /.row -->
             </div><!-- /.container-fluid -->
-          </div>
+        </div>
         <!-- /.content-header -->
 
         <section>
@@ -32,11 +32,11 @@
                         <div class="col-md-12">
 
                             @if ($errors->any())
-                            <ul class="alert alert-warning">
-                                @foreach ($errors->all() as $error)
-                                    <li>{{$error}}</li>
-                                @endforeach
-                            </ul>
+                                <ul class="alert alert-warning">
+                                    @foreach ($errors->all() as $error)
+                                        <li>{{ $error }}</li>
+                                    @endforeach
+                                </ul>
                             @endif
 
                             <div class="card">
@@ -46,37 +46,44 @@
                                     </h4>
                                 </div>
                                 <div class="card-body">
-                                    <form action="{{ url('users/'.$user->id) }}" method="POST">
+                                    <form action="{{ url('users/' . $user->id) }}" method="POST">
                                         @csrf
                                         @method('PUT')
 
                                         <div class="mb-3">
                                             <label for="">Name</label>
-                                            <input type="text" name="name" value="{{ $user->name }}" class="form-control" />
-                                            @error('name') <span class="text-danger">{{ $message }}</span> @enderror
+                                            <input type="text" name="name" value="{{ $user->name }}"
+                                                class="form-control" />
+                                            @error('name')
+                                                <span class="text-danger">{{ $message }}</span>
+                                            @enderror
                                         </div>
                                         <div class="mb-3">
                                             <label for="">Email</label>
-                                            <input type="text" name="email" readonly value="{{ $user->email }}" class="form-control" />
+                                            <input type="text" name="email" readonly value="{{ $user->email }}"
+                                                class="form-control" />
                                         </div>
                                         <div class="mb-3">
                                             <label for="">Password</label>
                                             <input type="text" name="password" class="form-control" />
-                                            @error('password') <span class="text-danger">{{ $message }}</span> @enderror
+                                            @error('password')
+                                                <span class="text-danger">{{ $message }}</span>
+                                            @enderror
                                         </div>
                                         <div class="mb-3">
                                             <label for="">Roles</label>
                                             <select name="roles[]" class="form-control" multiple>
 
                                                 @foreach ($roles as $role)
-                                                <option
-                                                    value="{{ $role }}"
-                                                    {{ in_array($role, $userRoles) ? 'selected':'' }}>
-                                                    {{ $role }}
-                                                </option>
+                                                    <option value="{{ $role }}"
+                                                        {{ in_array($role, $userRoles) ? 'selected' : '' }}>
+                                                        {{ $role }}
+                                                    </option>
                                                 @endforeach
                                             </select>
-                                            @error('roles') <span class="text-danger">{{ $message }}</span> @enderror
+                                            @error('roles')
+                                                <span class="text-danger">{{ $message }}</span>
+                                            @enderror
                                         </div>
                                         <div class="mb-3">
                                             <button type="submit" class="btn btn-primary">Update</button>
@@ -92,8 +99,17 @@
 
             </div>
         </section>
+        @push('scripts')
+            <script>
+                @if (session('success'))
+                    toastr.success('{{ session('success') }}', 'Success');
+                @endif
 
+                @if (session('error'))
+                    toastr.error('{{ session('error') }}', 'Error');
+                @endif
+            </script>
+        @endpush
     </div>
 
 @endsection
-

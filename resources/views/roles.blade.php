@@ -147,5 +147,17 @@
             </script>
         @endpush
 
+        @push('scripts')
+            <script>
+                @if (session('success'))
+                    toastr.success('{{ session('success') }}', 'Success');
+                @endif
+
+                @if (session('error'))
+                    toastr.error('{{ session('error') }}', 'Error');
+                @endif
+            </script>
+        @endpush
+
     </div>
 @endsection
