@@ -38,23 +38,34 @@
                                     <label for="companyName">Company Name</label>
                                     <input type="text" name="companyName" id="companyName" class="form-control"
                                         placeholder="Name" required>
+                                    @error('companyName')
+                                        <span class="text-danger">{{ $message }}</span>
+                                    @enderror
                                 </div>
                                 <div class="form-group">
                                     <label for="companyEmail">Company Email</label>
                                     <input type="text" name="companyEmail" id="companyEmail" class="form-control"
                                         placeholder="Email" required>
+                                    @error('companyEmail')
+                                        <span class="text-danger">{{ $message }}</span>
+                                    @enderror
                                 </div>
                                 <div class="form-group">
                                     <label for="companyAddress">Company Address</label>
                                     <input type="text" name="companyAddress" id="companyAddress" class="form-control"
                                         placeholder="Address" required>
+                                    @error('companyAddress')
+                                        <span class="text-danger">{{ $message }}</span>
+                                    @enderror
                                 </div>
                                 <div class="form-group">
                                     <label for="category">Project</label>
                                     <input type="text" name="category" id="category" class="form-control"
                                         placeholder="Add a project tasks belong to. You can add/edit later" required>
+                                    @error('category')
+                                        <span class="text-danger">{{ $message }}</span>
+                                    @enderror
                                 </div>
-
                             </section>
                             <h3>
                                 <div class="media">
@@ -68,21 +79,34 @@
                             <section>
                                 <div class="form-group">
                                     <label for="">Name</label>
-                                    <input type="text" name="name" class="form-control" placeholder="Name" />
+                                    <input type="text" name="name" class="form-control" placeholder="Name" required />
+                                    @error('name')
+                                        <span class="text-danger">{{ $message }}</span>
+                                    @enderror
                                 </div>
                                 <div class="form-group">
                                     <label for="">Email</label>
-                                    <input type="text" name="email" class="form-control" placeholder="Email">
+                                    <input type="text" name="email" class="form-control" placeholder="Email" required>
+                                    @error('email')
+                                        <span class="text-danger">{{ $message }}</span>
+                                    @enderror
                                 </div>
 
                                 <div class="form-group">
                                     <label for="">Password</label>
-                                    <input type="password" name="password" class="form-control" placeholder="Password">
+                                    <input type="password" name="password" class="form-control" placeholder="Password"
+                                        required>
+                                    @error('password')
+                                        <span class="text-danger">{{ $message }}</span>
+                                    @enderror
                                 </div>
                                 <div class="form-group">
                                     <label for="">Confirm Password</label>
                                     <input type="password" name="password_confirmation" class="form-control"
-                                        placeholder="Confirm Password">
+                                        placeholder="Confirm Password" required>
+                                    @error('password_confirmation')
+                                        <span class="text-danger">{{ $message }}</span>
+                                    @enderror
                                 </div>
                             </section>
                             <h3>
@@ -96,14 +120,13 @@
                             </h3>
                             <section>
                                 <h4 class="text-center">Review your Details</h4>
-                                <p id="enteredFirstName"></p>
-                                <p id="enteredLastName"></p>
-                                <p id="enteredPhoneNumber"></p>
-                                <p id="enteredEmailAddress"></p>
-                                <p id="enteredDesignation"></p>
-                                <p id="enteredDepartment"></p>
-                                <p id="enteredEmployeeNumber"></p>
-                                <p id="enteredWorkEmailAddress"></p>
+                                <p id="enteredCompanyName"></p>
+                                <p id="enteredCompanyEmail"></p>
+                                <p id="enteredCompanyAddress"></p>
+                                <p id="enteredCategory"></p>
+                                <p id="enteredName"></p>
+                                <p id="enteredEmail"></p>
+
                             </section>
                             <h3>
                                 <div class="media">
@@ -116,13 +139,19 @@
                             </h3>
                             <section>
                                 <div class="form-check">
-                                    <input type="checkbox" class="form-check-input" id="agreement">
+                                    <input type="checkbox" class="form-check-input" name="agreement" value="0" required>
                                     <label class="form-check-label" for="agreement">I hereby declare that I had read all
                                         the
                                         <a href="#">terms and conditions</a> and all the details provided my me in
                                         this
                                         form are true.</label>
+
+                                    @error('agreement')
+                                        <span class="text-danger">{{ $message }}</span>
+                                    @enderror
                                 </div>
+
+
                                 <button type="submit" class="btn btn-primary mt-3">Submit</button>
                             </section>
                         </div>
