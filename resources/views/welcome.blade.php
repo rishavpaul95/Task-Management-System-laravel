@@ -19,19 +19,19 @@
                             height="500" loading="lazy">
                     </div>
                     <div class="col-lg-6">
-                        <h1 class="display-5 fw-bold lh-1 mb-3">Register Your Company Free!!</h1>
+                        <h1 class="display-5 fw-bold lh-1 mb-3">Set-up Your Company Free!!</h1>
                         <p class="lead">With TaskMan, managing your tasks has never
                             been easier. Our comprehensive solution allows you to effortlessly assign tasks, implement
                             role-based user registration and assignment, and streamline user management processes. Take
                             control of your company's productivity and efficiency with TaskMan, the ultimate tool
-                            for successful task management and company</p>
+                            for successful task management.</p>
 
 
                         <div class="d-grid gap-2 d-md-flex justify-content-md-start">
                             @auth
                             @else
                                 <a href="/register-company">
-                                    <button type="button" class="btn btn-success btn-lg px-4 me-md-2">Register</button>
+                                    <button type="button" class="btn btn-success btn-lg px-4 me-md-2">Set-up!</button>
                                 </a>
                             @endauth
                         </div>

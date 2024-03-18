@@ -35,25 +35,26 @@
                             </h3>
                             <section>
                                 <div class="form-group">
-                                    <label for="firstName">First Name</label>
-                                    <input type="text" name="firstName" id="firstName" class="form-control"
-                                        placeholder="First Name">
+                                    <label for="companyName">Company Name</label>
+                                    <input type="text" name="companyName" id="companyName" class="form-control"
+                                        placeholder="Name" required>
                                 </div>
                                 <div class="form-group">
-                                    <label for="lastName">Last Name</label>
-                                    <input type="text" name="lastName" id="lastName" class="form-control"
-                                        placeholder="Last Name">
+                                    <label for="companyEmail">Company Email</label>
+                                    <input type="text" name="companyEmail" id="companyEmail" class="form-control"
+                                        placeholder="Email" required>
                                 </div>
                                 <div class="form-group">
-                                    <label for="phoneNumber">Phone Number</label>
-                                    <input type="text" name="phoneNumber" id="phoneNumber" class="form-control"
-                                        placeholder="Phone Number">
+                                    <label for="companyAddress">Company Address</label>
+                                    <input type="text" name="companyAddress" id="companyAddress" class="form-control"
+                                        placeholder="Address" required>
                                 </div>
                                 <div class="form-group">
-                                    <label for="emailAddress">Email Address</label>
-                                    <input type="email" name="emailAddress" id="emailAddress" class="form-control"
-                                        placeholder="Email Address">
+                                    <label for="category">Project</label>
+                                    <input type="text" name="category" id="category" class="form-control"
+                                        placeholder="Add a project tasks belong to. You can add/edit later" required>
                                 </div>
+
                             </section>
                             <h3>
                                 <div class="media">

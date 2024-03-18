@@ -140,7 +140,7 @@
                                         <p>Categories Control</p>
                                     </a>
                                 </li>
-                                <li class="nav-item {{ request()->is('permissions', 'roles') ? 'menu-open' : '' }}">
+                                <li class="nav-item {{ request()->is('permissions', 'roles', 'users') ? 'menu-open' : '' }}">
                                     <a href="#" class="nav-link">
                                         <i class="fa-solid fa-check nav-icon"></i>
                                         <p>
@@ -167,7 +167,7 @@
                                         </li>
                                         <li class="nav-item">
                                             <a href="{{ url('/users') }}"
-                                                class="nav-link {{ request()->is('/users') ? 'active' : '' }}">
+                                                class="nav-link {{ request()->is('users') ? 'active' : '' }}">
                                                 <i class="fa-solid fa-users nav-icon"></i>
                                                 <p>Users Control</p>
                                             </a>
