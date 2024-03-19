@@ -5,8 +5,10 @@ namespace App\Http\Controllers;
 use App\Http\Controllers\Controller;
 use App\Models\Categories;
 use App\Models\User;
+use Illuminate\Auth\Events\Registered;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Spatie\Permission\Models\Permission;
 use Spatie\Permission\Models\Role;
 use Illuminate\Validation\Rules;
@@ -16,11 +18,13 @@ class UserController extends Controller
 {
     public function index()
     {
-        $categories = Categories::all();
+        $categories = Categories::where('company_id', Auth::user()->company_id)->get();
         $selectedCategory = request('categoryFilter', 'all');
         $users = User::whereDoesntHave('roles', function ($query) {
             $query->where('name', 'super-admin');
-        })->get();
+        })
+            ->where('company_id', '=', Auth::user()->company_id)
+            ->get();
         $roles = Role::pluck('name', 'name')->all();
         $data = compact('categories', 'selectedCategory', 'users', 'roles');
         return view('users')->with($data);
@@ -29,7 +33,7 @@ class UserController extends Controller
 
     public function create()
     {
-        $categories = Categories::all();
+        $categories = Categories::where('company_id', Auth::user()->company_id)->get();
         $selectedCategory = request('categoryFilter', 'all');
         $roles = Role::where('name', '!=', 'super-admin')->pluck('name', 'name')->all();
         return view('createuser', [
@@ -53,20 +57,21 @@ class UserController extends Controller
             'name' => $request->name,
             'email' => $request->email,
             'password' => Hash::make($request->password),
-            'company_id' => auth()->user()->company_id
+            'company_id' =>  Auth::user()->company_id,
         ]);
 
         $user->syncRoles($request->roles);
-
+        event(new Registered($user));
         return redirect('/users')->with('status', 'User created successfully with roles');
     }
 
     public function edit(User $user)
     {
 
-        $categories = Categories::all();
+        $categories = Categories::where('company_id', Auth::user()->company_id)->get();
         $selectedCategory = request('categoryFilter', 'all');
         $roles = Role::where('name', '!=', 'super-admin')->pluck('name', 'name')->all();
+
         $userRoles = $user->roles->pluck('name', 'name')->all();
         return view('edituser', [
             'user' => $user,

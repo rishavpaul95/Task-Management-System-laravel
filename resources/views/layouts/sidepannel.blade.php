@@ -137,19 +137,21 @@
                                     <a href="{{ url('/categories') }}"
                                         class="nav-link {{ request()->is('categories') ? 'active' : '' }}">
                                         <i class="fa-solid fa-layer-group sm-nav-icon"></i>
-                                        <p>Categories Control</p>
+                                        <p>Project Control</p>
                                     </a>
                                 </li>
-                                <li class="nav-item {{ request()->is('permissions', 'roles', 'users') ? 'menu-open' : '' }}">
-                                    <a href="#" class="nav-link">
-                                        <i class="fa-solid fa-check nav-icon"></i>
-                                        <p>
-                                            Roles/Permissions
-                                            <i class="right fas fa-angle-left"></i>
-                                        </p>
-                                    </a>
-                                    <ul class="nav nav-treeview">
-                                        @role('super-admin')
+
+                                @role('super-admin')
+                                    <li class="nav-item {{ request()->is('permissions', 'roles', 'users') ? 'menu-open' : '' }}">
+                                        <a href="#" class="nav-link">
+                                            <i class="fa-solid fa-check nav-icon"></i>
+                                            <p>
+                                                Roles/Permissions
+                                                <i class="right fas fa-angle-left"></i>
+                                            </p>
+                                        </a>
+                                        <ul class="nav nav-treeview">
+
                                             <li class="nav-item">
                                                 <a href="{{ url('/permissions') }}"
                                                     class="nav-link {{ request()->is('permissions') ? 'active' : '' }}">
@@ -157,25 +159,25 @@
                                                     <p>Permissions Control</p>
                                                 </a>
                                             </li>
-                                        @endrole
-                                        <li class="nav-item">
-                                            <a href="{{ url('/roles') }}"
-                                                class="nav-link {{ request()->is('roles') ? 'active' : '' }}">
-                                                <i class="far fa-dot-circle nav-icon"></i>
-                                                <p>Roles Control</p>
-                                            </a>
-                                        </li>
-                                        <li class="nav-item">
-                                            <a href="{{ url('/users') }}"
-                                                class="nav-link {{ request()->is('users') ? 'active' : '' }}">
-                                                <i class="fa-solid fa-users nav-icon"></i>
-                                                <p>Users Control</p>
-                                            </a>
-                                        </li>
-                                    </ul>
+
+                                            <li class="nav-item">
+                                                <a href="{{ url('/roles') }}"
+                                                    class="nav-link {{ request()->is('roles') ? 'active' : '' }}">
+                                                    <i class="far fa-dot-circle nav-icon"></i>
+                                                    <p>Roles Control</p>
+                                                </a>
+                                            </li>
+
+                                        </ul>
+                                    </li>
+                                @endrole
+                                <li class="nav-item">
+                                    <a href="{{ url('/users') }}"
+                                        class="nav-link {{ request()->is('users') ? 'active' : '' }}">
+                                        <i class="fa-solid fa-users nav-icon"></i>
+                                        <p>Users Control</p>
+                                    </a>
                                 </li>
-
-
 
                             </ul>
                         </li>

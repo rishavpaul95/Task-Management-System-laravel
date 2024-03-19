@@ -4,7 +4,9 @@ namespace App\Http\Controllers;
 
 use App\Http\Controllers\Controller;
 use App\Models\Categories;
+
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Spatie\Permission\Models\Permission;
 use Spatie\Permission\Models\Role;
 
@@ -12,7 +14,7 @@ class PermissionController extends Controller
 {
     public function index()
     {
-        $categories = Categories::all();
+        $categories = Categories::where('company_id', Auth::user()->company_id)->get();
         $selectedCategory = request('categoryFilter', 'all');
 
         $permissions = Permission::all();

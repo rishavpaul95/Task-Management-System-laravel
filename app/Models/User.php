@@ -24,6 +24,7 @@ class User extends Authenticatable implements MustVerifyEmail
         'name',
         'email',
         'password',
+        'company_id',
     ];
 
     /**
@@ -60,6 +61,7 @@ class User extends Authenticatable implements MustVerifyEmail
     {
         return $this->belongsTo(Company::class);
     }
+
 
 }
 

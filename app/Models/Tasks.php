@@ -27,4 +27,8 @@ class Tasks extends Model
     {
         return $this->hasMany(Comment::class, 'task_id');
     }
+    public function company()
+    {
+        return $this->belongsTo(Company::class);
+    }
 }

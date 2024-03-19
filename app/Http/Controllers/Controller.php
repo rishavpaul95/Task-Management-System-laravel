@@ -12,11 +12,15 @@ class Controller extends BaseController
 {
     public function index(){
 
-        $categories = Categories::all();
-        $selectedCategory = request('categoryFilter', 'all');
-        $data = compact('categories', 'selectedCategory');
-
-        return view('welcome')->with($data);
+        if (Auth::check()) {
+            $categories = Categories::where('company_id', Auth::user()->company_id)->get();
+            $selectedCategory = request('categoryFilter', 'all');
+            $data = compact('categories', 'selectedCategory');
+            return view('welcome')->with($data);
+        }
+        else{
+            return view('welcome');
+        }
     }
 
 

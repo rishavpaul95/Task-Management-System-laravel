@@ -5,7 +5,9 @@ namespace App\Http\Controllers;
 use App\Models\Categories;
 use App\Models\Company;
 use App\Models\User;
+use Illuminate\Auth\Events\Registered;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Validation\Rules;
 
@@ -16,8 +18,10 @@ class RegisterCompanyController extends Controller
     {
         return view('register-company');
     }
+
     public function store(Request $request)
     {
+
         $request->validate([
             'companyName' => 'required',
             'companyEmail' => 'required|email',
@@ -27,8 +31,10 @@ class RegisterCompanyController extends Controller
             'email' => ['required', 'string', 'lowercase', 'email', 'max:255', 'unique:' . User::class],
             'password' => ['required', Rules\Password::defaults()],
             'confirm_password' => 'same:password',
-            'agreement' => 'required',
+            'agreement' => 'required|accepted',
         ]);
+
+
 
         $company = new Company();
         $company->name = $request->companyName;
@@ -38,7 +44,8 @@ class RegisterCompanyController extends Controller
         $company->save();
 
         $category = new Categories();
-        $category = $request->category;
+        $category->category = $request->input('category');
+        $category->company_id = $company->id;
         $category->save();
 
         $admin = new User();
@@ -49,9 +56,13 @@ class RegisterCompanyController extends Controller
         $admin->save();
 
         $admin->assignRole('admin');
+        event(new Registered($admin));
 
-        return redirect()->route('home')->with('success', 'Company registered successfully');
+        if ($admin) {
+            Auth::login($admin, true);
+            return redirect()->to('/')->with('success', 'Welcome to Taskman!');
+        }
+
+        return redirect()->to('/register-company')->with('error', 'Something went wrong. Please try again.');
     }
-
-
 }

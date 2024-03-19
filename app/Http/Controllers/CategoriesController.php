@@ -11,7 +11,7 @@ class CategoriesController extends Controller
     public function index()
     {
 
-        $categories = Categories::all();
+        $categories = Categories::where('company_id', Auth::user()->company_id)->get();
 
         $data = compact('categories');
         return view("admincategory")->with($data);
@@ -27,6 +27,7 @@ class CategoriesController extends Controller
 
             $category = new Categories;
             $category->category = $request->input('category');
+            $category->company_id = Auth::user()->company_id;
             $category->save();
 
             return redirect('/categories');

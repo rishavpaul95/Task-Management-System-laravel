@@ -6,13 +6,14 @@ use App\Models\Categories;
 use App\Models\Comment;
 use App\Models\Tasks;
 use App\Models\User;
+use Illuminate\Support\Facades\Auth;
 
 class ViewTaskController extends Controller
 {
     public function show($id)
     {
         session(['backUrl' => url()->previous()]);
-        $categories = Categories::all();
+        $categories = Categories::where('company_id', Auth::user()->company_id)->get();
         $task = Tasks::find($id);
 
         $assignedBy = User::find($task->assigned_by);

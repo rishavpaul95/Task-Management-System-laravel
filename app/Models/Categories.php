@@ -16,4 +16,11 @@ class Categories extends Model
     {
         return $this->hasMany(Tasks::class);
     }
+
+    public function company()
+    {
+        return $this->belongsTo(Company::class);
+    }
 }
+
+

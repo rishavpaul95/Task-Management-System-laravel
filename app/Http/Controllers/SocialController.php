@@ -25,6 +25,6 @@ class SocialController extends Controller
             return redirect()->to('/')->with('success', 'Welcome back!');
         }
 
-        return redirect()->to('/register')->with('error', 'User not found. Please register.');
+        return redirect()->to('/')->with('error', 'User not found. Please register.');
     }
 }

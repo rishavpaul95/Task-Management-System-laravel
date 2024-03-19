@@ -19,7 +19,7 @@ class ProfileController extends Controller
     public function edit(Request $request): View
     {
 
-        $categories = Categories::all();
+        $categories = Categories::where('company_id', Auth::user()->company_id)->get();
         $selectedCategory = request('categoryFilter', 'all');
         $data = compact('categories', 'selectedCategory');
         return view('profile', [

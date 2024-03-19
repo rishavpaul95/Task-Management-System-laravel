@@ -7,6 +7,7 @@ use App\Models\Categories;
 use App\Models\Tasks;
 use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\Mail;
 
@@ -17,7 +18,7 @@ class AssignTaskController extends Controller
     {
 
         session(['backUrl' => url()->previous()]);
-        $categories = Categories::all();
+        $categories = Categories::where('company_id', Auth::user()->company_id)->get();
         $users = User::all();
 
         $selectedCategory = request('categoryFilter', 'all');
@@ -65,6 +66,7 @@ class AssignTaskController extends Controller
             }
 
             $task->assigned_by = auth()->user()->id;
+            $task->company_id = auth()->user()->company_id;
             $task->save();
 
             // Send email to the assigned user

@@ -4,7 +4,8 @@ $("#wizard").steps({
     headerTag: "h3",
     bodyTag: "section",
     transitionEffect: "none",
-    titleTemplate: '#title#'
+    titleTemplate: '#title#',
+    enableFinishButton: false,
 });
 
 //Form control

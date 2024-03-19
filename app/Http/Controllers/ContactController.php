@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 use App\Models\Leads;
 use App\Services\Newsletter;
 use Exception;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Validation\ValidationException;
 
 class ContactController extends Controller
@@ -14,10 +15,14 @@ class ContactController extends Controller
     public function index()
     {
         session(['backUrl' => url()->previous()]);
-        $categories = Categories::all();
-        $selectedCategory = request('categoryFilter', 'all');
-        $data = compact('categories', 'selectedCategory');
-        return view("contact")->with($data);
+        if (Auth::check()) {
+            $categories = Categories::where('company_id', Auth::user()->company_id)->get();
+            $selectedCategory = request('categoryFilter', 'all');
+            $data = compact('categories', 'selectedCategory');
+            return view("contact")->with($data);
+        } else {
+            return view("contact");
+        }
     }
 
     public function store(Request $request)
@@ -71,7 +76,6 @@ class ContactController extends Controller
             $lead->save();
             $data = compact('categories', 'selectedCategory');
             return view('lead_info_view', compact('lead', 'categories', 'selectedCategory'));
-
         } catch (\Exception $e) {
             throw ValidationException::withMessages([
                 'email' => 'This email could not be added to our newsletter list.'
@@ -79,4 +83,3 @@ class ContactController extends Controller
         }
     }
 }
-

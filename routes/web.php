@@ -35,7 +35,8 @@ use App\Http\Controllers\SocialController;
 
 Route::get('/', [Controller::class, 'index']);
 
-Route::get('/register-company ', [RegisterCompanyController::class, 'index']);
+Route::get('/register-company', [RegisterCompanyController::class, 'index']);
+Route::post('/register-company', [RegisterCompanyController::class, 'store']);
 
 
 Route::middleware([
@@ -49,7 +50,7 @@ Route::middleware([
 
 // only authenticated users can access these routes
 Route::middleware([
-    'auth', 'verified'
+    'auth', //'verified'
 ])->group(function () {
 
     //Dashboard
@@ -90,7 +91,7 @@ Route::middleware([
 });
 
 Route::middleware([
-    'role:admin|super-admin', 'auth', 'verified'
+    'role:admin', 'auth', //'verified'
 ])->group(function () {
 
     // Categories
@@ -100,21 +101,26 @@ Route::middleware([
     Route::post('/categories/edit/{id}', [CategoriesController::class, 'edit']);
 
 
-    //Permissions
-    Route::get('/permissions', [PermissionController::class, 'index']);
-    Route::post('/permissions/add', [PermissionController::class, 'store']);
-    Route::get('/permissions/delete/{id}', [PermissionController::class, 'delete']);
-    Route::post('/permissions/edit/{id}', [PermissionController::class, 'edit']);
+    Route::middleware([
+        'role:super-admin', 'auth', //'verified'
+    ])->group(function () {
+
+        //Permissions
+        Route::get('/permissions', [PermissionController::class, 'index']);
+        Route::post('/permissions/add', [PermissionController::class, 'store']);
+        Route::get('/permissions/delete/{id}', [PermissionController::class, 'delete']);
+        Route::post('/permissions/edit/{id}', [PermissionController::class, 'edit']);
 
 
 
-    // Roles
-    Route::get('/roles', [RoleController::class, 'index']);
-    Route::post('/roles/add', [RoleController::class, 'store']);
-    Route::get('/roles/delete/{id}', [RoleController::class, 'delete']);
-    Route::post('/roles/edit/{id}', [RoleController::class, 'edit']);
-    Route::get('/roles/addpermission/{id}', [RoleController::class, 'addPermissionToRole']);
-    Route::put('/roles/addpermission/{id}', [RoleController::class, 'storePermissionToRole']);
+        // Roles
+        Route::get('/roles', [RoleController::class, 'index']);
+        Route::post('/roles/add', [RoleController::class, 'store']);
+        Route::get('/roles/delete/{id}', [RoleController::class, 'delete']);
+        Route::post('/roles/edit/{id}', [RoleController::class, 'edit']);
+        Route::get('/roles/addpermission/{id}', [RoleController::class, 'addPermissionToRole']);
+        Route::put('/roles/addpermission/{id}', [RoleController::class, 'storePermissionToRole']);
+    });
 
     // Users
 

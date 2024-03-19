@@ -4,9 +4,6 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
-
-namespace App\Http\Controllers;
-
 use App\Models\Categories;
 use Illuminate\Support\Facades\File;
 
@@ -15,10 +12,14 @@ class BlogController extends Controller
     public function index()
     {
 
-        $categories = Categories::all();
-        $selectedCategory = request('categoryFilter', 'all');
-        $data = compact('categories', 'selectedCategory');
-        return view('blog')->with($data);
+        if (Auth::check()) {
+            $categories = Categories::where('company_id', Auth::user()->company_id)->get();
+            $selectedCategory = request('categoryFilter', 'all');
+            $data = compact('categories', 'selectedCategory');
+            return view('blog')->with($data);
+        } else {
+            return view('blog');
+        }
     }
 
     public function show($slug)

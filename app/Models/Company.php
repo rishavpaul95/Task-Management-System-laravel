@@ -30,7 +30,7 @@ class Company extends Model
     }
     public function comment()
     {
-        return $this->hasMany(Comment::class, 'company_id');
+        return $this->hasMany(Comment::class);
     }
     public function categories()
     {

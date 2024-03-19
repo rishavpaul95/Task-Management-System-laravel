@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Http\Controllers\Controller;
 use App\Models\Categories;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Http\Request;
 use Spatie\Permission\Models\Permission;
@@ -13,7 +14,7 @@ class RoleController extends Controller
 {
     public function index()
     {
-        $categories = Categories::all();
+        $categories = Categories::where('company_id', Auth::user()->company_id)->get();
         $selectedCategory = request('categoryFilter', 'all');
 
         $roles = Role::where('name', '!=', 'super-admin')->get();

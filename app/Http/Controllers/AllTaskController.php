@@ -6,6 +6,7 @@ use App\Models\Categories;
 use App\Models\Tasks;
 use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Storage;
 
 class AllTaskController extends Controller
@@ -15,7 +16,7 @@ class AllTaskController extends Controller
     public function index()
     {
         session(['backUrl' => url()->previous()]);
-        $categories = Categories::all();
+        $categories = Categories::where('company_id', Auth::user()->company_id)->get();
         $users = User::whereDoesntHave('roles', function ($query) {
             $query->where('name', 'super-admin');
         })->get();

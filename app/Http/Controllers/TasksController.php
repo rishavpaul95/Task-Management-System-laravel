@@ -18,7 +18,7 @@ class TasksController extends Controller
     {
 
         session(['backUrl' => url()->previous()]);
-        $categories = Categories::all();
+        $categories = Categories::where('company_id', Auth::user()->company_id)->get();
 
         $selectedCategory = request('categoryFilter', 'all');
 
@@ -62,6 +62,7 @@ class TasksController extends Controller
                 $task->taskimage = $imagePath;
             }
             $task->assigned_by = auth()->user()->id;
+            $task->company_id = auth()->user()->company_id;
             $task->save();
 
             return redirect('/tasks');

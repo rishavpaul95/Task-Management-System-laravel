@@ -32,7 +32,7 @@
                     </div>
                     <div class="card-body">
 
-                        <table class="table table-bordered table-striped">
+                        <table class="table table-bordered table-striped" id="usersTable">
                             <thead>
                                 <tr>
                                     <th>Id</th>
@@ -56,16 +56,18 @@
                                             @endif
                                         </td>
                                         <td>
+                                            @if (Auth::id() !== $user->id)
+                                                <a href="{{ url('users/' . $user->id . '/edit') }}">
+                                                    <i class="fa-regular fa-pen-to-square"></i>
+                                                </a>
 
-                                            <a href="{{ url('users/' . $user->id . '/edit') }}">
-                                                <i class="fa-regular fa-pen-to-square"></i>
-                                            </a>
+                                                &nbsp;&nbsp;
 
-                                            &nbsp;&nbsp;
+                                                <a href="{{ url('users/' . $user->id . '/delete') }}">
+                                                    <i class="fa-solid fa-trash-can"></i>
+                                                </a>
+                                            @endif
 
-                                            <a href="{{ url('users/' . $user->id . '/delete') }}">
-                                                <i class="fa-solid fa-trash-can"></i>
-                                            </a>
 
                                         </td>
                                     </tr>
@@ -85,6 +87,9 @@
 
         @push('scripts')
             <script>
+                $(function() {
+                    $('#usersTable').DataTable();
+                });
                 @if (session('success'))
                     toastr.success('{{ session('success') }}', 'Success');
                 @endif
