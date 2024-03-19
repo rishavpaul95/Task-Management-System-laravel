@@ -86,7 +86,7 @@ class UserController extends Controller
     {
         $request->validate([
             'name' => 'required|string|max:255',
-            'password' => ['required', Rules\Password::defaults()],
+            'password' => ['nullable', Rules\Password::defaults()],
             'roles' => 'required'
         ]);
 
