@@ -42,8 +42,8 @@ class UserController extends Controller
     public function store(Request $request)
     {
         $request->validate([
-           'name' => ['required', 'string', 'max:255'],
-            'email' => ['required', 'string', 'lowercase', 'email', 'max:255', 'unique:'.User::class],
+            'name' => ['required', 'string', 'max:255'],
+            'email' => ['required', 'string', 'lowercase', 'email', 'max:255', 'unique:' . User::class],
             'password' => ['required', Rules\Password::defaults()],
             'confirm_password' => 'same:password',
             'roles' => 'required'
@@ -53,6 +53,7 @@ class UserController extends Controller
             'name' => $request->name,
             'email' => $request->email,
             'password' => Hash::make($request->password),
+            'company_id' => auth()->user()->company_id
         ]);
 
         $user->syncRoles($request->roles);
@@ -80,7 +81,7 @@ class UserController extends Controller
     {
         $request->validate([
             'name' => 'required|string|max:255',
-            'password' => 'nullable|string|min:8|max:20',
+            'password' => ['required', Rules\Password::defaults()],
             'roles' => 'required'
         ]);
 

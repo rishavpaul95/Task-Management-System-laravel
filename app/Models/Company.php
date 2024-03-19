@@ -9,13 +9,31 @@ class Company extends Model
 {
     use HasFactory;
 
-    protected $table = "tasks";
+    protected $table = "companies";
     protected $primaryKey = "id";
 
     protected $fillable = [
         'name',
         'email',
-        'website',
         'address',
+
     ];
+
+    // My functions
+    public function users()
+    {
+        return $this->hasMany(User::class);
+    }
+    public function tasks()
+    {
+        return $this->hasMany(Tasks::class);
+    }
+    public function comment()
+    {
+        return $this->hasMany(Comment::class, 'company_id');
+    }
+    public function categories()
+    {
+        return $this->hasMany(Categories::class);
+    }
 }

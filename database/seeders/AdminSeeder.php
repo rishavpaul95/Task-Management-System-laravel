@@ -24,6 +24,7 @@ class AdminSeeder extends Seeder
             'email' => 'taskman.rishav@gmail.com',
             'email_verified_at' => now(),
             'password' => Hash::make('password'), // password
+            'company_id' => 1,
         ])->assignRole('super-admin');
     }
 }

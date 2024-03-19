@@ -51,6 +51,14 @@
                                     @enderror
                                 </div>
                                 <div class="form-group">
+                                    <label for="companyWebsite">Company Website</label>
+                                    <input type="text" name="companyWebsite" id="companyWebsite" class="form-control"
+                                        placeholder="Website">
+                                    @error('companyWebsite')
+                                        <span class="text-danger">{{ $message }}</span>
+                                    @enderror
+                                </div>
+                                <div class="form-group">
                                     <label for="companyAddress">Company Address</label>
                                     <input type="text" name="companyAddress" id="companyAddress" class="form-control"
                                         placeholder="Address" required>
@@ -79,14 +87,16 @@
                             <section>
                                 <div class="form-group">
                                     <label for="">Name</label>
-                                    <input type="text" name="name" class="form-control" placeholder="Name" required />
+                                    <input type="text" name="name" class="form-control" id="Name"
+                                        placeholder="Name" required />
                                     @error('name')
                                         <span class="text-danger">{{ $message }}</span>
                                     @enderror
                                 </div>
                                 <div class="form-group">
                                     <label for="">Email</label>
-                                    <input type="text" name="email" class="form-control" placeholder="Email" required>
+                                    <input type="text" name="email" class="form-control" id="Email"
+                                        placeholder="Email" required>
                                     @error('email')
                                         <span class="text-danger">{{ $message }}</span>
                                     @enderror
@@ -120,10 +130,11 @@
                             </h3>
                             <section>
                                 <h4 class="text-center">Review your Details</h4>
-                                <p id="enteredCompanyName"></p>
-                                <p id="enteredCompanyEmail"></p>
-                                <p id="enteredCompanyAddress"></p>
-                                <p id="enteredCategory"></p>
+                                <p id="enteredcompanyName"></p>
+                                <p id="enteredcompanyEmail"></p>
+                                <p id="enteredcompanyAddress"></p>
+                                <p id="enteredcompanyWebsite"></p>
+                                <p id="enteredcategory"></p>
                                 <p id="enteredName"></p>
                                 <p id="enteredEmail"></p>
 
@@ -139,7 +150,8 @@
                             </h3>
                             <section>
                                 <div class="form-check">
-                                    <input type="checkbox" class="form-check-input" name="agreement" value="0" required>
+                                    <input type="checkbox" class="form-check-input" name="agreement" value="0"
+                                        id="agreement" required>
                                     <label class="form-check-label" for="agreement">I hereby declare that I had read all
                                         the
                                         <a href="#">terms and conditions</a> and all the details provided my me in
@@ -169,6 +181,40 @@
     @push('scripts')
         <script src="assets/js/jquery.steps.min.js"></script>
         <script src="assets/js/bd-wizard.js"></script>
+        <script>
+            window.addEventListener('DOMContentLoaded', (event) => {
+                document.getElementById('companyName').addEventListener('change', function(e) {
+                    document.getElementById('enteredcompanyName').innerText = 'Company Name: ' + e.target.value;
+                });
+
+                document.getElementById('companyEmail').addEventListener('change', function(e) {
+                    document.getElementById('enteredcompanyEmail').innerText = 'Company Email: ' + e.target
+                        .value;
+                });
+
+                document.getElementById('companyAddress').addEventListener('change', function(e) {
+                    document.getElementById('enteredcompanyAddress').innerText = 'Company Address: ' + e.target
+                        .value;
+                });
+
+                document.getElementById('companyWebsite').addEventListener('change', function(e) {
+                    document.getElementById('enteredcompanyWebsite').innerText = 'Company Website: ' + e.target
+                        .value;
+                });
+
+                document.getElementById('category').addEventListener('change', function(e) {
+                    document.getElementById('enteredcategory').innerText = 'Project: ' + e.target.value;
+                });
+
+                document.getElementById('Name').addEventListener('change', function(e) {
+                    document.getElementById('enteredName').innerText = 'Name: ' + e.target.value;
+                });
+
+                document.getElementById('Email').addEventListener('change', function(e) {
+                    document.getElementById('enteredEmail').innerText = 'Email: ' + e.target.value;
+                });
+            });
+        </script>
     @endpush
 
     @push('styles')
