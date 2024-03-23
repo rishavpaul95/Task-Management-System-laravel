@@ -31,7 +31,9 @@ class AllTaskController extends Controller
         }
 
         // Eager load the 'comments' relationship to avoid the N+1 problem
-        $tasks = $tasksQuery->with('comments')->get();
+        $tasks = $tasksQuery->where('company_id', Auth::user()->company_id)
+        ->with('comments')->get();
+
 
         $data = compact('tasks', 'currentUser', 'categories', 'selectedCategory', 'users');
 

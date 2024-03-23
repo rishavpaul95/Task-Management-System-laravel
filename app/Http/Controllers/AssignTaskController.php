@@ -33,7 +33,9 @@ class AssignTaskController extends Controller
         }
 
         //task based on querry // reminder! eager load comments
-        $tasks = $tasksQuery->with('comments')->get();
+        $tasks = $tasksQuery->where('company_id', Auth::user()->company_id)
+        ->with('comments')->get();
+
 
         $data = compact('tasks','currentUser', 'categories', 'selectedCategory', 'users');
 
