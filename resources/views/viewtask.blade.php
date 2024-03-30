@@ -8,7 +8,7 @@
     <div class="content-wrapper">
         <nav class="navbar navbar-light bg-light">
             <div class="container-fluid d-flex justify-content-end">
-                <a class=" btn btn-outline-primary btn-sm"
+                <a class=" btn btn-danger btn-sm"
                     @if ($source == 'alltaskpage') href="{{ url('/alltask') }}"
                 @elseif ($source == 'assigntaskpage')
                     href="{{ url('/assigntask') }}"

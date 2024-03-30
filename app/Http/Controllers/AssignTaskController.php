@@ -19,7 +19,7 @@ class AssignTaskController extends Controller
 
         session(['backUrl' => url()->previous()]);
         $categories = Categories::where('company_id', Auth::user()->company_id)->get();
-        $users = User::all();
+        $users = User::where('company_id', Auth::user()->company_id)->get();
 
         $selectedCategory = request('categoryFilter', 'all');
         $currentUser = auth()->user();
