@@ -13,19 +13,16 @@ class AssignTaskMail extends Mailable implements ShouldQueue
 {
     use Queueable, SerializesModels;
 
-    public $subject;
-    public $body;
+    public $data;
 
     /**
      * Create a new message instance.
      *
-     * @param string $subject
-     * @param string $body
+     * @param array $data
      */
-    public function __construct($subject, $body)
+    public function __construct($data)
     {
-        $this->subject = $subject;
-        $this->body = $body;
+        $this->data = $data;
     }
 
     /**
@@ -35,7 +32,7 @@ class AssignTaskMail extends Mailable implements ShouldQueue
      */
     public function build()
     {
-        return $this->subject($this->subject)
-                    ->view('mail.mailassigntask');
+        return $this->subject('You have been assigned a Task')
+            ->view('mail.mailassigntask', ['data' => $this->data]);
     }
 }

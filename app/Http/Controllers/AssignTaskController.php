@@ -77,14 +77,14 @@ class AssignTaskController extends Controller
             $assignedbyname = auth()->user()->name;
 
             if ($assignedUser) {
-                $subject = 'You have been assigned a Task';
-                $body = "You have been assigned a task with the following details:\n\n"
-                    . "Due Date: {$task->date}\n"
-                    . "Topic: {$task->topic}\n"
-                    . "Assigned By: {$assignedbyname}\n"
-                    . "Under Project: {$assignedProject->category}\n";
+                $data = [
+                    'date' => $task->date,
+                    'topic' => $task->topic,
+                    'assigned_by' => $assignedbyname,
+                    'project' => $assignedProject->category,
+                ];
 
-                Mail::to($assignedUser->email)->send(new AssignTaskMail($subject, $body));
+                Mail::to($assignedUser->email)->send(new AssignTaskMail($data));
             }
 
             return redirect('/assigntask');
