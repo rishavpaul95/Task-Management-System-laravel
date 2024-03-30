@@ -43,6 +43,7 @@ Route::middleware([
     'auth'
 ])->group(function () {
 
+    //Profile
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
@@ -50,14 +51,11 @@ Route::middleware([
 
 // only authenticated users can access these routes
 Route::middleware([
-    'auth', //'verified'
+    'auth', 'verified'
 ])->group(function () {
 
     //Dashboard
     Route::get('/dash', [DashController::class, 'index']);
-
-    //Profile
-
 
     //Tasks
     Route::get('/tasks', [TasksController::class, 'index']);
