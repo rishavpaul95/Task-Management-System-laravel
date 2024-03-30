@@ -97,7 +97,7 @@
 
                                             &nbsp;
 
-                                            <a href="{{ url('/viewtask') }}/{{ $task->id }}"
+                                            <a href="{{ url('/viewtask') }}/{{ $task->id }}?source=taskpage"
                                                 class="btn btn-outline-primary btn-sm">
                                                 ({{ $task->comments->count() }})
                                                 <i class="far fa-comments"></i>

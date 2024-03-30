@@ -8,7 +8,12 @@
     <div class="content-wrapper">
         <nav class="navbar navbar-light bg-light">
             <div class="container-fluid d-flex justify-content-end">
-                <a class="navbar-brand ms-auto" href="{{ session('backUrl') }}">
+                <a class=" btn btn-outline-primary btn-sm"
+                    @if ($source == 'alltaskpage') href="{{ url('/alltask') }}"
+                @elseif ($source == 'assigntaskpage')
+                    href="{{ url('/assigntask') }}"
+                @else
+                    href="{{ url('/tasks') }}" @endif>
                     <i class="fas fa-arrow-left"></i> Back
                 </a>
             </div>

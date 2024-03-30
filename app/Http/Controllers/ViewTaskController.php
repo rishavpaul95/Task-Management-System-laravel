@@ -7,12 +7,13 @@ use App\Models\Comment;
 use App\Models\Tasks;
 use App\Models\User;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Http\Request;
 
 class ViewTaskController extends Controller
 {
-    public function show($id)
+    public function show($id, Request $request)
     {
-        session(['backUrl' => url()->previous()]);
+        $source = $request->source;
         $categories = Categories::where('company_id', Auth::user()->company_id)->get();
         $task = Tasks::find($id);
 
@@ -25,7 +26,7 @@ class ViewTaskController extends Controller
         $categoryName = $category ? $category->category : 'Unknown Category';
 
 
-        $data = compact('categories', 'task', 'assignedBy', 'assignedTo', 'categoryName','comments');
+        $data = compact('categories', 'task', 'assignedBy', 'assignedTo', 'categoryName','comments','source');
 
         return view('viewtask')->with($data);
     }
