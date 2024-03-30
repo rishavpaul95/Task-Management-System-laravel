@@ -88,7 +88,11 @@
         @push('scripts')
             <script>
                 $(function() {
-                    $('#usersTable').DataTable();
+                    $('#usersTable').DataTable({
+                        "responsive": true,
+                        "lengthChange": false,
+                        "autoWidth": false
+                        })
                 });
                 @if (session('success'))
                     toastr.success('{{ session('success') }}', 'Success');
