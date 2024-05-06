@@ -66,7 +66,7 @@ class TasksController extends Controller
             $task->company_id = auth()->user()->company_id;
             $task->save();
 
-            return redirect('/tasks');
+            return redirect('/tasks')->with('success', 'Task added successfully');
         } else {
             return redirect('/login')->with('error', 'You must be logged in to perform this action.');
         }

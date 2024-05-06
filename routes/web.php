@@ -10,6 +10,7 @@ use App\Http\Controllers\ContactController;
 use App\Http\Controllers\TasksController;
 use App\Http\Controllers\CategoriesController;
 use App\Http\Controllers\CommentController;
+use App\Http\Controllers\CompanyController;
 use App\Http\Controllers\Controller;
 use App\Http\Controllers\DashController;
 use App\Http\Controllers\RegisterCompanyController;
@@ -97,6 +98,11 @@ Route::middleware([
     Route::post('/categories/add', [CategoriesController::class, 'store']);
     Route::get('/categories/delete/{id}', [CategoriesController::class, 'delete']);
     Route::post('/categories/edit/{id}', [CategoriesController::class, 'edit']);
+
+    //Company Profile
+    Route::get('/company_profile', [CompanyController::class, 'index']);
+    Route::put('/company', [CompanyController::class, 'update'])->name('company.update');
+
 
 
     Route::middleware([

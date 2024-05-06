@@ -140,6 +140,20 @@
                                         <p>Project Control</p>
                                     </a>
                                 </li>
+                                <li class="nav-item">
+                                    <a href="{{ url('/users') }}"
+                                        class="nav-link {{ request()->is('users') ? 'active' : '' }}">
+                                        <i class="fa-solid fa-users sm-nav-icon"></i>
+                                        <p>Users Control</p>
+                                    </a>
+                                </li>
+                                <li class="nav-item">
+                                    <a href="{{ url('/company_profile') }}"
+                                        class="nav-link {{ request()->is('company_profile') ? 'active' : '' }}">
+                                        <i class="fa-solid fa-building sm-nav-icon"></i>
+                                        <p>Company Profile</p>
+                                    </a>
+                                </li>
 
                                 @role('super-admin')
                                     <li class="nav-item {{ request()->is('permissions', 'roles', 'users') ? 'menu-open' : '' }}">
@@ -171,14 +185,6 @@
                                         </ul>
                                     </li>
                                 @endrole
-                                <li class="nav-item">
-                                    <a href="{{ url('/users') }}"
-                                        class="nav-link {{ request()->is('users') ? 'active' : '' }}">
-                                        <i class="fa-solid fa-users nav-icon"></i>
-                                        <p>Users Control</p>
-                                    </a>
-                                </li>
-
                             </ul>
                         </li>
                     @endrole

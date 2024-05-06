@@ -10,7 +10,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Validation\Rules;
-
+use Illuminate\Support\Str;
 
 class RegisterCompanyController extends Controller
 {
@@ -41,6 +41,7 @@ class RegisterCompanyController extends Controller
         $company->email = $request->companyEmail;
         $company->address = $request->companyAddress;
         $company->website = $request->companyWebsite;
+        $company->company_code = Str::uuid();
         $company->save();
 
         $category = new Categories();
