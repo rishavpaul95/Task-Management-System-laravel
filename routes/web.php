@@ -129,6 +129,7 @@ Route::middleware([
     // Users
 
     Route::resource('/users', UserController::class);
+    Route::post('/users/invite', [UserController::class, 'invite'])->name('users.invite');
     Route::get('users/{userId}/delete', [UserController::class, 'destroy']);
 
 

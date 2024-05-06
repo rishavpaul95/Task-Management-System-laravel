@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Http\Controllers\Controller;
 use App\Models\Categories;
+use App\Models\Company;
 use App\Models\User;
 use Illuminate\Auth\Events\Registered;
 use Illuminate\Support\Facades\Hash;
@@ -12,7 +13,8 @@ use Illuminate\Support\Facades\Auth;
 use Spatie\Permission\Models\Permission;
 use Spatie\Permission\Models\Role;
 use Illuminate\Validation\Rules;
-
+use Illuminate\Support\Facades\Mail;
+use Illuminate\Support\Facades\URL;
 
 class UserController extends Controller
 {
@@ -113,5 +115,26 @@ class UserController extends Controller
         $user->delete();
 
         return redirect('/users')->with('status', 'User Delete Successfully');
+    }
+
+    public function invite(Request $request)
+    {
+        $request->validate([
+            'email' => ['required', 'string', 'email', 'max:255', 'unique:' . User::class],
+        ]);
+
+        $email = strtolower($request->input('email'));
+        $company_code = Auth::user()->company->company_code;
+
+        // Generate the registration URL with the email and company_code query strings
+        $registrationUrl = URL::to('/register') . '?email=' . urlencode($email) . '&company_code=' . urlencode($company_code);
+
+        // Send the email
+        Mail::raw('You have been invited To TaskMan! Register here: ' . $registrationUrl, function ($message) use ($email) {
+            $message->to($email)
+                ->subject('TaskMan Invitation');
+        });
+
+        return redirect('/users/create')->with('status', 'User Invited Successfully');
     }
 }

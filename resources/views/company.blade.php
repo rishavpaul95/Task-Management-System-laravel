@@ -33,8 +33,11 @@
                                     <div class="container">
                                         <div class="row align-items-center">
                                             <div class="col-md-8">
-                                                <h5 class="font-weight-bold">Company Code</h5>
-                                                <p id="companyCode" class="mb-0 text-primary" style="font-size: 1.2em;">{{ $company->company_code }}</p>
+                                                <div class="card-header">
+                                                    <h5 class="font-weight-bold">Company Code</h5>
+                                                </div>
+                                                <p id="companyCode" class="mb-0 text-primary" style="font-size: 1.2em;">
+                                                    {{ $company->company_code }}</p>
                                             </div>
                                             <div class="col-md-4 text-right">
                                                 <button class="btn btn-primary" onclick="copyToClipboard()">Copy</button>
@@ -138,6 +141,10 @@
 
                 @if (session('error'))
                     toastr.error('{{ session('error') }}', 'Error');
+                @endif
+
+                @if (session('status'))
+                    toastr.info('{{ session('status') }}', 'Status');
                 @endif
             </script>
         @endpush

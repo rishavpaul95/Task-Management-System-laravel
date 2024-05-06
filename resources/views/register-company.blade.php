@@ -150,8 +150,8 @@
                             </h3>
                             <section>
                                 <div class="form-check">
-                                    <input type="checkbox" class="form-check-input" name="agreement"
-                                        id="agreement" required>
+                                    <input type="checkbox" class="form-check-input" name="agreement" id="agreement"
+                                        required>
                                     <label class="form-check-label" for="agreement">I hereby declare that I had read all
                                         the
                                         <a href="#">terms and conditions</a> and all the details provided my me in
@@ -179,6 +179,10 @@
 
                         @if (session('error'))
                             toastr.error('{{ session('error') }}', 'Error');
+                        @endif
+
+                        @if (session('status'))
+                            toastr.info('{{ session('status') }}', 'Status');
                         @endif
                     </script>
                 @endpush

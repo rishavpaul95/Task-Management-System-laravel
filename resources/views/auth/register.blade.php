@@ -13,7 +13,7 @@
         <!-- Email Address -->
         <div class="mt-4">
             <x-input-label for="email" :value="__('Email')" />
-            <x-text-input id="email" class="block mt-1 w-full" type="email" name="email" :value="old('email')"
+            <x-text-input id="email" class="block mt-1 w-full" type="email" name="email" :value="old('email', request('email'))"
                 required autocomplete="username" />
             <x-input-error :messages="$errors->get('email')" class="mt-2" />
         </div>
@@ -41,10 +41,8 @@
         <!-- Company Code -->
         <div class="mt-4">
             <x-input-label for="company_code" :value="__('Enter Company provided code')" />
-
             <x-text-input id="company_code" class="block mt-1 w-full" type="text" name="company_code"
-                :value="old('company_code')" required autocomplete="company_code" />
-
+                :value="old('company_code', request('company_code'))" required autocomplete="company_code" />
             <x-input-error :messages="$errors->get('company_code')" class="mt-2" />
         </div>
 

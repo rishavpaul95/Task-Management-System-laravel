@@ -10,10 +10,8 @@
             <div class="container-fluid d-flex justify-content-end">
                 <a class=" btn btn-danger btn-sm"
                     @if ($source == 'alltaskpage') href="{{ url('/alltask') }}"
-                @elseif ($source == 'assigntaskpage')
-                    href="{{ url('/assigntask') }}"
-                @else
-                    href="{{ url('/tasks') }}" @endif>
+                    @elseif ($source == 'assigntaskpage') href="{{ url('/assigntask') }}"
+                    @else href="{{ url('/tasks') }}" @endif>
                     <i class="fas fa-arrow-left"></i> Back
                 </a>
             </div>
@@ -129,6 +127,10 @@
 
                 @if (session('error'))
                     toastr.error('{{ session('error') }}', 'Error');
+                @endif
+
+                @if (session('status'))
+                    toastr.info('{{ session('status') }}', 'Status');
                 @endif
             </script>
         @endpush

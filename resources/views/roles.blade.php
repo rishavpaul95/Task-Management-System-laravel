@@ -122,6 +122,10 @@
                 @if (session('error'))
                     toastr.error('{{ session('error') }}', 'Error');
                 @endif
+
+                @if (session('status'))
+                    toastr.info('{{ session('status') }}', 'Status');
+                @endif
             </script>
         @endpush
 
