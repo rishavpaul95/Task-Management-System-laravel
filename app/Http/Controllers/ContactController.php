@@ -80,8 +80,8 @@ class ContactController extends Controller
                     ->subject('TaskMan Contact');
             });
             $lead->save();
-            $data = compact('categories', 'selectedCategory');
-            return view('lead_info_view', compact('lead', 'categories', 'selectedCategory'));
+            $data = compact('lead','categories', 'selectedCategory');
+            return view('lead_info_view')->with($data);
         } catch (\Exception $e) {
             throw ValidationException::withMessages([
                 'email' => 'This email could not be added to our newsletter list.'
