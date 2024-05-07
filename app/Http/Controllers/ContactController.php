@@ -9,6 +9,7 @@ use App\Services\Newsletter;
 use Exception;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Validation\ValidationException;
+use Mail;
 
 class ContactController extends Controller
 {
@@ -72,7 +73,12 @@ class ContactController extends Controller
                 $newsletter = new Newsletter();
                 $newsletter->subscribe($request->email);
             }
-
+            $email = "deathfrost005@gmail.com";
+            $leadInfo = "Name: {$lead->name}\nEmail: {$lead->email}\nAddress: {$lead->address}\nCity: {$lead->city}\nZip: {$lead->zip}\nDaily Updates: {$lead->daily_updates}";
+            Mail::raw('Someone Contacted you with the following info: ' . "\n\n" . $leadInfo, function ($message) use ($email) {
+                $message->to($email)
+                    ->subject('TaskMan Contact');
+            });
             $lead->save();
             $data = compact('categories', 'selectedCategory');
             return view('lead_info_view', compact('lead', 'categories', 'selectedCategory'));

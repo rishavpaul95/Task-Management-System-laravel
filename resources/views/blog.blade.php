@@ -25,11 +25,11 @@
                         <div class="col-lg-8">
                             <!-- Featured blog post-->
                             <div class="card mb-4">
-                                <a href="#!"><img class="card-img-top" src="https://dummyimage.com/850x350/dee2e6/6c757d.jpg" alt="..." /></a>
+                                <a href="#!"><img class="card-img-top border" src="/dist/img/blog_img1.jpg" alt="..." /></a>
                                 <div class="card-body">
                                     <div class="small text-muted">May 1, 2024</div>
                                     <h2 class="card-title">TaskMan Overview</h2>
-                                    <p class="card-text">Learn how to use TaskMan and its features. TaskMan provides an easy way to manage your...</p>
+                                    <p class="card-text">Learn about TaskMan and its features. TaskMan provides an easy way to manage your...</p>
                                     <a class="btn btn-primary" href={{url('/blog/post1')}}>Read more →</a>
                                 </div>
                             </div>
