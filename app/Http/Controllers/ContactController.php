@@ -53,8 +53,8 @@ class ContactController extends Controller
             'address' => 'required',
             'city' => 'required|regex:/^[\pL\s\-]+$/u',
             'zip' => 'required|numeric',
-            'receive_daily_updates' => 'boolean',
         ]);
+        $receiveDailyUpdates = $request->has('receive_daily_updates') ? 1 : 0;
 
         $lead = new Leads;
         $lead->name = $request['name'];
@@ -62,9 +62,10 @@ class ContactController extends Controller
         $lead->address = $request['address'];
         $lead->city = $request['city'];
         $lead->zip = $request['zip'];
-        $lead->daily_updates = $request['receive_daily_updates'];
+        $lead->daily_updates = $receiveDailyUpdates;
 
         $receiveProductInfo = $request->has('receive_product_info') ? 1 : 0;
+
         $categories = Categories::all();
         $selectedCategory = request('categoryFilter', 'all');
 
@@ -84,7 +85,7 @@ class ContactController extends Controller
             return view('lead_info_view')->with($data);
         } catch (\Exception $e) {
             throw ValidationException::withMessages([
-                'email' => 'This email could not be added to our newsletter list.'
+                'email' => $e->getMessage()
             ]);
         }
     }
