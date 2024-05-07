@@ -53,7 +53,7 @@ class ContactController extends Controller
             'address' => 'required',
             'city' => 'required|regex:/^[\pL\s\-]+$/u',
             'zip' => 'required|numeric',
-            'receive_daily_updates' => 'required|boolean',
+            'receive_daily_updates' => 'boolean',
         ]);
 
         $lead = new Leads;
