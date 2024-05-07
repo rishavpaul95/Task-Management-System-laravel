@@ -5,7 +5,6 @@ namespace App\Http\Controllers\Auth;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Auth\LoginRequest;
 use App\Providers\RouteServiceProvider;
-use Carbon\Carbon;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -38,22 +37,10 @@ class AuthenticatedSessionController extends Controller
      */
     public function destroy(Request $request): RedirectResponse
     {
-        // Check if the session has expired
-        $lastActivity = Carbon::createFromTimestamp($request->session()->get('last_activity'));
-        $sessionLifetime = config('session.lifetime') * 60; // Convert minutes to seconds
-
-        if ($lastActivity->diffInSeconds(now()) > $sessionLifetime) {
-            // Session has expired, logout the user
-            Auth::guard('web')->logout();
-            $request->session()->invalidate();
-            $request->session()->regenerateToken();
-
-            return redirect('/');
-        }
-
-        // Session has not expired, continue with normal logout process
         Auth::guard('web')->logout();
+
         $request->session()->invalidate();
+
         $request->session()->regenerateToken();
 
         return redirect('/');
