@@ -91,7 +91,7 @@
                             </form>
                         @else
                             <a href="{{ route('login') }}"
-                                class="btn btn-outline-primary font-semibold dark:text-gray-400 focus:outline focus:outline-2 focus:rounded-sm focus:outline-red-500">
+                                class="btn btn-outline-primary font-semibold focus:outline focus:outline-2 focus:rounded-sm focus:outline-red-500">
                                 Log in
                             </a>
 

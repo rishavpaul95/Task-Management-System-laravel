@@ -11,9 +11,11 @@
         "itsgoingd/clockwork": "^5.2",
         "laravel/breeze": "^1.29",
         "laravel/framework": "^10.10",
+        "laravel/jetstream": "^4.3",
         "laravel/sanctum": "^3.3",
         "laravel/socialite": "^5.12",
         "laravel/tinker": "^2.8",
+        "livewire/livewire": "^3.0",
         "mailchimp/marketing": "^3.0",
         "spatie/laravel-permission": "^6.4"
     },
