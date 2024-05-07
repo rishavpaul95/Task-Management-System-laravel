@@ -49,7 +49,7 @@ class ContactController extends Controller
 
         $request->validate([
             'name' => 'required | regex:/^[\pL\s\-]+$/u',
-            'email' => 'required|email',
+            'email' => ['required', 'string', 'lowercase', 'email', 'max:255', 'unique:'.Leads::class],
             'address' => 'required',
             'city' => 'required|regex:/^[\pL\s\-]+$/u',
             'zip' => 'required|numeric',
@@ -85,7 +85,7 @@ class ContactController extends Controller
             return view('lead_info_view')->with($data);
         } catch (\Exception $e) {
             throw ValidationException::withMessages([
-                'email' => $e->getMessage()
+                'email' => 'Email already exists'
             ]);
         }
     }
