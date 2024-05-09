@@ -66,8 +66,8 @@
                                                 <span class="badge badge-success">Completed</span>
                                             @elseif ($task->status == 'Active')
                                                 <span class="badge badge-primary">Active</span>
-                                            @elseif ($task->status == 'Inactive')
-                                                <span class="badge badge-secondary">Inactive</span>
+                                            @elseif ($task->status == 'Pending')
+                                                <span class="badge badge-secondary">Pending</span>
                                             @endif
                                         </td>
                                         <td>

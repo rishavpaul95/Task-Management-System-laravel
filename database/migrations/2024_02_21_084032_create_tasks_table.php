@@ -15,7 +15,7 @@ return new class extends Migration
             $table->id();
             $table->string('topic');
             $table->date('date');
-            $table->enum('status', ['Completed', 'Active', 'Inactive']);
+            $table->enum('status', ['Completed', 'Active', 'Pending']);
             $table->timestamps();
         });
     }

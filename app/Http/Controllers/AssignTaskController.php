@@ -49,7 +49,7 @@ class AssignTaskController extends Controller
             $request->validate([
                 'date' => 'required|date',
                 'topic' => 'required|string',
-                'status' => 'required|in:Completed,Active,Inactive',
+                'status' => 'required|in:Completed,Active,Pending',
                 'category' => 'required|exists:categories,id',
                 'taskimage' => 'image|mimes:jpeg,png,jpg,gif,svg',
             ]);
@@ -104,7 +104,7 @@ class AssignTaskController extends Controller
         $request->validate([
             'date' => 'required|date',
             'topic' => 'required|string',
-            'status' => 'required|in:Completed,Active,Inactive',
+            'status' => 'required|in:Completed,Active,Pending',
             'category' => 'required|exists:categories,id',
             'taskimage' => 'image|mimes:jpeg,png,jpg,gif,svg',
         ]);

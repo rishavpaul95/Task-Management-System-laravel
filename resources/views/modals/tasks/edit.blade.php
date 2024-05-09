@@ -35,8 +35,8 @@
                                 Completed</option>
                             <option value="Active" {{ $task->status == 'Active' ? 'selected' : '' }}>
                                 Active</option>
-                            <option value="Inactive" {{ $task->status == 'Inactive' ? 'selected' : '' }}>
-                                Inactive</option>
+                            <option value="Pending" {{ $task->status == 'Pending' ? 'selected' : '' }}>
+                                Pending</option>
                         </select>
                     </div>
                     <div class="form-group">

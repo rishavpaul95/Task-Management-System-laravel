@@ -31,7 +31,7 @@
                         <select class="form-control" id="status" name="status" required>
                             <option value="Completed">Completed</option>
                             <option value="Active">Active</option>
-                            <option value="Inactive">Inactive</option>
+                            <option value="Pending">Pending</option>
                         </select>
                     </div>
 
