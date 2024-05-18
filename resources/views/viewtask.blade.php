@@ -83,10 +83,11 @@
                                                 <small
                                                     class="text-muted d-block">{{ $comment->created_at->diffForHumans() }}</small>
 
-                                                    @if (auth()->user()->id == $comment->user_id || auth()->user()->hasRole('admin'))
+                                                @if (auth()->user()->id == $comment->user_id || auth()->user()->hasRole('admin'))
                                                     {{-- own comment or admin --}}
                                                     @can('comment_own_delete')
-                                                        <form action="{{ url('/comment/delete', ['id' => $comment->id]) }}" method="GET">
+                                                        <form action="{{ url('/comment/delete', ['id' => $comment->id]) }}"
+                                                            method="GET">
                                                             <button type="submit" class="btn btn-danger btn-sm">Delete</button>
                                                         </form>
                                                     @endcan
