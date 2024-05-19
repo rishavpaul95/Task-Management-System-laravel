@@ -50,7 +50,7 @@
     @stack('styles')
 </head>
 
-<body class="hold-transition sidebar-mini layout-fixed">
+<body class="hold-transition sidebar-mini layout-fixed layout-navbar-fixed layout-footer-fixed antialiased">
     <div class="wrapper">
 
 
